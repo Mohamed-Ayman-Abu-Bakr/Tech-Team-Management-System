@@ -13,10 +13,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-/**
- *
- * @author AbdulRaouf Monir, Amr Haytham, Hanya Adel, Mohamed Ayman, Sama Yasser, Sara Hussein
- */
 public class Main extends Application {
       @Override
     public void start(Stage stage) throws Exception {
