@@ -15,7 +15,7 @@ import javafx.stage.StageStyle;
 
 /**
  *
- * @authors AbdulRaouf Monir, Amr Haytham, Hanya Adel, Mohamed Ayman, Sama Yasser, Sara
+ * @author AbdulRaouf Monir, Amr Haytham, Hanya Adel, Mohamed Ayman, Sama Yasser, Sara Hussein
  */
 public class Main extends Application {
       @Override
