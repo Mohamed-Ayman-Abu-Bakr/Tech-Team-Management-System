@@ -11,8 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Clients {
-    int id;
-    String name, email, address,num;
+    private int id;
+    private String name, email, address,num;
 
     public Clients(int id, String clientName, String phoneNumber, String email, String address) {
         this.id = id;
@@ -56,6 +56,22 @@ public class Clients {
     }
     public void setNum(String num){
         this.num = num;
+    }
+
+    public static void getClient_from_id(int id, Clients client){
+        Connection con = MySQL_Connector.ConnectDB();
+        try{
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM sql4409579.Clients where id = " + id);
+            ResultSet rs = ps.executeQuery();
+            System.out.println("getDataClients success");
+            while(rs.next()){
+                client.setId(Integer.parseInt(rs.getString("id")));
+                client.setName(rs.getString("Name"));
+                client.setNum(rs.getString("Number"));
+                client.setEmail(rs.getString("Email"));
+                client.setAddress(rs.getString("Address"));
+            }
+        } catch (Exception e){System.out.println("get client failure");}
     }
 
     public static ObservableList<Clients> getClients() {

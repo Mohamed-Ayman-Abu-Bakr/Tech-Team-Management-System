@@ -1,5 +1,6 @@
 package Classes;
 
+import Email_API.Email;
 import MySQL.MySQL_Connector;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -147,22 +148,24 @@ public class Projects {
         return list;
     }
 
-    public static void AddProject(String title, String projectDescription, String date, String type, String client_name, String manager_name, String cost) {
+    public static void AddProject(String title, String projectDescription, String date, String type, Clients client, String manager_name, String cost) {
         //CheckData();
         Connection con = MySQL_Connector.ConnectDB();
 
         String sql = "INSERT INTO sql4409579.Projects (title,projectDescription,date,type,client_name,Manager_name,cost)values(?,?,?,?,?,?,?)";
-        if (client_name != null && manager_name != null) {
+        if (client != null && manager_name != null) {
             try {
                 PreparedStatement pst = con.prepareStatement(sql);
                 pst.setString(1, title);
                 pst.setString(2, projectDescription);
                 pst.setString(3, date);
                 pst.setString(4, type);
-                pst.setString(5, client_name);
+                pst.setString(5, String.valueOf(client.getId()));
                 pst.setString(6, manager_name);
                 pst.setString(7, cost);
                 pst.execute();
+
+                Email.send_project_creation_invoice(client.getEmail(),title,projectDescription,type,date,cost);
 
                 JOptionPane.showMessageDialog(null, "Project add success");
 
@@ -170,9 +173,9 @@ public class Projects {
                 JOptionPane.showMessageDialog(null, "please fill all fields with appropriate data");
             }
 
-        } else if (manager_name == null && client_name != null) {
+        } else if (manager_name == null && client != null) {
             JOptionPane.showMessageDialog(null, "Manager doesn't exist");
-        } else if (manager_name != null && client_name == null) {
+        } else if (client == null && manager_name != null) {
             JOptionPane.showMessageDialog(null, "Client doesn't exist");
         } else {
             JOptionPane.showMessageDialog(null, "Both Manager and Client don't exist");
@@ -195,16 +198,14 @@ public class Projects {
 
     }
 
-    public void UpdateProject(String title, String projectDescription,String date, String type, String client_name, String manager_name, String cost) {
+    public void UpdateProject(String title, String projectDescription,String date, String type, Clients client, String manager_name, String cost) {
 
         Connection con = MySQL_Connector.ConnectDB();
 
         String sql =
                 "UPDATE sql4409579.Projects set title=?,projectDescription=?,date =?,type=?,client_name=?,Manager_name=?,cost=?  WHERE id = ?; ";
-        System.out.println(client_name);
-        System.out.println(manager_name);
 
-        if (client_name != null && manager_name != null) {
+        if (client != null && manager_name != null) {
             try {
                 PreparedStatement pst = con.prepareStatement(sql);
                 pst = con.prepareStatement(sql);
@@ -212,20 +213,21 @@ public class Projects {
                 pst.setString(2, projectDescription);
                 pst.setString(3, date);
                 pst.setString(4, type);
-                pst.setString(5, client_name);
+                pst.setString(5, String.valueOf(client.getId()));
                 pst.setString(6, manager_name);
                 pst.setString(7, cost);
                 pst.setString(8, String.valueOf(this.getProjectId()));
                 pst.execute();
+                Email.send_project_modification_invoice(client.getEmail(),title,projectDescription,type,date,cost);
                 JOptionPane.showMessageDialog(null, "Project updated successfully");
 
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "please fill all fields with appropriate data");
             }
 
-        } else if (client_name == null && manager_name != null) {
+        } else if (client == null && manager_name != null) {
             JOptionPane.showMessageDialog(null, "Manager doesn't exist");
-        } else if (client_name != null && manager_name == null) {
+        } else if (client != null && manager_name == null) {
             JOptionPane.showMessageDialog(null, "Client doesn't exist");
         } else {
             JOptionPane.showMessageDialog(null, "Both Manager and Client don't exist");

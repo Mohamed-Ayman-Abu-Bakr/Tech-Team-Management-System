@@ -135,7 +135,7 @@ public class Controller_Projects implements Initializable {
                     ,description_input.getText()
                     ,String.valueOf(date_input.getValue())
                     ,type_input.getValue()
-                    ,String.valueOf(client.getId())
+                    ,client
                     ,String.valueOf(employee_login.getId())
                     ,Cost_input.getText());
             UpdateTable();

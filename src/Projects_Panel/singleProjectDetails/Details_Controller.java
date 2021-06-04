@@ -1,5 +1,6 @@
 package Projects_Panel.singleProjectDetails;
 
+import Classes.Clients;
 import Classes.Projects;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -48,6 +49,8 @@ public class Details_Controller implements Initializable {
     private ComboBox <String> type_input;
 
     private Projects project;
+    private Clients client = new Clients(0,"name","num","email","address");
+
 
     @FXML
     public void backToProjectsPanel(javafx.event.ActionEvent event) {
@@ -133,13 +136,14 @@ public class Details_Controller implements Initializable {
                         ,Project_describtion_details.getText()
                         ,String.valueOf(DatePicker_Details.getValue())
                         ,type_input.getValue()
-                        ,client_id_details.getText()
+                        ,client
                         ,String.valueOf(employee_login.getId())
                         ,cost_details.getText());
     }
 
     public void initData(Projects project) {
         this.project = project;
+        Clients.getClient_from_id(project.getClient_name(),client);
         client_id_details.setText(String.valueOf(project.getClient_name()));
         cost_details.setText(String.valueOf(project.getCost()));
         project_title_details.setText(project.getProjectTitle());

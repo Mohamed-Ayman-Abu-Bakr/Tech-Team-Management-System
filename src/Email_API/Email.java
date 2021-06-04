@@ -41,36 +41,6 @@ public class Email {
         }
     }
 
-    public static void send_username_and_password (String recipient, String username,String password){
-       setup_email();
-        try {
-            message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
-            message.setSubject("Welcome to Software Company");
-            String htmlCode = "Your username is " + username + "\n" +"Your password is " + password;
-            message.setContent(htmlCode, "text/plain");
-            Transport.send(message);
-            //System.out.println("Message sent successfully");
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Couldn't send credentials Email");
-            //Logger.getLogger(Email_API.Email.class.getName()).log(Level.SEVERE, null, ex);
-            //System.out.println("Couldn't send email");
-        }
-    }
-    public static void send_password_update (String recipient,String password){
-        setup_email();
-        try {
-            message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
-            message.setSubject("Password Reset");
-            String htmlCode = "Your password has been reset by a manager" + "\n" +"Your new password is " + password;
-            message.setContent(htmlCode, "text/plain");
-            Transport.send(message);
-            //System.out.println("Message sent successfully");
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Couldn't send password reset Email");
-            //Logger.getLogger(Email_API.Email.class.getName()).log(Level.SEVERE, null, ex);
-            //System.out.println("Couldn't send email");
-        }
-    }
     public static void send_Email(String recipient, String subject, String text) {
         setup_email();
         try {
@@ -82,14 +52,75 @@ public class Email {
             }
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
             message.setSubject(subject);
-            String htmlCode = text;
-            message.setContent(htmlCode, "text/plain");
+            String email_text = text;
+            message.setContent(email_text, "text/plain");
             Transport.send(message);
             JOptionPane.showMessageDialog(null, "Email sent successfully");
             //System.out.println("Message sent successfully");
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Cannot send email");
+            //JOptionPane.showMessageDialog(null, "Cannot send email");
             System.err.println("Cannot send email. " + ex);
         }
     }
+
+
+    public static void send_username_and_password (String recipient, String username,String password){
+        String subject = "Welcome to Software Company";
+        String text = "Your username is " + username + "\n" +"Your password is " + password;
+        try {
+            send_Email(recipient,subject,text);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Couldn't send credentials Email");
+            //Logger.getLogger(Email_API.Email.class.getName()).log(Level.SEVERE, null, ex);
+            //System.out.println("Couldn't send email");
+        }
+    }
+
+    public static void send_project_creation_invoice(String recipient, String project_name, String description, String type, String delivery_date, String cost){
+        String subject = "Project Invoice";
+        String text = "Thank you for choosing Software Company"+"\n\n"+
+                "Here are the Project details" + "\n\n" +
+                "Project Name: " + project_name + "\n" +
+                "Project Description: " + description + "\n" +
+                "Project Type: " + type + "\n" +
+                "Total Cost: " + cost + " EGP";
+        try {
+            send_Email(recipient,subject,text);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Couldn't send Project Invoice Email");
+            //Logger.getLogger(Email_API.Email.class.getName()).log(Level.SEVERE, null, ex);
+            //System.out.println("Couldn't send email");
+        }
+    }
+
+    public static void send_project_modification_invoice(String recipient, String project_name, String description, String type, String delivery_date, String cost){
+        String subject = "Project Update";
+        String text = "Thank you for choosing Software Company"+"\n\n"+
+                "There have been some modifications to the project\n\n" +
+                "Here are the new Project details" + "\n\n" +
+                "Project Name: " + project_name + "\n" +
+                "Project Description: " + description + "\n" +
+                "Project Type: " + type + "\n" +
+                "Total Cost: " + cost + " EGP";
+        try {
+            send_Email(recipient,subject,text);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Couldn't send Project Update Email");
+            //Logger.getLogger(Email_API.Email.class.getName()).log(Level.SEVERE, null, ex);
+            //System.out.println("Couldn't send email");
+        }
+    }
+
+    public static void send_password_update (String recipient,String password){
+        String subject = "Password Rest";
+        String text = "Your password has been reset by a manager" + "\n" +"Your new password is " + password;
+        try {
+            send_Email(recipient,subject,text);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Couldn't send password reset Email");
+            //Logger.getLogger(Email_API.Email.class.getName()).log(Level.SEVERE, null, ex);
+            //System.out.println("Couldn't send email");
+        }
+    }
+
 }
