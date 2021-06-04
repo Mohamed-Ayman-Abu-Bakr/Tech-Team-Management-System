@@ -15,7 +15,7 @@ public class Projects {
     private int projectId;
     private String projectTitle;
     private String dateOfDelivery;
-    private String projectDescriPtion;
+    private String projectDescription;
     private int client_id;
     private String Type;
     private int Manager;
@@ -23,13 +23,9 @@ public class Projects {
     private String PaymentMethod;
 
 
-    //Department department;
-    //Manager manager;
-    //Client client;
-
     public Projects(int projectId,
                     String projectTitle,
-                    String projectDescribtion,
+                    String projectDescription,
                     String dateOfDelivery,
                     String Type,
                     int client_id,
@@ -41,7 +37,7 @@ public class Projects {
         this.client_id = client_id;
         this.projectTitle = projectTitle;
         this.dateOfDelivery = dateOfDelivery;
-        this.projectDescriPtion = projectDescribtion;
+        this.projectDescription = projectDescription;
         this.Type = Type;
         this.Manager = Manager;
         this.cost = cost;
@@ -60,8 +56,8 @@ public class Projects {
         this.dateOfDelivery = dateOfDelivery;
     }
 
-    public void setProjectDescriPtion(String projectDescriPtion) {
-        this.projectDescriPtion = projectDescriPtion;
+    public void setProjectDescription(String projectDescription) {
+        this.projectDescription = projectDescription;
     }
 
     public void setClient_name(int client_id) {
@@ -88,8 +84,8 @@ public class Projects {
         return dateOfDelivery;
     }
 
-    public String getProjectDescriPtion() {
-        return projectDescriPtion;
+    public String getProjectDescription() {
+        return projectDescription;
     }
 
     public int getClient_name() {
@@ -207,7 +203,7 @@ public class Projects {
 
         if (client != null && manager_name != null) {
             try {
-                PreparedStatement pst = con.prepareStatement(sql);
+                PreparedStatement pst;
                 pst = con.prepareStatement(sql);
                 pst.setString(1, title);
                 pst.setString(2, projectDescription);

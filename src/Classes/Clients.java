@@ -102,7 +102,7 @@ public class Clients {
     public static void add_Client(String name, String address, String number, String email){
         Connection con = MySQL_Connector.ConnectDB();
         String sql = "INSERT INTO sql4409579.Clients VALUES (default, ?,?,?,?)";
-        PreparedStatement pstmt = null;
+        PreparedStatement pstmt;
         try {
             pstmt = con.prepareStatement(sql);
             pstmt.setString(1, name);
@@ -110,10 +110,8 @@ public class Clients {
             pstmt.setString(3, number);
             pstmt.setString(4, email);
             pstmt.executeUpdate();
-            //System.out.println(name);
-            //System.out.println("CLIENT SUCCESSFULLY ADDED.");
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
             //System.out.println("CLIENT UNSUCCESSFULLY ADDED");
         }
     }

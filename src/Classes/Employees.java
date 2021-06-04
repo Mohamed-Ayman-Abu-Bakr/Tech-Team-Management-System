@@ -205,9 +205,4 @@ public class Employees {
         }
         return list;
     }
-
-    public void displayEmployee(){
-        System.out.println(name);
-        System.out.println(email);
-    }
 }

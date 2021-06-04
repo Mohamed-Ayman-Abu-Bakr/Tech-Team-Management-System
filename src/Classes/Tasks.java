@@ -95,6 +95,7 @@ private String task_status;
 
             }
         } catch (Exception e) {
+            System.out.println("couldn't get tasks data");
         }
         return list;
     }
@@ -109,8 +110,6 @@ private String task_status;
             pst.setString(1,employee_id);
             pst.setString(2,task_name);
             pst.setString(3,task_description);
-            //Date date = Date.from(txt_deadline_date.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
-            //java.sql.Date sqlDate = new java.sql.Date(date.getTime());
             pst.setString(4, deadline_date);
             pst.execute();
             JOptionPane.showMessageDialog(null, "Tasks Added Successfully");

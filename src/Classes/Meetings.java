@@ -10,7 +10,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import static java.lang.String.valueOf;
 
 public class Meetings {
     private String Title;

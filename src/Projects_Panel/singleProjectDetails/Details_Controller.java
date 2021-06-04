@@ -147,7 +147,7 @@ public class Details_Controller implements Initializable {
         client_id_details.setText(String.valueOf(project.getClient_name()));
         cost_details.setText(String.valueOf(project.getCost()));
         project_title_details.setText(project.getProjectTitle());
-        Project_describtion_details.setText(project.getProjectDescriPtion());
+        Project_describtion_details.setText(project.getProjectDescription());
         Managers_id_details.setText(String.valueOf(project.getManager()));
         LocalDate localDate = LocalDate.parse(project.getDateOfDelivery());
         DatePicker_Details.setValue(localDate);
