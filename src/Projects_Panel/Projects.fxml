@@ -33,7 +33,7 @@
       <TableView fx:id="projects_table" layoutX="113.0" layoutY="429.0" prefHeight="202.0" prefWidth="547.0">
          <columns>
             <TableColumn fx:id="id_column0" prefWidth="78.0" text="id" />
-            <TableColumn fx:id="projects_column" prefWidth="468.0" text="Projects" />
+            <TableColumn fx:id="projects_column" prefWidth="453.0" text="Projects" />
          </columns>
       </TableView>
       <Button layoutX="315.0" layoutY="378.0" mnemonicParsing="false" onAction="#AddProject" prefHeight="35.0" prefWidth="143.0" text="Add">
