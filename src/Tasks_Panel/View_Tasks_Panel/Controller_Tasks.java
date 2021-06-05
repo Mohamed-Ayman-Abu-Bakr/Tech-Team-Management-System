@@ -16,6 +16,7 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -220,7 +221,8 @@ public class Controller_Tasks implements Initializable {
             idx++;
 
         }
-        FileOutputStream file= new FileOutputStream("C:/Users/Hanya Adel/Desktop/Tasks Sheet.xlsx");
+        String desktopPath = System.getProperty("user.home") + File.separator + "Desktop/Tasks Sheet.xlsx";
+        FileOutputStream file= new FileOutputStream(desktopPath);
         wb.write(file);
         file.close();
         System.out.println("done");

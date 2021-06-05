@@ -1,4 +1,5 @@
 package Projects_Panel;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -206,7 +207,8 @@ public class Controller_Projects implements Initializable {
             idx++;
 
         }
-        FileOutputStream file= new FileOutputStream("C:/Users/Hanya Adel/Desktop/Projects Sheet.xlsx");
+        String desktopPath = System.getProperty("user.home") + File.separator + "Desktop/Projects Sheet.xlsx";
+        FileOutputStream file= new FileOutputStream(desktopPath);
         wb.write(file);
         file.close();
         System.out.println("done");
