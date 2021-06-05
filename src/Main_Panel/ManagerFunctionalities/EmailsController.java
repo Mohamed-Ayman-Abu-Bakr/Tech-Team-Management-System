@@ -20,6 +20,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import javax.mail.MessagingException;
+
 /**
  * FXML Controller class
  *
@@ -45,7 +47,12 @@ public class EmailsController implements Initializable {
     @FXML
     private void HandleSend(ActionEvent event) {
 
-        Email.send_Email(txtEmailAddress.getText(),txtSubject.getText(),txtEmail.getText());
+        try {
+            Email.send_Email(txtEmailAddress.getText(),txtSubject.getText(),txtEmail.getText());
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+
         txtEmailAddress.setText("");
         txtSubject.setText("");
         txtEmail.setText("");
