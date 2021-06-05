@@ -2,13 +2,6 @@
   <library name="lib">
     <CLASSES>
       <root url="file://$PROJECT_DIR$/lib/javafx-sdk-16/lib" />
-      <root url="jar://$USER_HOME$/Downloads/poi-bin-5.0.0-20210120/poi-5.0.0/ooxml-lib/xmlbeans-4.0.0.jar!/" />
-      <root url="jar://$USER_HOME$/Downloads/poi-bin-5.0.0-20210120/poi-5.0.0/poi-5.0.0.jar!/" />
-      <root url="jar://$USER_HOME$/Downloads/poi-bin-5.0.0-20210120/poi-5.0.0/poi-ooxml-5.0.0.jar!/" />
-      <root url="jar://$USER_HOME$/Downloads/poi-bin-5.0.0-20210120/poi-5.0.0/poi-ooxml-full-5.0.0.jar!/" />
-      <root url="jar://$USER_HOME$/Downloads/poi-bin-5.0.0-20210120/poi-5.0.0/poi-ooxml-lite-5.0.0.jar!/" />
-      <root url="jar://$USER_HOME$/Downloads/commons-collections4-4.4.jar!/" />
-      <root url="jar://$USER_HOME$/Downloads/commons-compress-1.20-bin/commons-compress-1.20/commons-compress-1.20.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
