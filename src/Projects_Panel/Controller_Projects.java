@@ -1,4 +1,6 @@
 package Projects_Panel;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -11,6 +13,7 @@ import Projects_Panel.singleProjectDetails.Details_Controller;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -22,6 +25,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import javax.swing.*;
 
@@ -77,57 +83,7 @@ public class Controller_Projects implements Initializable {
         stage.show();
     }
 
-    /*private void CheckClients() {
 
-        Connection con = MySQL_Connector.ConnectDB();
-        try {
-            String sql = "select exists(Select * from sql4409579.Clients where id = " + String.valueOf(client.getId())  + ");";
-            pst = con.prepareStatement(sql);
-            ResultSet rs = pst.executeQuery();
-            rs.next();
-            long i = (long) (rs.getObject(1));
-            System.out.println(i);
-            if (i == 1) {
-                System.out.println("client found " + i);
-                CheckedId = String.valueOf(client.getId());
-            } else {
-                System.out.println("client not found " + i);
-                CheckedId = null;
-            }
-
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "error in checking clients");
-        }
-    }*/
-
-    /*private void CheckManagers() {
-
-
-        Connection con = MySQL_Connector.ConnectDB();
-        try {
-            String sql = "select exists(Select * from sql4409579.employees where id = " + ManagerName_input.getText() + " and position='Management');";
-            pst = con.prepareStatement(sql);
-            ResultSet rs = pst.executeQuery();
-            rs.next();
-            long i = (long) (rs.getObject(1));
-            System.out.println(i);
-            if (i == 1) {
-                System.out.println("Manager found " + i);
-                CheckedManager = ManagerName_input.getText();
-            } else {
-                System.out.println("Manager not found " + i);
-                CheckedManager = null;
-            }
-
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "error in checking Managers");
-        }
-    }*/
-
-    /*private void CheckData() {
-        CheckClients();
-        CheckManagers();
-    }*/
 
     public void AddProject() {
         if(client != null){
@@ -212,5 +168,51 @@ public class Controller_Projects implements Initializable {
         resetData();
         UpdateTable();
         SeeInfoProject();
+    }
+
+    public void ShowStats(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("ProjectStats.fxml"));
+
+        Scene scene = new Scene(root);
+
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void DownloadProjects(ActionEvent actionEvent) throws IOException {
+        listP=Projects.getDataProjects();
+        XSSFWorkbook wb = new XSSFWorkbook();
+        XSSFSheet sheet = wb.createSheet("Projects Sheet");
+        XSSFRow header = sheet.createRow(0);
+        header.createCell(0).setCellValue("ID");
+        header.createCell(1).setCellValue("Name");
+        header.createCell(2).setCellValue("Type");
+        header.createCell(3).setCellValue("Description");
+        header.createCell(4).setCellValue("Cost");
+        header.createCell(5).setCellValue("Client ID");
+        header.createCell(6).setCellValue("Delivery Date");
+
+        int idx=1;
+        for (Projects p: listP){
+            XSSFRow row= sheet.createRow(idx);
+            row.createCell(0).setCellValue(p.getProjectId());
+            row.createCell(1).setCellValue(p.getProjectTitle());
+            row.createCell(2).setCellValue(p.getType());
+            row.createCell(3).setCellValue(p.getProjectDescription());
+            row.createCell(4).setCellValue(p.getCost());
+            row.createCell(5).setCellValue(p.getClient_name());
+            row.createCell(6).setCellValue(p.getDateOfDelivery());
+            idx++;
+
+        }
+        FileOutputStream file= new FileOutputStream("C:/Users/Hanya Adel/Desktop/Projects Sheet.xlsx");
+        wb.write(file);
+        file.close();
+        System.out.println("done");
+        Alert notFound=new Alert(Alert.AlertType.INFORMATION);
+        notFound.setContentText("The file is Successfully saved in your Desktop");
+        notFound.setHeaderText("Success");
+        notFound.showAndWait();
     }
 }
