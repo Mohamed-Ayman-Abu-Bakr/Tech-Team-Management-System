@@ -1,16 +1,24 @@
 package Tasks_Panel.View_Tasks_Panel;
 
+import Classes.Projects;
 import Classes.Tasks;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -185,5 +193,40 @@ public class Controller_Tasks implements Initializable {
        resetValues();
        Refresh_Tasks();
        Search_Task();
-    }    
+    }
+
+    public void DownloadTasks(ActionEvent actionEvent) throws IOException {
+        listM= Tasks.getDataTasks();
+        XSSFWorkbook wb = new XSSFWorkbook();
+        XSSFSheet sheet = wb.createSheet("Tasks Sheet");
+        XSSFRow header = sheet.createRow(0);
+        header.createCell(0).setCellValue("ID");
+        header.createCell(1).setCellValue("Name");
+        header.createCell(2).setCellValue("Description");
+        header.createCell(3).setCellValue("Employee ID");
+        header.createCell(4).setCellValue("Delivery Date");
+        header.createCell(5).setCellValue("Status");
+
+
+        int idx=1;
+        for (Tasks p: listM){
+            XSSFRow row= sheet.createRow(idx);
+            row.createCell(0).setCellValue(p.getTask_id());
+            row.createCell(1).setCellValue(p.getTask_name());
+            row.createCell(2).setCellValue(p.getTask_description());
+            row.createCell(3).setCellValue(p.getEmployee_id());
+            row.createCell(4).setCellValue(p.getDeadline_date());
+            row.createCell(5).setCellValue(p.getTask_status());
+            idx++;
+
+        }
+        FileOutputStream file= new FileOutputStream("C:/Users/Hanya Adel/Desktop/Tasks Sheet.xlsx");
+        wb.write(file);
+        file.close();
+        System.out.println("done");
+        Alert notFound=new Alert(Alert.AlertType.INFORMATION);
+        notFound.setContentText("The file is Successfully saved in your Desktop");
+        notFound.setHeaderText("Success");
+        notFound.showAndWait();
+    }
 }

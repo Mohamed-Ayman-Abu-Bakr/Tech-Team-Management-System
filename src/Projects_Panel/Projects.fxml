@@ -1,17 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="714.0" prefWidth="756.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Projects_Panel.Controller_Projects">
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="714.0" prefWidth="756.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Projects_Panel.Controller_Projects">
    <children>
       <TextField fx:id="projectName_input" layoutX="288.0" layoutY="64.0" prefHeight="25.0" prefWidth="194.0" />
       <Label alignment="CENTER" layoutX="321.0" layoutY="25.0" prefHeight="33.0" prefWidth="132.0" text="Project name" textAlignment="CENTER" wrapText="true">
@@ -64,5 +57,11 @@
          </font>
       </Button>
       <ComboBox fx:id="type_input" layoutX="80.0" layoutY="332.0" prefWidth="150.0" />
+      <Button layoutX="540.0" layoutY="378.0" mnemonicParsing="false" onAction="#ShowStats" prefHeight="37.0" prefWidth="166.0" text="View Project Statistics" />
+      <Button layoutX="88.0" layoutY="382.0" mnemonicParsing="false" onAction="#DownloadProjects" text="Download Projects">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
