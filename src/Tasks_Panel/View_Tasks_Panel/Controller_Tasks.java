@@ -222,13 +222,21 @@ public class Controller_Tasks implements Initializable {
 
         }
         String desktopPath = System.getProperty("user.home") + File.separator + "Desktop/Tasks Sheet.xlsx";
-        FileOutputStream file= new FileOutputStream(desktopPath);
-        wb.write(file);
-        file.close();
-        System.out.println("done");
-        Alert notFound=new Alert(Alert.AlertType.INFORMATION);
-        notFound.setContentText("The file is Successfully saved in your Desktop");
-        notFound.setHeaderText("Success");
-        notFound.showAndWait();
+
+        try {
+            FileOutputStream file = new FileOutputStream(desktopPath);
+            wb.write(file);
+            file.close();
+            System.out.println("done");
+            Alert notFound = new Alert(Alert.AlertType.INFORMATION);
+            notFound.setContentText("The file is Successfully saved in your Desktop");
+            notFound.setHeaderText("Success");
+            notFound.showAndWait();
+        } catch (Exception e){
+            Alert notFound = new Alert(Alert.AlertType.ERROR);
+            notFound.setContentText("The file is open by another program. Please try again");
+            notFound.setHeaderText("Error");
+            notFound.showAndWait();
+        }
     }
 }
