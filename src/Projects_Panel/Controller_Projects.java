@@ -29,7 +29,6 @@ import javafx.stage.Stage;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
 import javax.swing.*;
 
 import static Main_Panel.Login.LoginPageController.employee_login;
@@ -65,14 +64,7 @@ public class Controller_Projects implements Initializable {
     private ComboBox<String> type_input;
 
     ObservableList<Projects> listP;
-    int index = -1;
-    Connection con = null;
-    ResultSet rs = null;
-    PreparedStatement pst = null;
-    String CheckedId = null;
-    String CheckedManager = null;
     static Clients client;
-    StringProperty client_id = new SimpleStringProperty();
 
     public void open_client_picker() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Client_Pick.fxml"));
@@ -187,6 +179,7 @@ public class Controller_Projects implements Initializable {
         XSSFSheet sheet = wb.createSheet("Projects Sheet");
         XSSFRow header = sheet.createRow(0);
         header.createCell(0).setCellValue("ID");
+
         header.createCell(1).setCellValue("Name");
         header.createCell(2).setCellValue("Type");
         header.createCell(3).setCellValue("Description");
@@ -208,13 +201,23 @@ public class Controller_Projects implements Initializable {
 
         }
         String desktopPath = System.getProperty("user.home") + File.separator + "Desktop/Projects Sheet.xlsx";
-        FileOutputStream file= new FileOutputStream(desktopPath);
-        wb.write(file);
-        file.close();
-        System.out.println("done");
-        Alert notFound=new Alert(Alert.AlertType.INFORMATION);
-        notFound.setContentText("The file is Successfully saved in your Desktop");
-        notFound.setHeaderText("Success");
-        notFound.showAndWait();
+        try {
+            FileOutputStream file = new FileOutputStream(desktopPath);
+            wb.write(file);
+            file.close();
+            System.out.println("done");
+            Alert notFound = new Alert(Alert.AlertType.INFORMATION);
+            notFound.setContentText("The file is Successfully saved in your Desktop");
+            notFound.setHeaderText("Success");
+            notFound.showAndWait();
+        } catch (Exception e){
+            Alert notFound = new Alert(Alert.AlertType.ERROR);
+            notFound.setContentText("The file is open by another program. Please try again");
+            notFound.setHeaderText("Error");
+            notFound.showAndWait();
+        }
+
+
+
     }
 }
