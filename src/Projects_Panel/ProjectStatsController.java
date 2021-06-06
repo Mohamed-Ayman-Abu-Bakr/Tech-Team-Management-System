@@ -10,6 +10,8 @@ import java.sql.Statement;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import MySQL.MySQL_Connector;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -27,8 +29,7 @@ public class ProjectStatsController implements Initializable {
         ObservableList<PieChart.Data> list=  FXCollections.observableArrayList();
         Type t= new Type();
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            con=DriverManager.getConnection ("jdbc:mysql://sql4.freesqldatabase.com:3306/sql4409579", "sql4409579", "zhc6fDgqd6");
+            Connection con = MySQL_Connector.ConnectDB();
             Statement stmt;  ResultSet rs;
             stmt = con.createStatement();
             rs = stmt.executeQuery("SELECT * FROM Projects");
@@ -52,8 +53,6 @@ public class ProjectStatsController implements Initializable {
             Chart.setClockwise(true);
 
         } catch (SQLException ex) {
-            Logger.getLogger(ProjectStatsController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
             Logger.getLogger(ProjectStatsController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

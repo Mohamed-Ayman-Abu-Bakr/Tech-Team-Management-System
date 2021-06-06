@@ -41,7 +41,7 @@ public class Email {
         }
     }
 
-    public static void send_Email(String recipient, String subject, String text) {
+    public static void send_Email(String recipient, String subject, String text) throws MessagingException {
         setup_email();
         try {
             if (recipient.isEmpty()) {
@@ -59,7 +59,8 @@ public class Email {
             //System.out.println("Message sent successfully");
         } catch (Exception ex) {
             //JOptionPane.showMessageDialog(null, "Cannot send email");
-            System.err.println("Cannot send email. " + ex);
+            //System.err.println("Cannot send email. " + ex);
+            throw ex;
         }
     }
 
