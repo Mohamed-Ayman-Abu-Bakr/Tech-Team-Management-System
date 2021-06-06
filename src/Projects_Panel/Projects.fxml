@@ -4,61 +4,64 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="714.0" prefWidth="756.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Projects_Panel.Controller_Projects">
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="630.0" prefWidth="756.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Projects_Panel.Controller_Projects">
    <children>
-      <TextField fx:id="projectName_input" layoutX="288.0" layoutY="64.0" prefHeight="25.0" prefWidth="194.0" />
-      <Label alignment="CENTER" layoutX="321.0" layoutY="25.0" prefHeight="33.0" prefWidth="132.0" text="Project name" textAlignment="CENTER" wrapText="true">
+      <TextField fx:id="projectName_input" layoutX="230.0" layoutY="51.0" prefHeight="25.0" prefWidth="194.0" />
+      <Label alignment="CENTER" layoutX="98.0" layoutY="47.0" prefHeight="33.0" prefWidth="132.0" text="Project name" textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="295.0" layoutY="122.0" text="Add project description">
+      <Label layoutX="109.0" layoutY="95.0" text="Add project description">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <DatePicker fx:id="date_input" layoutX="524.0" layoutY="332.0" />
-      <Label layoutX="540.0" layoutY="301.0" text="Add date of delivery">
+      <DatePicker fx:id="date_input" layoutX="549.0" layoutY="234.0" />
+      <Label layoutX="399.0" layoutY="234.0" text="Add date of delivery">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TableView fx:id="projects_table" layoutX="113.0" layoutY="429.0" prefHeight="202.0" prefWidth="547.0">
+      <TableView fx:id="projects_table" layoutX="9.0" layoutY="357.0" prefHeight="202.0" prefWidth="400.0">
          <columns>
-            <TableColumn fx:id="id_column0" prefWidth="78.0" text="id" />
-            <TableColumn fx:id="projects_column" prefWidth="453.0" text="Projects" />
+            <TableColumn fx:id="id_column0" prefWidth="90.33333206176758" text="id" />
+            <TableColumn fx:id="projects_column" prefWidth="205.9999542236328" text="Projects" />
          </columns>
       </TableView>
-      <Button layoutX="315.0" layoutY="378.0" mnemonicParsing="false" onAction="#AddProject" prefHeight="35.0" prefWidth="143.0" text="Add">
+      <Button layoutX="333.0" layoutY="293.0" mnemonicParsing="false" onAction="#AddProject" prefHeight="35.0" prefWidth="143.0" text="Add">
          <font>
             <Font size="16.0" />
          </font>
       </Button>
-      <Button fx:id="Update_button" layoutX="537.0" layoutY="657.0" mnemonicParsing="false" onAction="#UpdateTable" prefHeight="25.0" prefWidth="149.0" text="Update">
+      <Button fx:id="Update_button" layoutX="494.0" layoutY="388.0" mnemonicParsing="false" onAction="#UpdateTable" prefHeight="25.0" prefWidth="149.0" text="Update">
          <font>
             <Font size="16.0" />
          </font>
       </Button>
-      <Button fx:id="Delete_button" layoutX="81.0" layoutY="657.0" mnemonicParsing="false" onAction="#DeleteProject" prefHeight="25.0" prefWidth="149.0" text="Delete">
+      <Button fx:id="Delete_button" layoutX="494.0" layoutY="458.0" mnemonicParsing="false" onAction="#DeleteProject" prefHeight="25.0" prefWidth="149.0" text="Delete">
          <font>
             <Font size="16.0" />
          </font>
       </Button>
-      <TextField fx:id="Cost_input" layoutX="319.0" layoutY="332.0" prefHeight="25.0" prefWidth="133.0" />
-      <Label alignment="CENTER" layoutX="320.0" layoutY="297.0" prefHeight="33.0" prefWidth="132.0" text="Cost" textAlignment="CENTER" wrapText="true">
+      <TextField fx:id="Cost_input" layoutX="569.0" layoutY="184.0" prefHeight="25.0" prefWidth="133.0" />
+      <Label alignment="CENTER" layoutX="405.0" layoutY="180.0" prefHeight="33.0" prefWidth="132.0" text="Cost" textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TextArea fx:id="description_input" layoutX="86.0" layoutY="162.0" prefHeight="139.0" prefWidth="598.0" />
-      <Button fx:id="Update_button1" layoutX="537.0" layoutY="41.0" mnemonicParsing="false" onAction="#open_client_picker" prefHeight="25.0" prefWidth="149.0" text="Select Client">
+      <TextArea fx:id="description_input" layoutX="21.0" layoutY="131.0" prefHeight="139.0" prefWidth="375.0" />
+      <Button fx:id="Update_button1" layoutX="561.0" layoutY="45.0" mnemonicParsing="false" onAction="#open_client_picker" prefHeight="25.0" prefWidth="149.0" text="Select Client">
          <font>
             <Font size="16.0" />
          </font>
       </Button>
-      <ComboBox fx:id="type_input" layoutX="80.0" layoutY="332.0" prefWidth="150.0" />
-      <Button layoutX="540.0" layoutY="378.0" mnemonicParsing="false" onAction="#ShowStats" prefHeight="37.0" prefWidth="166.0" text="View Project Statistics" />
-      <Button layoutX="88.0" layoutY="382.0" mnemonicParsing="false" onAction="#DownloadProjects" text="Download Projects">
+      <ComboBox fx:id="type_input" layoutX="561.0" layoutY="131.0" prefWidth="150.0" />
+      <Button layoutX="147.0" layoutY="582.0" mnemonicParsing="false" onAction="#ShowStats" prefHeight="37.0" prefWidth="166.0" text="View Project Statistics">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+      <Button layoutX="469.0" layoutY="586.0" mnemonicParsing="false" onAction="#DownloadProjects" text="Download Projects">
          <font>
             <Font size="14.0" />
          </font>
