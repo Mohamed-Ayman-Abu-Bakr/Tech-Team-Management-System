@@ -87,6 +87,15 @@ public class FrontPageController implements Initializable {
     }
 
     @FXML
+    private void HandleEditInfo(ActionEvent event) throws IOException {
+        Parent page=FXMLLoader.load(getClass().getResource("EditInfo.fxml"));
+        Scene edit= new Scene(page);
+        Stage window= (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(edit);
+        window.show();
+    }
+
+    @FXML
     private void handleEmails(ActionEvent event) throws Exception {
         Parent FrontPage=FXMLLoader.load(getClass().getResource("Emails.fxml"));
         Scene EmailPage= new Scene(FrontPage);
