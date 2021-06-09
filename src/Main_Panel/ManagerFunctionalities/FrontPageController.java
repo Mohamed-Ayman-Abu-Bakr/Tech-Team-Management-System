@@ -8,8 +8,6 @@ package Main_Panel.ManagerFunctionalities;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import Projects_Panel.Controller_Projects;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

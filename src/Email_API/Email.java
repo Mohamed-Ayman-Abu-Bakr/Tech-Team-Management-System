@@ -1,11 +1,12 @@
 package Email_API;
 
+import Classes.Data_Validation;
+import Classes.Popup_Window;
+import Exceptions.InvalidEmailException;
 import javafx.scene.control.Alert;
-
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.swing.*;
 import java.util.Properties;
 
 public class Email {
@@ -41,7 +42,8 @@ public class Email {
         }
     }
 
-    public static void send_Email(String recipient, String subject, String text) throws MessagingException {
+    public static void send_Email(String recipient, String subject, String text,String type) throws MessagingException, InvalidEmailException {
+        Data_Validation.checkEmail(recipient);
         setup_email();
         try {
             if (recipient.isEmpty()) {
@@ -55,11 +57,9 @@ public class Email {
             String email_text = text;
             message.setContent(email_text, "text/plain");
             Transport.send(message);
-            JOptionPane.showMessageDialog(null, "Email sent successfully");
+            Popup_Window.confirmation(type + "Email Sent Successfully","Send Email");
             //System.out.println("Message sent successfully");
         } catch (Exception ex) {
-            //JOptionPane.showMessageDialog(null, "Cannot send email");
-            //System.err.println("Cannot send email. " + ex);
             throw ex;
         }
     }
@@ -69,11 +69,9 @@ public class Email {
         String subject = "Welcome to Software Company";
         String text = "Your username is " + username + "\n" +"Your password is " + password;
         try {
-            send_Email(recipient,subject,text);
+            send_Email(recipient,subject,text,"User Credentials");
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Couldn't send credentials Email");
-            //Logger.getLogger(Email_API.Email.class.getName()).log(Level.SEVERE, null, ex);
-            //System.out.println("Couldn't send email");
+            Popup_Window.error("Couldn't send credentials Email");
         }
     }
 
@@ -86,11 +84,9 @@ public class Email {
                 "Project Type: " + type + "\n" +
                 "Total Cost: " + cost + " EGP";
         try {
-            send_Email(recipient,subject,text);
+            send_Email(recipient,subject,text,"Project Creation Invoice");
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Couldn't send Project Invoice Email");
-            //Logger.getLogger(Email_API.Email.class.getName()).log(Level.SEVERE, null, ex);
-            //System.out.println("Couldn't send email");
+            Popup_Window.error("Couldn't send Project Invoice Email");
         }
     }
 
@@ -104,11 +100,9 @@ public class Email {
                 "Project Type: " + type + "\n" +
                 "Total Cost: " + cost + " EGP";
         try {
-            send_Email(recipient,subject,text);
+            send_Email(recipient,subject,text,"Project Modification Incoice");
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Couldn't send Project Update Email");
-            //Logger.getLogger(Email_API.Email.class.getName()).log(Level.SEVERE, null, ex);
-            //System.out.println("Couldn't send email");
+            Popup_Window.error("Couldn't send Project Update Email");
         }
     }
 
@@ -116,11 +110,9 @@ public class Email {
         String subject = "Password Rest";
         String text = "Your password has been reset by a manager" + "\n" +"Your new password is " + password;
         try {
-            send_Email(recipient,subject,text);
+            send_Email(recipient,subject,text,"Password Update");
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Couldn't send password reset Email");
-            //Logger.getLogger(Email_API.Email.class.getName()).log(Level.SEVERE, null, ex);
-            //System.out.println("Couldn't send email");
+            Popup_Window.error("Couldn't send password reset Email");
         }
     }
 

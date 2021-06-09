@@ -1,7 +1,8 @@
 package Tasks_Panel.View_Tasks_Panel;
 
-import Classes.Projects;
 import Classes.Tasks;
+import Exceptions.EmptyInputException;
+import Exceptions.InvalidDateException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -15,9 +16,7 @@ import javafx.scene.input.MouseEvent;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
@@ -96,10 +95,15 @@ public class Controller_Tasks implements Initializable {
     
             
      public void Add_Tasks(){
-         Tasks.Add_Task(txt_employee_id.getText(),txt_task_name.getText(),txt_task_description.getText(),txt_deadline_date.getValue().toString());
-         Refresh_Tasks();
-         Search_Task();
-         resetValues();
+         try {
+             Tasks.Add_Task(txt_employee_id.getText(),txt_task_name.getText(),txt_task_description.getText(),txt_deadline_date.getValue().toString());
+             Refresh_Tasks();
+             Search_Task();
+             resetValues();
+         } catch (EmptyInputException e) {
+         } catch (InvalidDateException e) {
+         }
+
     }
     @FXML
      void getSelected (MouseEvent event) {   
@@ -115,10 +119,15 @@ public class Controller_Tasks implements Initializable {
          txt_deadline_date.setValue(LocalDate.from(fmt.parse(col_deadline_date.getCellData(index).toString())));
      }
      public void Update_Tasks(){
-         Tasks.update_Task_Manager(txt_task_name.getText(),txt_task_description.getText(),txt_deadline_date.getValue().toString(),txt_task_id.getText());
-         Refresh_Tasks();
-         Search_Task();
-         resetValues();
+         try {
+             Tasks.update_Task_Manager(txt_task_name.getText(),txt_task_description.getText(),txt_deadline_date.getValue().toString(),txt_task_id.getText());
+             Refresh_Tasks();
+             Search_Task();
+             resetValues();
+         } catch (EmptyInputException e) {
+         } catch (InvalidDateException e) {
+         }
+
      }
      public void Delete_Tasks() {
          Tasks.delete_Task(txt_task_id.getText());

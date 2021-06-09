@@ -1,10 +1,10 @@
 package Classes;
 
 import Email_API.Email;
+import Exceptions.*;
 import MySQL.MySQL_Connector;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -121,7 +121,11 @@ public class Employees {
             throwable.printStackTrace();
         }
     }
-    public void editEmployee_manager(String name, String email, String phone, String birthdate, String position){
+    public void editEmployee_manager(String name, String email, String phone, String birthdate, String position) throws InvalidNameException, InvalidEmailException, InvalidNumberException, InvalidDateException {
+        Data_Validation.checkName(name);
+        Data_Validation.checkEmail(email);
+        Data_Validation.checkNum(phone);
+        Data_Validation.checkDate(birthdate);
         Connection con;
         PreparedStatement pst;
         con = MySQL_Connector.ConnectDB();
@@ -140,7 +144,12 @@ public class Employees {
         }
     }
 
-    public void editEmployee_employee(String name, String username, String password, String email, String phone){
+    public void editEmployee_employee(String name, String username, String password, String email, String phone) throws InvalidNameException, InvalidEmailException, InvalidNumberException, InvalidDateException, EmptyInputException, InvalidUsernameException, InvalidPasswordException {
+        Data_Validation.checkName(name);
+        Data_Validation.checkEmail(email);
+        Data_Validation.checkNum(phone);
+        Data_Validation.checkUsername(username);
+        Data_Validation.checkPassword(password);
         Connection con;
         PreparedStatement pst;
         con = MySQL_Connector.ConnectDB();
@@ -159,7 +168,11 @@ public class Employees {
         }
     }
 
-    public static void addEmployee(String name, String email, String phone, String birthdate, String position){
+    public static void addEmployee(String name, String email, String phone, String birthdate, String position) throws InvalidNameException, InvalidEmailException, InvalidNumberException, InvalidDateException {
+        Data_Validation.checkName(name);
+        Data_Validation.checkEmail(email);
+        Data_Validation.checkNum(phone);
+        Data_Validation.checkDate(birthdate);
         String username = generate_username(10);
         String password = generate_password(10);
         Connection con;

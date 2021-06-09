@@ -1,7 +1,9 @@
 package Meetings_Panel;
 
 import Classes.Meetings;
-import MySQL.MySQL_Connector;
+import Exceptions.EmptyInputException;
+import Exceptions.InvalidDateException;
+import Exceptions.InvalidTimeException;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -9,13 +11,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-
-
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
-
 import static java.lang.String.valueOf;
 
 public class Controller_Meetings implements Initializable {
@@ -76,9 +75,14 @@ public class Controller_Meetings implements Initializable {
         String id = txt_no.getText();
 
 
-        Meetings.add_Meeting(title,day,time,department,id);
-        resetData();
-        update();
+        try {
+            Meetings.add_Meeting(title,day,time,department,id);
+            resetData();
+            update();
+        } catch (EmptyInputException e) {
+        } catch (InvalidDateException e) {
+        } catch (InvalidTimeException e) {
+        }
     }
 
     public void getSelected  ( MouseEvent event){
@@ -100,9 +104,15 @@ public class Controller_Meetings implements Initializable {
         String time = txt_time.getText();
         String department = comb.getSelectionModel().getSelectedItem().toString();
         String id = txt_no.getText();
-        Meetings.edit_Meeting(title,day,time,department,id);
-        update();
-        resetData();
+        try {
+            Meetings.edit_Meeting(title,day,time,department,id);
+            update();
+            resetData();
+        } catch (EmptyInputException e) {
+        } catch (InvalidDateException e) {
+        } catch (InvalidTimeException e) {
+        }
+
     }
 
     void Select(){

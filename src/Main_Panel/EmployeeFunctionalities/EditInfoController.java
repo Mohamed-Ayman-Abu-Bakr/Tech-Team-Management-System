@@ -8,7 +8,7 @@ package Main_Panel.EmployeeFunctionalities;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
+import Exceptions.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,7 +20,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
 import static Main_Panel.Login.LoginPageController.employee_login;
 
 /**
@@ -97,7 +96,14 @@ public class EditInfoController implements Initializable {
                 invalidInput.showAndWait();   
                 } /*catch (SQLException ex) {
                 Logger.getLogger(EditInfoController.class.getName()).log(Level.SEVERE, null, ex);
-            }*/
+            }*/ catch (InvalidNameException e) {
+            } catch (InvalidNumberException e) {
+            } catch (InvalidDateException e) {
+            } catch (InvalidEmailException e) {
+            } catch (EmptyInputException e) {
+            } catch (InvalidPasswordException e) {
+            } catch (InvalidUsernameException e) {
+            }
         }
         
         

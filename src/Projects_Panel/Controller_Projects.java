@@ -1,24 +1,22 @@
 package Projects_Panel;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
-
 import Classes.Clients;
+import Classes.Popup_Window;
 import Classes.Projects;
-import MySQL.MySQL_Connector;
+import Exceptions.EmptyInputException;
+import Exceptions.InvalidCostException;
+import Exceptions.InvalidDateException;
 import Projects_Panel.singleProjectDetails.Details_Controller;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import java.sql.*;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -30,7 +28,6 @@ import javafx.stage.Stage;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import javax.swing.*;
 
 import static Main_Panel.Login.LoginPageController.employee_login;
 
@@ -82,18 +79,24 @@ public class Controller_Projects implements Initializable {
 
     public void AddProject() {
         if(client != null){
-            Projects.AddProject(projectName_input.getText()
-                    ,description_input.getText()
-                    ,String.valueOf(date_input.getValue())
-                    ,type_input.getValue()
-                    ,client
-                    ,String.valueOf(employee_login.getId())
-                    ,Cost_input.getText());
-            UpdateTable();
-            resetData();
+            try {
+                Projects.AddProject(projectName_input.getText()
+                        ,description_input.getText()
+                        ,String.valueOf(date_input.getValue())
+                        ,type_input.getValue()
+                        ,client
+                        ,String.valueOf(employee_login.getId())
+                        ,Cost_input.getText());
+                UpdateTable();
+                resetData();
+            } catch (EmptyInputException e) {
+            } catch (InvalidDateException e) {
+            } catch (InvalidCostException e) {
+            }
+
         }
         else{
-            JOptionPane.showMessageDialog(null, "Please select a client");
+            Popup_Window.error("Please Select a Client");
         }
     }
 

@@ -1,7 +1,7 @@
 package MySQL;
 
 
-import javax.swing.*;
+import Classes.Popup_Window;
 import java.sql.*;
 
 
@@ -19,7 +19,7 @@ public class MySQL_Connector {
             //JOptionPane.showMessageDialog(null, "Connection Established");
             return con;
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            Popup_Window.error("Cannot Connect to Database");
             return null;
         }
     }

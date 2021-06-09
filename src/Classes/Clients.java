@@ -1,10 +1,12 @@
 package Classes;
 
+import Exceptions.InvalidAddressException;
+import Exceptions.InvalidEmailException;
+import Exceptions.InvalidNameException;
+import Exceptions.InvalidNumberException;
 import MySQL.MySQL_Connector;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -99,7 +101,11 @@ public class Clients {
         return list;
     }
 
-    public static void add_Client(String name, String address, String number, String email){
+    public static void add_Client(String name, String address, String number, String email) throws InvalidNameException, InvalidAddressException, InvalidNumberException, InvalidEmailException {
+        Data_Validation.checkName(name);
+        Data_Validation.checkAddress(address);
+        Data_Validation.checkNum(number);
+        Data_Validation.checkEmail(email);
         Connection con = MySQL_Connector.ConnectDB();
         String sql = "INSERT INTO sql4409579.Clients VALUES (default, ?,?,?,?)";
         PreparedStatement pstmt;
@@ -115,16 +121,20 @@ public class Clients {
             //System.out.println("CLIENT UNSUCCESSFULLY ADDED");
         }
     }
-    public static void edit_Client(String id,String newName,String newEmail,String newNumber, String newAddress){
+    public static void edit_Client(String id,String newName,String newEmail,String newNumber, String newAddress) throws InvalidNameException, InvalidAddressException, InvalidNumberException, InvalidEmailException {
+        Data_Validation.checkName(newName);
+        Data_Validation.checkAddress(newAddress);
+        Data_Validation.checkNum(newNumber);
+        Data_Validation.checkEmail(newEmail);
         try {
             Connection con = MySQL_Connector.ConnectDB();
             String sql = "Update sql4409579.Clients set Name= '" + newName + "' ,Email= '" + newEmail
                     + "' ,Number= '" + newNumber + "' , Address= '" + newAddress + "' where id= '" + id + "' ";
             PreparedStatement pstmt = con.prepareStatement(sql);
             pstmt.execute();
-            JOptionPane.showMessageDialog(null,"update");
+            Popup_Window.confirmation("Client Updated Successfully","Client Update");
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            Popup_Window.error("Cannot Update Client");
         }
     }
     public static void delete_Client(String id){
@@ -134,10 +144,9 @@ public class Clients {
             PreparedStatement pstmt = con.prepareStatement(sql);
             pstmt.setString(1, id);
             pstmt.execute();
-            JOptionPane.showMessageDialog(null, "delete");
-
+            Popup_Window.confirmation("Client Deleted Successfully","Client Delete");
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            Popup_Window.error("Cannot Delete Client");
         }
     }
 }

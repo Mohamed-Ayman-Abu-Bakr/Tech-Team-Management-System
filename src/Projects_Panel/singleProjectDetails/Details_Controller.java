@@ -2,6 +2,9 @@ package Projects_Panel.singleProjectDetails;
 
 import Classes.Clients;
 import Classes.Projects;
+import Exceptions.EmptyInputException;
+import Exceptions.InvalidCostException;
+import Exceptions.InvalidDateException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -11,13 +14,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+
 import static Main_Panel.Login.LoginPageController.employee_login;
 
 public class Details_Controller implements Initializable {
@@ -81,13 +84,18 @@ public class Details_Controller implements Initializable {
     int ProjectId ;
 
     public void UpdateProject() {
-        project.UpdateProject(project_title_details.getText()
-                        ,Project_describtion_details.getText()
-                        ,String.valueOf(DatePicker_Details.getValue())
-                        ,type_input.getValue()
-                        ,client
-                        ,String.valueOf(employee_login.getId())
-                        ,cost_details.getText());
+        try {
+            project.UpdateProject(project_title_details.getText()
+                            ,Project_describtion_details.getText()
+                            ,String.valueOf(DatePicker_Details.getValue())
+                            ,type_input.getValue()
+                            ,client
+                            ,String.valueOf(employee_login.getId())
+                            ,cost_details.getText());
+        } catch (EmptyInputException e) {
+        } catch (InvalidDateException e) {
+        } catch (InvalidCostException e) {
+        }
     }
 
     public void initData(Projects project) {

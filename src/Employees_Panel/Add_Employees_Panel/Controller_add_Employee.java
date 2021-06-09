@@ -2,12 +2,15 @@ package Employees_Panel.Add_Employees_Panel;
 
 import Employees_Panel.Main_Employees_Panel.Controller_Employees;
 import Classes.Employees;
+import Exceptions.InvalidDateException;
+import Exceptions.InvalidEmailException;
+import Exceptions.InvalidNameException;
+import Exceptions.InvalidNumberException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -37,7 +40,7 @@ public class Controller_add_Employee implements Initializable {
     public void add_Employees() throws IOException {
 
         Alert alert =
-                new Alert(Alert.AlertType.WARNING,
+                new Alert(Alert.AlertType.CONFIRMATION,
                         "You're about to add an employee with the following properties:" + "\n\n" +
                         "Name: " + name.getText() + "\n" +
                         "Email: " + email.getText() + "\n" +
@@ -52,8 +55,14 @@ public class Controller_add_Employee implements Initializable {
 
         if (result.get() == ButtonType.YES){
 
-            Employees.addEmployee(name.getText(),email.getText(),phone.getText(),birthdate.getValue().toString(),dropdown_position.getValue());
-            closeStage();
+            try {
+                Employees.addEmployee(name.getText(),email.getText(),phone.getText(),birthdate.getValue().toString(),dropdown_position.getValue());
+                closeStage();
+            } catch (InvalidNameException e) {
+            } catch (InvalidEmailException e) {
+            } catch (InvalidNumberException e) {
+            } catch (InvalidDateException e) {
+            }
         }
     }
 

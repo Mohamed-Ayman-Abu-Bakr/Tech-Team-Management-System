@@ -42,7 +42,7 @@
                   <TextField fx:id="email" layoutX="26.0" layoutY="118.0" prefHeight="27.0" prefWidth="191.0" promptText="Client email" />
                   <TextField fx:id="number" layoutX="27.0" layoutY="164.0" prefHeight="27.0" prefWidth="191.0" promptText="Client number" />
                   <TextField fx:id="address" layoutX="27.0" layoutY="207.0" prefHeight="27.0" prefWidth="191.0" promptText="Client Address" />
-                  <TextField fx:id="id" layoutX="27.0" layoutY="28.0" prefHeight="27.0" prefWidth="191.0" promptText="Client ID" />
+                  <TextField fx:id="id" disable="true" layoutX="27.0" layoutY="28.0" prefHeight="27.0" prefWidth="191.0" promptText="Client ID" />
                </children>
             </AnchorPane>
          </left>

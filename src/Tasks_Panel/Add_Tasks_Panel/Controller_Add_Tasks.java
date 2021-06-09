@@ -2,6 +2,8 @@ package Tasks_Panel.Add_Tasks_Panel;
 
 import Classes.Employees;
 import Classes.Tasks;
+import Exceptions.EmptyInputException;
+import Exceptions.InvalidDateException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -11,7 +13,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -92,10 +93,15 @@ public class Controller_Add_Tasks implements Initializable {
     
             
      public void Add_Tasks(){
-         Tasks.Add_Task(txt_employee_id.getText(),txt_task_name.getText(),txt_task_description.getText(),txt_deadline_date.getValue().toString());
-         Refresh_Tasks();
-         Search_Task();
-         resetValues();
+         try {
+             Tasks.Add_Task(txt_employee_id.getText(),txt_task_name.getText(),txt_task_description.getText(),txt_deadline_date.getValue().toString());
+             Refresh_Tasks();
+             Search_Task();
+             resetValues();
+         } catch (EmptyInputException e) {
+         } catch (InvalidDateException e) {
+         }
+
     }
     @FXML
      void getSelected (MouseEvent event) {
@@ -113,10 +119,15 @@ public class Controller_Add_Tasks implements Initializable {
         enableButtons();
      }
      public void Update_Tasks(){
-         Tasks.update_Task_Manager(txt_task_name.getText(),txt_task_description.getText(),txt_deadline_date.getValue().toString(),txt_task_id.getText());
-         Refresh_Tasks();
-         Search_Task();
-         resetValues();
+         try {
+             Tasks.update_Task_Manager(txt_task_name.getText(),txt_task_description.getText(),txt_deadline_date.getValue().toString(),txt_task_id.getText());
+             Refresh_Tasks();
+             Search_Task();
+             resetValues();
+         } catch (EmptyInputException e) {
+         } catch (InvalidDateException e) {
+         }
+
      }
      public void Delete_Tasks() {
          Tasks.delete_Task(txt_task_id.getText());

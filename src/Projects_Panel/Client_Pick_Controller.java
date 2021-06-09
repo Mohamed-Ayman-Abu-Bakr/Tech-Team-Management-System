@@ -1,14 +1,13 @@
 package Projects_Panel;
 
 import Classes.Clients;
+import Classes.Popup_Window;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-
-import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -45,7 +44,7 @@ public class Client_Pick_Controller implements Initializable {
     void select_Employee() throws IOException {
         index = table_clients.getSelectionModel().getSelectedIndex();
         if(index <= -1) {
-            JOptionPane.showMessageDialog(null, "Please select a client");
+            Popup_Window.error("Please Select a Client");
             return;
         }
         int id = Integer.valueOf(table_id.getCellData(index).toString()) ;

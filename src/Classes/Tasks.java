@@ -1,11 +1,11 @@
 
 package Classes;
 
+import Exceptions.EmptyInputException;
+import Exceptions.InvalidDateException;
 import MySQL.MySQL_Connector;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -102,7 +102,10 @@ private String task_status;
 
 
 
-    public static void Add_Task(String employee_id, String task_name, String task_description, String deadline_date){
+    public static void Add_Task(String employee_id, String task_name, String task_description, String deadline_date) throws EmptyInputException, InvalidDateException {
+        Data_Validation.checkTitle(task_name);
+        Data_Validation.checkDescription(task_description);
+        Data_Validation.checkDate(deadline_date);
         Connection conn = MySQL_Connector.ConnectDB();
         String sql = "INSERT INTO Tasks (employee_id,task_name,task_description,deadline_date) VALUES (?,?,?,?)";
         try {
@@ -112,9 +115,9 @@ private String task_status;
             pst.setString(3,task_description);
             pst.setString(4, deadline_date);
             pst.execute();
-            JOptionPane.showMessageDialog(null, "Tasks Added Successfully");
+            Popup_Window.confirmation("Task Added Successfully","Add Task");
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            Popup_Window.error("Cannot add Task");
         }
     }
 
@@ -125,23 +128,26 @@ private String task_status;
             PreparedStatement pst = conn.prepareStatement(sql);
 
             pst.execute();
-            JOptionPane.showMessageDialog(null, "Task deleted successfully");
+            Popup_Window.confirmation("Task Deleted Successfully","Delete Task");
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            Popup_Window.error("Cannot Delete Task");
         }
     }
 
-    public static void update_Task_Manager(String new_name, String new_description, String new_deadline, String id){
+    public static void update_Task_Manager(String new_name, String new_description, String new_deadline, String id) throws EmptyInputException, InvalidDateException {
+        Data_Validation.checkTitle(new_name);
+        Data_Validation.checkDescription(new_description);
+        Data_Validation.checkDate(new_deadline);
         try {
             Connection conn = MySQL_Connector.ConnectDB();
             String sql = "UPDATE Tasks SET task_name = '"+new_name+"', task_description = '"+new_description+"', deadline_date = '"+new_deadline+"' WHERE task_id = '"+id+"' ";
 
             PreparedStatement pst = conn.prepareCall(sql);
             pst.execute();
-            JOptionPane.showMessageDialog(null, "Task Updated Successfully");
+            Popup_Window.confirmation("Task Updated Successfully","Update Task");
         }
         catch( Exception e){
-            JOptionPane.showMessageDialog(null, e);
+            Popup_Window.error("Cannot Update Task");
         }
     }
 
@@ -152,10 +158,10 @@ private String task_status;
 
             PreparedStatement pst = conn.prepareCall(sql);
             pst.execute();
-            JOptionPane.showMessageDialog(null, "Task Updated Successfully");
+            Popup_Window.confirmation("Task Status Updated Successfully","Task Status");
         }
         catch( Exception e){
-            JOptionPane.showMessageDialog(null, e);
+            Popup_Window.error("Cannot Update Task Status");
         }
     }
 

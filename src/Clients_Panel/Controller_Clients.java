@@ -1,6 +1,9 @@
 package Clients_Panel;
 import Classes.Clients;
-import MySQL.MySQL_Connector;
+import Exceptions.InvalidAddressException;
+import Exceptions.InvalidEmailException;
+import Exceptions.InvalidNameException;
+import Exceptions.InvalidNumberException;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -8,7 +11,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
-
 import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
@@ -73,7 +75,13 @@ public class Controller_Clients implements Initializable {
         String Cnum = number.getText();
         String Cadd = address.getText();
 
-        Clients.add_Client(Cname,Cadd,Cnum,Cemail);
+        try {
+            Clients.add_Client(Cname,Cadd,Cnum,Cemail);
+        } catch (InvalidNameException e) {
+        } catch (InvalidAddressException e) {
+        } catch (InvalidNumberException e) {
+        } catch (InvalidEmailException e) {
+        }
         UpdateTable();
     }
 
@@ -95,7 +103,13 @@ public class Controller_Clients implements Initializable {
         String v3 = email.getText();
         String v4 = number.getText();
         String v5 = address.getText();
-        Clients.edit_Client(v1,v2,v3,v4,v5);
+        try {
+            Clients.edit_Client(v1,v2,v3,v4,v5);
+        } catch (InvalidNameException e) {
+        } catch (InvalidAddressException e) {
+        } catch (InvalidNumberException e) {
+        } catch (InvalidEmailException e) {
+        }
         UpdateTable();
     }
 

@@ -5,6 +5,7 @@
  */
 package Main_Panel.ManagerFunctionalities;
 
+import Exceptions.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,7 +17,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -90,17 +90,15 @@ public class EditInfoController implements Initializable {
                 empty.setHeaderText("Update");
                 empty.showAndWait(); 
 
-            } catch (NumberFormatException nfe) {
-                Alert invalidInput=new Alert(Alert.AlertType.ERROR);
-                invalidInput.setContentText("You can only enter numbers in the phone number field");
-                invalidInput.setHeaderText("Error");
-                invalidInput.showAndWait();   
-                } /*catch (SQLException ex) {
-                Logger.getLogger(EditInfoController.class.getName()).log(Level.SEVERE, null, ex);
-            }*/
+            } catch (InvalidNameException e) {
+            } catch (InvalidNumberException e) {
+            } catch (InvalidDateException e) {
+            } catch (InvalidEmailException e) {
+            } catch (EmptyInputException e) {
+            } catch (InvalidPasswordException e) {
+            } catch (InvalidUsernameException e) {
+            }
         }
-        
-        
     }
 
     @FXML
@@ -111,5 +109,4 @@ public class EditInfoController implements Initializable {
         window.setScene(edit);
         window.show();
     }
-    
 }

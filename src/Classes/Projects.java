@@ -1,11 +1,12 @@
 package Classes;
 
 import Email_API.Email;
+import Exceptions.EmptyInputException;
+import Exceptions.InvalidCostException;
+import Exceptions.InvalidDateException;
 import MySQL.MySQL_Connector;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -144,8 +145,12 @@ public class Projects {
         return list;
     }
 
-    public static void AddProject(String title, String projectDescription, String date, String type, Clients client, String manager_name, String cost) {
+    public static void AddProject(String title, String projectDescription, String date, String type, Clients client, String manager_name, String cost) throws EmptyInputException, InvalidDateException, InvalidCostException {
         //CheckData();
+        Data_Validation.checkTitle(title);
+        Data_Validation.checkDescription(projectDescription);
+        Data_Validation.checkDate(date);
+        Data_Validation.checkCost(cost);
         Connection con = MySQL_Connector.ConnectDB();
 
         String sql = "INSERT INTO sql4409579.Projects (title,projectDescription,date,type,client_name,Manager_name,cost)values(?,?,?,?,?,?,?)";
@@ -163,18 +168,18 @@ public class Projects {
 
                 Email.send_project_creation_invoice(client.getEmail(),title,projectDescription,type,date,cost);
 
-                JOptionPane.showMessageDialog(null, "Project add success");
+                Popup_Window.confirmation("Project Added Successfully","Add Project");
 
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "please fill all fields with appropriate data");
+                Popup_Window.error("Please fill all fields with appropriate data");
             }
 
         } else if (manager_name == null && client != null) {
-            JOptionPane.showMessageDialog(null, "Manager doesn't exist");
+            Popup_Window.error("Manager doesn't exist");
         } else if (client == null && manager_name != null) {
-            JOptionPane.showMessageDialog(null, "Client doesn't exist");
+            Popup_Window.error("Client doesn't exist");
         } else {
-            JOptionPane.showMessageDialog(null, "Both Manager and Client don't exist");
+            Popup_Window.error("Both Manager and Client don't exist");
         }
 
 
@@ -194,7 +199,12 @@ public class Projects {
 
     }
 
-    public void UpdateProject(String title, String projectDescription,String date, String type, Clients client, String manager_name, String cost) {
+    public void UpdateProject(String title, String projectDescription,String date, String type, Clients client, String manager_name, String cost) throws EmptyInputException, InvalidDateException, InvalidCostException {
+
+        Data_Validation.checkTitle(title);
+        Data_Validation.checkDescription(projectDescription);
+        Data_Validation.checkDate(date);
+        Data_Validation.checkCost(cost);
 
         Connection con = MySQL_Connector.ConnectDB();
 
@@ -215,18 +225,18 @@ public class Projects {
                 pst.setString(8, String.valueOf(this.getProjectId()));
                 pst.execute();
                 Email.send_project_modification_invoice(client.getEmail(),title,projectDescription,type,date,cost);
-                JOptionPane.showMessageDialog(null, "Project updated successfully");
+                Popup_Window.confirmation("Project Updated Successfully","Update Project");
 
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "please fill all fields with appropriate data");
+                Popup_Window.error("Please fill all fields with appropriate data");
             }
 
         } else if (client == null && manager_name != null) {
-            JOptionPane.showMessageDialog(null, "Manager doesn't exist");
+            Popup_Window.error("Manager doesn't exist");
         } else if (client != null && manager_name == null) {
-            JOptionPane.showMessageDialog(null, "Client doesn't exist");
+            Popup_Window.error("Client doesn't exist");
         } else {
-            JOptionPane.showMessageDialog(null, "Both Manager and Client don't exist");
+            Popup_Window.error("Both Manager and Client don't exist");
         }
     }
 }

@@ -4,7 +4,6 @@ package Main_Panel.Login;
 import Classes.Employees;
 import com.jfoenix.controls.JFXButton;
 import java.net.URL;
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -32,7 +31,6 @@ public class LoginPageController implements Initializable {
     @FXML
     private JFXButton signInButton;
 
-    Connection con;
     public static Employees employee_login;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -73,14 +71,6 @@ public class LoginPageController implements Initializable {
                             ,rs.getString("email")
                             ,rs.getString("birthdate")
                             ,rs.getString("phone"));
-                    /*Employe.setEmail(rs.getString("email"));
-                    Employe.setName(rs.getString("name"));
-                    Employe.setPhoneNumber(rs.getString("phone"));
-                    Employe.setUsername(rs.getString("username"));
-                    Employe.setPassword(rs.getString("password"));
-                    Employe.setPosition(rs.getString("position"));*/
-
-                    
                     break;
                 }
             }
@@ -113,12 +103,6 @@ public class LoginPageController implements Initializable {
     }
     
     public void employeeScreen(ActionEvent event)throws Exception{
-      /*loader = new FXMLLoader(getClass().getResource("/Main_Panel/EmployeeFunctionalities/Meetings.fxml"));
-        root = loader.load();
-        MeetingsController controller2 = loader.getController();
-        controller2.setEmployee(employee);*/
-
-
         Parent Login=FXMLLoader.load(getClass().getResource("/Main_Panel/EmployeeFunctionalities/FrontPage.fxml"));
         Scene Employee= new Scene(Login);
         Stage window= (Stage)((Node)event.getSource()).getScene().getWindow();
