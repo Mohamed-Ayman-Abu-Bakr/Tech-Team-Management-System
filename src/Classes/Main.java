@@ -6,6 +6,7 @@
 package Classes;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -17,8 +18,9 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/Main_Panel/Login/LoginPage.fxml"));
         stage.initStyle(StageStyle.DECORATED);
+        stage.setResizable(false);
         Scene scene = new Scene(root);
-        
+        stage.setOnHidden(e -> Platform.exit());
         stage.setScene(scene);
         stage.show();
     }

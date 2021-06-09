@@ -25,13 +25,13 @@
          </font>
       </Label>
       <TextField fx:id="emailTxtbox" layoutX="319.0" layoutY="152.0" prefHeight="25.0" prefWidth="253.0" promptText="Enter your Username or Email here" />
+      <Label layoutX="470.0" layoutY="119.0" text="*" textFill="#e41212" />
+      <Label layoutX="395.0" layoutY="206.0" text="*" textFill="#e41212" />
+      <PasswordField fx:id="passTxtbox" layoutX="319.0" layoutY="243.0" prefHeight="25.0" prefWidth="253.0" promptText="Enter your password here" />
       <JFXButton fx:id="signInButton" layoutX="406.0" layoutY="311.0" onAction="#signIn" style="-fx-background-color: D9DEE8;" text="Sign in">
          <font>
             <Font size="18.0" />
          </font>
       </JFXButton>
-      <Label layoutX="470.0" layoutY="119.0" text="*" textFill="#e41212" />
-      <Label layoutX="395.0" layoutY="206.0" text="*" textFill="#e41212" />
-      <PasswordField fx:id="passTxtbox" layoutX="319.0" layoutY="243.0" prefHeight="25.0" prefWidth="253.0" promptText="Enter your password here" />
    </children>
 </AnchorPane>

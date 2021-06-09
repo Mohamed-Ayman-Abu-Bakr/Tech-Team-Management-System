@@ -8,6 +8,8 @@ package Main_Panel.ManagerFunctionalities;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import Projects_Panel.Controller_Projects;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -37,10 +39,10 @@ public class FrontPageController implements Initializable {
     public void open_projects_panel() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Projects_Panel/Projects.fxml"));
         Parent root = loader.load();
-
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.setTitle("Projects");
+        stage.setResizable(false);
         stage.show();
     }
 
@@ -52,6 +54,7 @@ public class FrontPageController implements Initializable {
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.setTitle("Clients");
+        stage.setResizable(false);
         stage.show();
     }
 
@@ -63,8 +66,10 @@ public class FrontPageController implements Initializable {
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.setTitle("Employees");
+        stage.setResizable(false);
         stage.show();
     }
+
     @FXML
     public void open_meetings_panel() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Meetings_Panel/Meetings.fxml"));
@@ -73,6 +78,7 @@ public class FrontPageController implements Initializable {
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.setTitle("Meetings");
+        stage.setResizable(false);
         stage.show();
     }
 
@@ -83,6 +89,7 @@ public class FrontPageController implements Initializable {
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.setTitle("Tasks");
+        stage.setResizable(false);
         stage.show();
     }
 
@@ -101,6 +108,15 @@ public class FrontPageController implements Initializable {
         Scene EmailPage= new Scene(FrontPage);
         Stage window= (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(EmailPage);
+        window.show();
+    }
+
+    @FXML
+    private void signOut(ActionEvent event) throws Exception {
+        Parent FrontPage=FXMLLoader.load(getClass().getResource("../Login/LoginPage.fxml"));
+        Scene LoginPage= new Scene(FrontPage);
+        Stage window= (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(LoginPage);
         window.show();
     }
     

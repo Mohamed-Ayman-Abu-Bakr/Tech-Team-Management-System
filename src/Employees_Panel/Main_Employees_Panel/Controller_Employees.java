@@ -1,5 +1,6 @@
 package Employees_Panel.Main_Employees_Panel;
 
+
 import Employees_Panel.Edit_Employees_Panel.Controller_edit_Employee;
 import Classes.Employees;
 import javafx.beans.binding.Bindings;
@@ -14,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -177,6 +179,8 @@ public class Controller_Employees implements Initializable {
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.setTitle("Add New Employee");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setResizable(false);
         stage.show();
     }
 
@@ -190,6 +194,8 @@ public class Controller_Employees implements Initializable {
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.setTitle("Edit Employee");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setResizable(false);
         stage.show();
     }
 
@@ -201,6 +207,8 @@ public class Controller_Employees implements Initializable {
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.setTitle("Tasks");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setResizable(false);
         stage.show();
     }
 
