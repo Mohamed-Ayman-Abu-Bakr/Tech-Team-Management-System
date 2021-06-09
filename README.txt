@@ -2,7 +2,7 @@ Extract zip file
 
 Needed Apps: Java JDK 16, Intellij IDE
 
-After extracting the zip file open Intellij and select open project and then select the folder you extracted
+After extracting the zip file then open Intellij and then select open project and then select the folder you extracted
 
 You won't need to include any libraries
 
