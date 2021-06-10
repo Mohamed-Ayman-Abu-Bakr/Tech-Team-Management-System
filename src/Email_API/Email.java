@@ -100,7 +100,7 @@ public class Email {
                 "Project Type: " + type + "\n" +
                 "Total Cost: " + cost + " EGP";
         try {
-            send_Email(recipient,subject,text,"Project Modification Incoice");
+            send_Email(recipient,subject,text,"Project Modification Invoice");
         } catch (Exception ex) {
             Popup_Window.error("Couldn't send Project Update Email");
         }

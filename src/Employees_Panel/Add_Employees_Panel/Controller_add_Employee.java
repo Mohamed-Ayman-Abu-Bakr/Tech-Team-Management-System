@@ -54,7 +54,6 @@ public class Controller_add_Employee implements Initializable {
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.get() == ButtonType.YES){
-
             try {
                 Employees.addEmployee(name.getText(),email.getText(),phone.getText(),birthdate.getValue().toString(),dropdown_position.getValue());
                 closeStage();

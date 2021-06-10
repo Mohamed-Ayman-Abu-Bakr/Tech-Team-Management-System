@@ -12,7 +12,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import java.net.URL;
-import java.sql.*;
 import java.util.ResourceBundle;
 
 public class Controller_Clients implements Initializable {
@@ -52,9 +51,6 @@ public class Controller_Clients implements Initializable {
 
     ObservableList<Clients> listP;
     int index = -1;
-    Connection con = null;
-    ResultSet rs = null;
-    PreparedStatement pst = null;
 
     @Override
     public void initialize(URL url, ResourceBundle rb)  {

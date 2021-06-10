@@ -11,7 +11,7 @@ public class Data_Validation {
         }
     }
     public static void checkEmail(String email) throws InvalidEmailException {
-        String regex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+        String regex = "^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
         if(email.isEmpty()){
             throw new InvalidEmailException("Email field cannot be empty");
         }
@@ -34,7 +34,7 @@ public class Data_Validation {
         }
     }
     public static void checkNum(String num) throws InvalidNumberException {
-        String regex = "^01[0-2,5]{1}[0-9]{8}$";
+        String regex = "^01[0-2,5][0-9]{8}$";
         if(!num.matches(regex)){
             throw new InvalidNumberException("Invalid Number");
         }

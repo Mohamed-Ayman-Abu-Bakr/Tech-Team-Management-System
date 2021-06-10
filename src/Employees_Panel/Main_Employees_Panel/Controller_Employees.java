@@ -14,7 +14,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.IOException;
@@ -220,7 +219,7 @@ public class Controller_Employees implements Initializable {
     }
 
     @FXML
-    void getSelected (MouseEvent event) {
+    void getSelected () {
         employee_selected = table_employees.getSelectionModel().getSelectedItem();
     }
 

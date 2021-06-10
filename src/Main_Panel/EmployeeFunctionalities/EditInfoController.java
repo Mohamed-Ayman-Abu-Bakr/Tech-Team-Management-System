@@ -73,7 +73,7 @@ public class EditInfoController implements Initializable {
         String Pass= editPass.getText();
         String email= editEmail.getText();
         String number= editNum.getText();
-        if (uName.isEmpty() || Pass.isEmpty()|| email.isEmpty() || number.isEmpty() || uName.isEmpty()){
+        if (uName.isEmpty() || Pass.isEmpty()|| email.isEmpty() || number.isEmpty()){
             Alert empty=new Alert(Alert.AlertType.ERROR);
             empty.setContentText("Please fill all the required fields");
             empty.setHeaderText("Error");
