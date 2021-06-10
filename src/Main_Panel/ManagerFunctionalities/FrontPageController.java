@@ -16,6 +16,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -40,6 +41,7 @@ public class FrontPageController implements Initializable {
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.setTitle("Projects");
+        stage.initModality(Modality.APPLICATION_MODAL);
         stage.setResizable(false);
         stage.show();
     }
@@ -52,6 +54,7 @@ public class FrontPageController implements Initializable {
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.setTitle("Clients");
+        stage.initModality(Modality.APPLICATION_MODAL);
         stage.setResizable(false);
         stage.show();
     }
@@ -64,6 +67,7 @@ public class FrontPageController implements Initializable {
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.setTitle("Employees");
+        stage.initModality(Modality.APPLICATION_MODAL);
         stage.setResizable(false);
         stage.show();
     }
@@ -76,6 +80,7 @@ public class FrontPageController implements Initializable {
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.setTitle("Meetings");
+        stage.initModality(Modality.APPLICATION_MODAL);
         stage.setResizable(false);
         stage.show();
     }
@@ -87,6 +92,7 @@ public class FrontPageController implements Initializable {
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.setTitle("Tasks");
+        stage.initModality(Modality.APPLICATION_MODAL);
         stage.setResizable(false);
         stage.show();
     }
