@@ -45,23 +45,18 @@ public class Email {
     public static void send_Email(String recipient, String subject, String text,String type) throws MessagingException, InvalidEmailException {
         Data_Validation.checkEmail(recipient);
         setup_email();
-        try {
-            if (recipient.isEmpty()) {
-                Alert empty = new Alert(Alert.AlertType.ERROR);
-                empty.setContentText("Please fill the recipient field");
-                empty.setHeaderText("Alert");
-                empty.showAndWait();
-            }
-            message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
-            message.setSubject(subject);
-            String email_text = text;
-            message.setContent(email_text, "text/plain");
-            Transport.send(message);
-            Popup_Window.confirmation(type + "Email Sent Successfully","Send Email");
-            //System.out.println("Message sent successfully");
-        } catch (Exception ex) {
-            throw ex;
+        if (recipient.isEmpty()) {
+            Alert empty = new Alert(Alert.AlertType.ERROR);
+            empty.setContentText("Please fill the recipient field");
+            empty.setHeaderText("Alert");
+            empty.showAndWait();
         }
+        message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
+        message.setSubject(subject);
+        message.setContent(text, "text/plain");
+        Transport.send(message);
+        Popup_Window.confirmation(type + "Email Sent Successfully","Send Email");
+        //System.out.println("Message sent successfully");
     }
 
 
@@ -82,6 +77,7 @@ public class Email {
                 "Project Name: " + project_name + "\n" +
                 "Project Description: " + description + "\n" +
                 "Project Type: " + type + "\n" +
+                "Project Delivery Date: " + delivery_date + "\n" +
                 "Total Cost: " + cost + " EGP";
         try {
             send_Email(recipient,subject,text,"Project Creation Invoice");
@@ -98,6 +94,7 @@ public class Email {
                 "Project Name: " + project_name + "\n" +
                 "Project Description: " + description + "\n" +
                 "Project Type: " + type + "\n" +
+                "Project Delivery Date: " + delivery_date + "\n" +
                 "Total Cost: " + cost + " EGP";
         try {
             send_Email(recipient,subject,text,"Project Modification Invoice");

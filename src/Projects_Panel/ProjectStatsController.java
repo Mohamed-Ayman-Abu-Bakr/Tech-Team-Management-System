@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,16 +29,18 @@ public class ProjectStatsController implements Initializable {
         try {
             Connection con = MySQL_Connector.ConnectDB();
             Statement stmt;  ResultSet rs;
-            stmt = con.createStatement();
+            stmt = Objects.requireNonNull(con).createStatement();
             rs = stmt.executeQuery("SELECT * FROM Projects");
             while (rs.next()){
                 String type = rs.getString("type");
-                if (type.equals("Game")) t.gameCnt=t.getGameCnt()+1;
-                else if (type.equals("Mobile App")) t.mobileAppCnt=t.getMobileAppCnt()+1;
-                else if (type.equals("Desktop App")) t.desktopAppCnt=t.getDesktopAppCnt()+1;
-                else if (type.equals("Web App")) t.webAppCnt=t.getWebAppCnt()+1;
-                else if (type.equals("Embedded Sys. App")) t.EmbeddedSysCnt=t.getEmbeddedSysCnt()+1;
-                else if (type.equals("Data analysis")) t.dataAnalysisCnt=t.getDataAnalysisCnt()+1;
+                switch (type) {
+                    case "Game" -> t.gameCnt = t.getGameCnt() + 1;
+                    case "Mobile App" -> t.mobileAppCnt = t.getMobileAppCnt() + 1;
+                    case "Desktop App" -> t.desktopAppCnt = t.getDesktopAppCnt() + 1;
+                    case "Web App" -> t.webAppCnt = t.getWebAppCnt() + 1;
+                    case "Embedded Sys. App" -> t.EmbeddedSysCnt = t.getEmbeddedSysCnt() + 1;
+                    case "Data analysis" -> t.dataAnalysisCnt = t.getDataAnalysisCnt() + 1;
+                }
             }
             list.add(new PieChart.Data("Game", t.gameCnt));
             list.add(new PieChart.Data("Mobile App", t.mobileAppCnt));

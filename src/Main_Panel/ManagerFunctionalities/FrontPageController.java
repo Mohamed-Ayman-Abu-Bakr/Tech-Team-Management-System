@@ -5,9 +5,6 @@
  */
 package Main_Panel.ManagerFunctionalities;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,9 +12,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import java.io.IOException;
+import java.net.URL;
+import java.util.Objects;
+import java.util.ResourceBundle;
 
 /**
  *
@@ -25,10 +25,7 @@ import javafx.stage.Stage;
  */
 public class FrontPageController implements Initializable {
     
-    @FXML
-    private Label label;
 
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -99,7 +96,7 @@ public class FrontPageController implements Initializable {
 
     @FXML
     private void HandleEditInfo(ActionEvent event) throws IOException {
-        Parent page=FXMLLoader.load(getClass().getResource("EditInfo.fxml"));
+        Parent page=FXMLLoader.load(Objects.requireNonNull(getClass().getResource("EditInfo.fxml")));
         Scene edit= new Scene(page);
         Stage window= (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(edit);
@@ -108,7 +105,7 @@ public class FrontPageController implements Initializable {
 
     @FXML
     private void handleEmails(ActionEvent event) throws Exception {
-        Parent FrontPage=FXMLLoader.load(getClass().getResource("Emails.fxml"));
+        Parent FrontPage=FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Emails.fxml")));
         Scene EmailPage= new Scene(FrontPage);
         Stage window= (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(EmailPage);
@@ -117,7 +114,7 @@ public class FrontPageController implements Initializable {
 
     @FXML
     private void signOut(ActionEvent event) throws Exception {
-        Parent FrontPage=FXMLLoader.load(getClass().getResource("../Login/LoginPage.fxml"));
+        Parent FrontPage=FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../Login/LoginPage.fxml")));
         Scene LoginPage= new Scene(FrontPage);
         Stage window= (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(LoginPage);

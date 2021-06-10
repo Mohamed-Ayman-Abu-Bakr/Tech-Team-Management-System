@@ -10,13 +10,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Date;
+import java.util.Objects;
 
 
 public class Tasks {
-private int task_id,employee_id;
-private String task_name,task_description;
-private Date deadline_date;
-private String task_status;
+private final int task_id,employee_id;
+private final String task_name,task_description;
+private final Date deadline_date;
+private final String task_status;
 
     public Tasks(int task_id, int employee_id, String task_name, String task_description, Date deadline_date, String task_status) {
         this.task_id = task_id;
@@ -24,30 +25,6 @@ private String task_status;
         this.task_name = task_name;
         this.task_description = task_description;
         this.deadline_date = deadline_date;
-        this.task_status = task_status;
-    }
-
-    public void setTask_id(int task_id) {
-        this.task_id = task_id;
-    }
-
-    public void setEmployee_id(int employee_id) {
-        this.employee_id = employee_id;
-    }
-
-    public void setTask_name(String task_name) {
-        this.task_name = task_name;
-    }
-
-    public void setTask_description(String task_description) {
-        this.task_description = task_description;
-    }
-
-    public void setDeadline_date(Date deadline_date) {
-        this.deadline_date = deadline_date;
-    }
-
-    public void setTask_status(String task_status) {
         this.task_status = task_status;
     }
 
@@ -77,7 +54,7 @@ private String task_status;
 
 
 
-    private static ObservableList<String> Tasks_Status = FXCollections.observableArrayList("Not Done","In Progress", "Done");
+    private static final ObservableList<String> Tasks_Status = FXCollections.observableArrayList("Not Done","In Progress", "Done");
 
     public static ObservableList<String> getTasks_Status() {
         return Tasks_Status;
@@ -87,7 +64,7 @@ private String task_status;
         Connection conn = MySQL_Connector.ConnectDB();
         ObservableList<Tasks> list = FXCollections.observableArrayList();
         try {
-            PreparedStatement ps = conn.prepareStatement("SELECT * FROM Tasks");
+            PreparedStatement ps = Objects.requireNonNull(conn).prepareStatement("SELECT * FROM Tasks");
             ResultSet rs = ps.executeQuery();
 
             while(rs.next()) {
@@ -109,7 +86,7 @@ private String task_status;
         Connection conn = MySQL_Connector.ConnectDB();
         String sql = "INSERT INTO Tasks (employee_id,task_name,task_description,deadline_date) VALUES (?,?,?,?)";
         try {
-            PreparedStatement pst = conn.prepareStatement(sql);
+            PreparedStatement pst = Objects.requireNonNull(conn).prepareStatement(sql);
             pst.setString(1,employee_id);
             pst.setString(2,task_name);
             pst.setString(3,task_description);
@@ -125,7 +102,7 @@ private String task_status;
         Connection conn = MySQL_Connector.ConnectDB();
         String sql = "DELETE FROM Tasks WHERE task_id = '"+id+"'";
         try {
-            PreparedStatement pst = conn.prepareStatement(sql);
+            PreparedStatement pst = Objects.requireNonNull(conn).prepareStatement(sql);
 
             pst.execute();
             Popup_Window.confirmation("Task Deleted Successfully","Delete Task");
@@ -142,7 +119,7 @@ private String task_status;
             Connection conn = MySQL_Connector.ConnectDB();
             String sql = "UPDATE Tasks SET task_name = '"+new_name+"', task_description = '"+new_description+"', deadline_date = '"+new_deadline+"' WHERE task_id = '"+id+"' ";
 
-            PreparedStatement pst = conn.prepareCall(sql);
+            PreparedStatement pst = Objects.requireNonNull(conn).prepareCall(sql);
             pst.execute();
             Popup_Window.confirmation("Task Updated Successfully","Update Task");
         }
@@ -156,7 +133,7 @@ private String task_status;
             Connection conn = MySQL_Connector.ConnectDB();
             String sql = "UPDATE Tasks SET task_status = '"+new_status+"' WHERE task_id = '"+this.getTask_id()+"' ";
 
-            PreparedStatement pst = conn.prepareCall(sql);
+            PreparedStatement pst = Objects.requireNonNull(conn).prepareCall(sql);
             pst.execute();
             Popup_Window.confirmation("Task Status Updated Successfully","Task Status");
         }

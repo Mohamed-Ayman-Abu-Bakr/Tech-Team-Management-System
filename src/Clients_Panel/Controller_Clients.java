@@ -4,9 +4,11 @@ import Exceptions.InvalidAddressException;
 import Exceptions.InvalidEmailException;
 import Exceptions.InvalidNameException;
 import Exceptions.InvalidNumberException;
+import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TableColumn;
@@ -15,6 +17,12 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Controller_Clients implements Initializable {
+
+    @FXML
+    private Button btn_Update;
+
+    @FXML
+    private Button btn_delete;
 
     @FXML
     private TextField id;
@@ -55,13 +63,14 @@ public class Controller_Clients implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb)  {
         System.out.println("controller initialized");
-        table_id.setCellValueFactory(new PropertyValueFactory<Clients, Integer>("id"));
-        table_name.setCellValueFactory(new PropertyValueFactory<Clients, String>("Name"));
-        table_email.setCellValueFactory(new PropertyValueFactory<Clients, String>("Email"));
-        table_num.setCellValueFactory(new PropertyValueFactory<Clients, String>("Num"));
-        table_add.setCellValueFactory(new PropertyValueFactory<Clients, String>("Address"));
+        table_id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        table_name.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        table_email.setCellValueFactory(new PropertyValueFactory<>("Email"));
+        table_num.setCellValueFactory(new PropertyValueFactory<>("Num"));
+        table_add.setCellValueFactory(new PropertyValueFactory<>("Address"));
         listP = Clients.getClients();
         table_clients.setItems(listP);
+        enableButtons();
     }
 
 
@@ -73,24 +82,23 @@ public class Controller_Clients implements Initializable {
 
         try {
             Clients.add_Client(Cname,Cadd,Cnum,Cemail);
-        } catch (InvalidNameException e) {
-        } catch (InvalidAddressException e) {
-        } catch (InvalidNumberException e) {
-        } catch (InvalidEmailException e) {
+        } catch (InvalidNameException | InvalidAddressException | InvalidNumberException | InvalidEmailException e) {
+            System.out.println(e);
         }
         UpdateTable();
+        resetValues();
     }
 
-    public void getSelected(javafx.scene.input.MouseEvent mouseEvent) {
+    public void getSelected() {
         index = table_clients.getSelectionModel().getSelectedIndex();
         if(index <= -1) {
             return;
         }
         id.setText(table_id.getCellData(index).toString());
-        name.setText(table_name.getCellData(index).toString());
-        email.setText(table_email.getCellData(index).toString());
-        number.setText(table_num.getCellData(index).toString());
-        address.setText(table_add.getCellData(index).toString());
+        name.setText(table_name.getCellData(index));
+        email.setText(table_email.getCellData(index));
+        number.setText(table_num.getCellData(index));
+        address.setText(table_add.getCellData(index));
     }
 
     public void edit(){
@@ -101,27 +109,39 @@ public class Controller_Clients implements Initializable {
         String v5 = address.getText();
         try {
             Clients.edit_Client(v1,v2,v3,v4,v5);
-        } catch (InvalidNameException e) {
-        } catch (InvalidAddressException e) {
-        } catch (InvalidNumberException e) {
-        } catch (InvalidEmailException e) {
+        } catch (InvalidNameException | InvalidAddressException | InvalidNumberException | InvalidEmailException e) {
+            System.out.println(e);
         }
         UpdateTable();
     }
 
     public void UpdateTable(){
-        table_id.setCellValueFactory(new PropertyValueFactory<Clients, Integer>("id"));
-        table_name.setCellValueFactory(new PropertyValueFactory<Clients, String>("Name"));
-        table_email.setCellValueFactory(new PropertyValueFactory<Clients, String>("Email"));
-        table_num.setCellValueFactory(new PropertyValueFactory<Clients, String>("Num"));
-        table_add.setCellValueFactory(new PropertyValueFactory<Clients, String>("Address"));
+        table_id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        table_name.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        table_email.setCellValueFactory(new PropertyValueFactory<>("Email"));
+        table_num.setCellValueFactory(new PropertyValueFactory<>("Num"));
+        table_add.setCellValueFactory(new PropertyValueFactory<>("Address"));
         listP = Clients.getClients();
         table_clients.setItems(listP);
     }
 
+    public void enableButtons(){
+        btn_Update.disableProperty().bind(Bindings.isEmpty(table_clients.getSelectionModel().getSelectedItems()));
+        btn_delete.disableProperty().bind(Bindings.isEmpty(table_clients.getSelectionModel().getSelectedItems()));
+    }
+    public void resetValues(){
+        id.setText("");
+        name.setText("");
+        email.setText("");
+        number.setText("");
+        address.setText("");
+    }
+
+
     public void delete(){
         Clients.delete_Client(id.getText());
         UpdateTable();
+        resetValues();
     }
 
 

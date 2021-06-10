@@ -10,40 +10,20 @@ import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Objects;
 
 
 public class Meetings {
-    private String Title;
-    private String Day;
-    private String Time;
-    private String Department;
-    private int id;
+    private final String Title;
+    private final String Day;
+    private final String Time;
+    private final String Department;
+    private final int id;
 
-    private static ObservableList<String> departments = Departments.getDepartments();
-
-    public void setId(int id) {
-        this.id = id;
-    }
+    private static final ObservableList<String> departments = Departments.getDepartments();
 
     public int getId() {
         return id;
-    }
-
-
-    public void setTitle(String title) {
-        Title = title;
-    }
-
-    public void setDay(String day) {
-        Day = day;
-    }
-
-    public void setTime(String time) {
-        Time = time;
-    }
-
-    public void setDepartment(String department) {
-        Department = department;
     }
 
     public String getTitle() {
@@ -77,7 +57,7 @@ public class Meetings {
         ObservableList <Meetings> list  = FXCollections.observableArrayList();
 
         try{
-            PreparedStatement ps = con.prepareStatement("select * from meetings");
+            PreparedStatement ps = Objects.requireNonNull(con).prepareStatement("select * from meetings");
             ResultSet rs = ps.executeQuery();
 
             while(rs.next())  {
@@ -95,7 +75,7 @@ public class Meetings {
         return list;
     }
 
-    public static void add_Meeting(String Title, String Day,String Time,String Department, String id) throws EmptyInputException, InvalidDateException, InvalidTimeException {
+    public static void add_Meeting(String Title, String Day,String Time,String Department) throws EmptyInputException, InvalidDateException, InvalidTimeException {
         Data_Validation.checkTitle(Title);
         Data_Validation.checkDate(Day);
         Data_Validation.checkTime(Time);
@@ -103,7 +83,7 @@ public class Meetings {
         String sql = "insert into meetings (Title, Day, Time, Department) values (?, ?, ? , ?)";
 
         try {
-            PreparedStatement pst = con.prepareStatement(sql);
+            PreparedStatement pst = Objects.requireNonNull(con).prepareStatement(sql);
             pst.setString(1, Title);
             pst.setString(2, Day);
             pst.setString(3, Time);
@@ -126,7 +106,7 @@ public class Meetings {
         String sql = "update meetings set Title = ?, Day = ?, Time = ?, Department = ?, id = ? WHERE id = ? ";
 
         try{
-            PreparedStatement pst = con.prepareStatement(sql);
+            PreparedStatement pst = Objects.requireNonNull(con).prepareStatement(sql);
             pst.setString(1, Title);
             pst.setString(2, Day);
             pst.setString(3, Time);
@@ -145,7 +125,7 @@ public class Meetings {
         String sql = "delete from meetings where id = ?";
 
         try {
-            PreparedStatement pst = con.prepareStatement(sql);
+            PreparedStatement pst = Objects.requireNonNull(con).prepareStatement(sql);
             pst.setString(1, id);
             pst.execute();
             Popup_Window.confirmation("Meeting Deleted Successfully","Meeting Delete");
@@ -154,5 +134,6 @@ public class Meetings {
             Popup_Window.error("Cannot Delete Meeting");
         }
     }
+
 
 }

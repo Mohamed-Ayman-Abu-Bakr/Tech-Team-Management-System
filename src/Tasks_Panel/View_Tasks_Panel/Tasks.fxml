@@ -3,29 +3,34 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="522.0" prefWidth="756.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Tasks_Panel.View_Tasks_Panel.Controller_Tasks">
-   <children>
-      <AnchorPane prefHeight="522.0" prefWidth="225.0" style="-fx-background-color: #28252e;">
-         <children>
-            <Button fx:id="btn_Update" layoutX="79.0" layoutY="415.0" mnemonicParsing="false" onAction="#Update_Tasks" style="-fx-background-color: Orange;" text="Update" />
-            <Button fx:id="btn_delete" layoutX="79.0" layoutY="470.0" mnemonicParsing="false" onAction="#Delete_Tasks" prefHeight="25.0" prefWidth="55.0" style="-fx-background-color: violet;" text="Delete" />
-            <TextField fx:id="txt_task_id" disable="true" layoutX="32.0" layoutY="14.0" promptText="Task ID" />
-            <TextField fx:id="txt_employee_id" disable="true" layoutX="32.0" layoutY="65.0" promptText="Employee ID" />
-            <TextField fx:id="txt_task_name" layoutX="32.0" layoutY="125.0" promptText="Task Name" />
-            <TextField fx:id="txt_task_description" layoutX="32.0" layoutY="176.0" promptText="Task Description" />
-            <DatePicker fx:id="txt_deadline_date" layoutX="32.0" layoutY="230.0" prefHeight="25.0" prefWidth="149.0" promptText="Deadline Date" />
-            <Button layoutX="55.0" layoutY="342.0" mnemonicParsing="false" onAction="#DownloadTasks" text="Download Tasks" />
-         </children></AnchorPane>
-      <TableView fx:id="table_tasks" layoutX="225.0" layoutY="59.0" onMouseClicked="#getSelected" onSort="#Delete_Tasks" prefHeight="463.0" prefWidth="530.0">
-        <columns>
-          <TableColumn fx:id="col_task_id" prefWidth="75.0" text="Task ID" />
-          <TableColumn fx:id="col_employee_id" prefWidth="75.0" text="Employee ID" />
-            <TableColumn fx:id="col_task_name" prefWidth="75.0" text="Task name " />
-            <TableColumn fx:id="col_task_description" prefWidth="103.0" text="Task Description" />
-            <TableColumn fx:id="col_deadline_date" prefWidth="105.0" text="Deadline Date" />
-            <TableColumn fx:id="col_task_status" prefWidth="96.0" text="Task Status" />
-        </columns>
-      </TableView>
-      <TextField fx:id="filterField" layoutX="357.0" layoutY="22.0" prefHeight="25.0" prefWidth="256.0" promptText="Search" />
-   </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="522.0"
+            prefWidth="756.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="Tasks_Panel.View_Tasks_Panel.Controller_Tasks">
+    <AnchorPane prefHeight="522.0" prefWidth="225.0" style="-fx-background-color: #28252e;">
+        <Button fx:id="btn_Update" layoutX="79.0" layoutY="415.0" mnemonicParsing="false" onAction="#Update_Tasks"
+                style="-fx-background-color: Orange;" text="Update"/>
+        <Button fx:id="btn_delete" layoutX="79.0" layoutY="470.0" mnemonicParsing="false" onAction="#Delete_Tasks"
+                prefHeight="25.0" prefWidth="55.0" style="-fx-background-color: violet;" text="Delete"/>
+        <TextField fx:id="txt_task_id" disable="true" layoutX="32.0" layoutY="14.0" promptText="Task ID"/>
+        <TextField fx:id="txt_employee_id" disable="true" layoutX="32.0" layoutY="65.0" promptText="Employee ID"/>
+        <TextField fx:id="txt_task_name" layoutX="32.0" layoutY="125.0" promptText="Task Name"/>
+        <TextField fx:id="txt_task_description" layoutX="32.0" layoutY="176.0" promptText="Task Description"/>
+        <DatePicker fx:id="txt_deadline_date" layoutX="32.0" layoutY="230.0" prefHeight="25.0" prefWidth="149.0"
+                    promptText="Deadline Date"/>
+        <Button layoutX="55.0" layoutY="342.0" mnemonicParsing="false" onAction="#DownloadTasks"
+                text="Download Tasks"/>
+    </AnchorPane>
+    <TableView fx:id="table_tasks" layoutX="225.0" layoutY="59.0" onMouseClicked="#getSelected" onSort="#Delete_Tasks"
+               prefHeight="463.0" prefWidth="530.0">
+      <columns>
+          <TableColumn fx:id="col_task_id" prefWidth="75.0" text="Task ID"/>
+          <TableColumn fx:id="col_employee_id" prefWidth="75.0" text="Employee ID"/>
+          <TableColumn fx:id="col_task_name" prefWidth="75.0" text="Task name "/>
+          <TableColumn fx:id="col_task_description" prefWidth="103.0" text="Task Description"/>
+          <TableColumn fx:id="col_deadline_date" prefWidth="105.0" text="Deadline Date"/>
+          <TableColumn fx:id="col_task_status" prefWidth="96.0" text="Task Status"/>
+      </columns>
+    </TableView>
+    <TextField fx:id="filterField" layoutX="357.0" layoutY="22.0" prefHeight="25.0" prefWidth="256.0"
+               promptText="Search"/>
 </AnchorPane>

@@ -10,6 +10,7 @@ import Exceptions.InvalidEmailException;
 import com.jfoenix.controls.JFXTextArea;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -45,13 +46,14 @@ public class EmailsController implements Initializable {
     }    
 
     @FXML
-    private void HandleSend(ActionEvent event) {
+    private void HandleSend() {
         try {
             Email.send_Email(txtEmailAddress.getText(),txtSubject.getText(),txtEmail.getText(),"");
             txtEmailAddress.setText("");
             txtSubject.setText("");
             txtEmail.setText("");
         } catch (InvalidEmailException e) {
+            System.out.println(e.getMessage());
         } catch (MessagingException e) {
             e.printStackTrace();
         }
@@ -59,7 +61,7 @@ public class EmailsController implements Initializable {
 
     @FXML
     private void BacktoFront(ActionEvent event) throws IOException {
-        Parent p=FXMLLoader.load(getClass().getResource("FrontPage.fxml"));
+        Parent p=FXMLLoader.load(Objects.requireNonNull(getClass().getResource("FrontPage.fxml")));
         Scene s= new Scene(p);
         Stage window= (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(s);

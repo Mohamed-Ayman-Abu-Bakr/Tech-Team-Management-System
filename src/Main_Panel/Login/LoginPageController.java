@@ -2,13 +2,10 @@
 package Main_Panel.Login;
 
 import Classes.Employees;
-import com.jfoenix.controls.JFXButton;
 import java.net.URL;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.Objects;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,8 +25,7 @@ public class LoginPageController implements Initializable {
     private TextField emailTxtbox;
     @FXML
     private PasswordField passTxtbox;
-    @FXML
-    private JFXButton signInButton;
+
 
     public static Employees employee_login;
     @Override
@@ -85,16 +81,14 @@ public class LoginPageController implements Initializable {
                 else employeeScreen(event);
                 
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(LoginPageController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
-            Logger.getLogger(LoginPageController.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
         }
 
     }
     
     public void managerScreen(ActionEvent event) throws Exception{
-        Parent ReaderLogin=FXMLLoader.load(getClass().getResource("/Main_Panel/ManagerFunctionalities/FrontPage.fxml"));
+        Parent ReaderLogin=FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Main_Panel/ManagerFunctionalities/FrontPage.fxml")));
                 Scene ReaderFunc= new Scene(ReaderLogin);
                 Stage window= (Stage)((Node)event.getSource()).getScene().getWindow();
                 window.setScene(ReaderFunc);
@@ -103,7 +97,7 @@ public class LoginPageController implements Initializable {
     }
     
     public void employeeScreen(ActionEvent event)throws Exception{
-        Parent Login=FXMLLoader.load(getClass().getResource("/Main_Panel/EmployeeFunctionalities/FrontPage.fxml"));
+        Parent Login=FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Main_Panel/EmployeeFunctionalities/FrontPage.fxml")));
         Scene Employee= new Scene(Login);
         Stage window= (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(Employee);

@@ -13,10 +13,12 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.util.Objects;
+
 public class Main extends Application {
       @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/Main_Panel/Login/LoginPage.fxml"));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Main_Panel/Login/LoginPage.fxml")));
         stage.initStyle(StageStyle.DECORATED);
         stage.setResizable(false);
         Scene scene = new Scene(root);

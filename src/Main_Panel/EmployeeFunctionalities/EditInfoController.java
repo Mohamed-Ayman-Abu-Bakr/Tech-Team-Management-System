@@ -7,6 +7,7 @@ package Main_Panel.EmployeeFunctionalities;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import Exceptions.*;
 import javafx.event.ActionEvent;
@@ -67,7 +68,7 @@ public class EditInfoController implements Initializable {
     }    
 
     @FXML
-    private void handleUpdate(ActionEvent event) {
+    private void handleUpdate() {
         String Name= editName.getText();
         String uName= editUname.getText();
         String Pass= editPass.getText();
@@ -81,7 +82,6 @@ public class EditInfoController implements Initializable {
         }
         else{
             try {
-                double d = Double.parseDouble(editNum.getText());
                 employee_login.editEmployee_employee(Name,uName,Pass,email,number);
                 System.out.println("updated");
                 Alert empty=new Alert(Alert.AlertType.INFORMATION);
@@ -94,15 +94,8 @@ public class EditInfoController implements Initializable {
                 invalidInput.setContentText("You can only enter numbers in the phone number field");
                 invalidInput.setHeaderText("Error");
                 invalidInput.showAndWait();   
-                } /*catch (SQLException ex) {
-                Logger.getLogger(EditInfoController.class.getName()).log(Level.SEVERE, null, ex);
-            }*/ catch (InvalidNameException e) {
-            } catch (InvalidNumberException e) {
-            } catch (InvalidDateException e) {
-            } catch (InvalidEmailException e) {
-            } catch (EmptyInputException e) {
-            } catch (InvalidPasswordException e) {
-            } catch (InvalidUsernameException e) {
+                } catch (InvalidNameException | InvalidDateException | InvalidNumberException | InvalidEmailException | EmptyInputException | InvalidPasswordException | InvalidUsernameException e) {
+                System.out.println(e);
             }
         }
         
@@ -111,7 +104,7 @@ public class EditInfoController implements Initializable {
 
     @FXML
     private void backToFront(ActionEvent event) throws IOException {
-        Parent page=FXMLLoader.load(getClass().getResource("FrontPage.fxml"));
+        Parent page=FXMLLoader.load(Objects.requireNonNull(getClass().getResource("FrontPage.fxml")));
         Scene edit= new Scene(page);
         Stage window= (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(edit);

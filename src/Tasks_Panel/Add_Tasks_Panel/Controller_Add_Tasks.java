@@ -4,6 +4,7 @@ import Classes.Employees;
 import Classes.Tasks;
 import Exceptions.EmptyInputException;
 import Exceptions.InvalidDateException;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -80,7 +81,7 @@ public class Controller_Add_Tasks implements Initializable {
   
     
 
-    ObservableList<Tasks> listM =  FXCollections.observableArrayList( new ArrayList<Tasks>() );
+    ObservableList<Tasks> listM =  FXCollections.observableArrayList( new ArrayList<>() );
     ObservableList<Tasks> dataList;
     ObservableList<Tasks> temp;
 
@@ -98,11 +99,11 @@ public class Controller_Add_Tasks implements Initializable {
              Refresh_Tasks();
              Search_Task();
              resetValues();
-         } catch (EmptyInputException e) {
-         } catch (InvalidDateException e) {
+         } catch (EmptyInputException | InvalidDateException e) {
+             System.out.println(e);
          }
 
-    }
+     }
     @FXML
      void getSelected (MouseEvent event) {
 
@@ -112,8 +113,8 @@ public class Controller_Add_Tasks implements Initializable {
          }
          txt_task_id.setText(col_task_id.getCellData(index).toString());
          txt_employee_id.setText(col_employee_id.getCellData(index).toString());
-         txt_task_name.setText(col_task_name.getCellData(index).toString());
-         txt_task_description.setText(col_task_description.getCellData(index).toString());
+         txt_task_name.setText(col_task_name.getCellData(index));
+         txt_task_description.setText(col_task_description.getCellData(index));
          DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
          txt_deadline_date.setValue(LocalDate.from(fmt.parse(col_deadline_date.getCellData(index).toString())));
         enableButtons();
@@ -124,8 +125,8 @@ public class Controller_Add_Tasks implements Initializable {
              Refresh_Tasks();
              Search_Task();
              resetValues();
-         } catch (EmptyInputException e) {
-         } catch (InvalidDateException e) {
+         } catch (EmptyInputException | InvalidDateException e) {
+             System.out.println(e);
          }
 
      }
@@ -136,14 +137,14 @@ public class Controller_Add_Tasks implements Initializable {
      }
      
      public void Refresh_Tasks() {
-        col_task_id.setCellValueFactory(new PropertyValueFactory<Tasks,Integer>("task_id"));
-        col_employee_id.setCellValueFactory(new PropertyValueFactory<Tasks,Integer>("employee_id"));
-        col_task_name.setCellValueFactory(new PropertyValueFactory<Tasks,String>("task_name"));
-        col_task_description.setCellValueFactory(new PropertyValueFactory<Tasks,String>("task_description"));
-        col_deadline_date.setCellValueFactory(new PropertyValueFactory<Tasks,Date>("deadline_date"));
-        col_task_status.setCellValueFactory(new PropertyValueFactory<Tasks,String>("task_status"));
+        col_task_id.setCellValueFactory(new PropertyValueFactory<>("task_id"));
+        col_employee_id.setCellValueFactory(new PropertyValueFactory<>("employee_id"));
+        col_task_name.setCellValueFactory(new PropertyValueFactory<>("task_name"));
+        col_task_description.setCellValueFactory(new PropertyValueFactory<>("task_description"));
+        col_deadline_date.setCellValueFactory(new PropertyValueFactory<>("deadline_date"));
+        col_task_status.setCellValueFactory(new PropertyValueFactory<>("task_status"));
 
-         listM =  FXCollections.observableArrayList( new ArrayList<Tasks>() );
+         listM =  FXCollections.observableArrayList( new ArrayList<>() );
 
         temp= Tasks.getDataTasks();
          for (Tasks t: temp){
@@ -157,41 +158,39 @@ public class Controller_Add_Tasks implements Initializable {
      }
      
      void Search_Task() {
-        col_task_id.setCellValueFactory(new PropertyValueFactory<Tasks,Integer>("task_id"));
-        col_employee_id.setCellValueFactory(new PropertyValueFactory<Tasks,Integer>("employee_id"));
-        col_task_name.setCellValueFactory(new PropertyValueFactory<Tasks,String>("task_name"));
-        col_task_description.setCellValueFactory(new PropertyValueFactory<Tasks,String>("task_description"));
-        col_deadline_date.setCellValueFactory(new PropertyValueFactory<Tasks,Date>("deadline_date"));
-        col_task_status.setCellValueFactory(new PropertyValueFactory<Tasks,String>("task_status"));
+        col_task_id.setCellValueFactory(new PropertyValueFactory<>("task_id"));
+        col_employee_id.setCellValueFactory(new PropertyValueFactory<>("employee_id"));
+        col_task_name.setCellValueFactory(new PropertyValueFactory<>("task_name"));
+        col_task_description.setCellValueFactory(new PropertyValueFactory<>("task_description"));
+        col_deadline_date.setCellValueFactory(new PropertyValueFactory<>("deadline_date"));
+        col_task_status.setCellValueFactory(new PropertyValueFactory<>("task_status"));
         
         dataList = listM;
         table_tasks.setItems(dataList);
         FilteredList <Tasks> filteredData = new FilteredList<> (dataList, b -> true);
-        filterField.textProperty().addListener((observable,oldValue,newValue) -> { filteredData.setPredicate( task ->{
+        filterField.textProperty().addListener((observable,oldValue,newValue) -> filteredData.setPredicate(task ->{
             if(newValue == null || newValue.isEmpty()) {
                 return true;
             }
-            
+
             String lowerCaseFilter = newValue.toLowerCase();
-            
-            if (task.getTask_name().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+
+            if (task.getTask_name().toLowerCase().contains(lowerCaseFilter)) {
                 return true;
-            }  else if(task.getTask_description().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-                return true;
-            }
-            else if (String.valueOf(task.getTask_status()).indexOf(lowerCaseFilter) != -1) {
+            }  else if(task.getTask_description().toLowerCase().contains(lowerCaseFilter)) {
                 return true;
             }
-            else if (String.valueOf(task.getDeadline_date()).indexOf(lowerCaseFilter) != -1) {
+            else if (String.valueOf(task.getTask_status()).contains(lowerCaseFilter)) {
                 return true;
             }
-            
-            else 
+            else if (String.valueOf(task.getDeadline_date()).contains(lowerCaseFilter)) {
+                return true;
+            }
+
+            else
                 return false;
 
-        });
-            
-        });
+        }));
         
         SortedList<Tasks> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(table_tasks.comparatorProperty());
@@ -208,9 +207,8 @@ public class Controller_Add_Tasks implements Initializable {
     }
 
     public void enableButtons(){
-        boolean isDisabled = (txt_task_id.getText().trim().isEmpty());
-        btn_Update.setDisable(isDisabled);
-        btn_delete.setDisable(isDisabled);
+        btn_Update.disableProperty().bind(Bindings.isEmpty(table_tasks.getSelectionModel().getSelectedItems()));
+        btn_delete.disableProperty().bind(Bindings.isEmpty(table_tasks.getSelectionModel().getSelectedItems()));
     }
 
      @Override

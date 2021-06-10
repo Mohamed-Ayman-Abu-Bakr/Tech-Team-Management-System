@@ -52,6 +52,7 @@ public class Controller_edit_Employee implements Initializable {
         dropdown_position.setValue(employee.getPosition());
     }
 
+    @SuppressWarnings("OptionalGetWithoutIsPresent")
     public void editEmployee() throws IOException {
         Alert alert =
                 new Alert(Alert.AlertType.CONFIRMATION,
@@ -71,10 +72,8 @@ public class Controller_edit_Employee implements Initializable {
             try {
                 employee.editEmployee_manager(name.getText(), email.getText(), phone.getText(), birthdate.getValue().toString(), dropdown_position.getValue());
                 closeStage();
-            } catch (InvalidNameException e) {
-            } catch (InvalidEmailException e) {
-            } catch (InvalidNumberException e) {
-            } catch (InvalidDateException e) {
+            } catch (InvalidNameException | InvalidEmailException | InvalidNumberException | InvalidDateException e) {
+                System.out.println(e);
             }
 
         }
@@ -94,7 +93,7 @@ public class Controller_edit_Employee implements Initializable {
 
     }
     public void enableButton(){
-        boolean isDisabled = (name.getText().trim().isEmpty() || email.getText().trim().isEmpty() || phone.getText().trim().isEmpty() || birthdate.getValue().toString().isEmpty() || dropdown_position.getValue() == employee.getPosition() || birthdate.getValue().toString() == employee.getBirthdate());
+        boolean isDisabled = (name.getText().trim().isEmpty() || email.getText().trim().isEmpty() || phone.getText().trim().isEmpty() || birthdate.getValue().toString().isEmpty() || dropdown_position.getValue().equals(employee.getPosition())  || birthdate.getValue().toString().equals(employee.getBirthdate()));
         btn_editEmployee.setDisable(isDisabled);
     }
 

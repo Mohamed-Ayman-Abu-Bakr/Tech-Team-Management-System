@@ -10,18 +10,18 @@ import javafx.collections.ObservableList;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Objects;
 
 public class Projects {
 
-    private int projectId;
-    private String projectTitle;
-    private String dateOfDelivery;
-    private String projectDescription;
-    private int client_id;
+    private final int projectId;
+    private final String projectTitle;
+    private final String dateOfDelivery;
+    private final String projectDescription;
+    private final int client_id;
     private String Type;
-    private int Manager;
-    private float cost;
-    private String PaymentMethod;
+    private final int Manager;
+    private final float cost;
 
 
     public Projects(int projectId,
@@ -33,7 +33,7 @@ public class Projects {
                     int Manager,
 
 
-                    float cost, String paymentMethod) {
+                    float cost) {
         this.projectId = projectId;
         this.client_id = client_id;
         this.projectTitle = projectTitle;
@@ -42,36 +42,14 @@ public class Projects {
         this.Type = Type;
         this.Manager = Manager;
         this.cost = cost;
-        PaymentMethod = paymentMethod;
     }
 
-    public void setProjectId(int projectId) {
-        this.projectId = projectId;
-    }
 
-    public void setProjectTitle(String projectTitle) {
-        this.projectTitle = projectTitle;
-    }
-
-    public void setDateOfDelivery(String dateOfDelivery) {
-        this.dateOfDelivery = dateOfDelivery;
-    }
-
-    public void setProjectDescription(String projectDescription) {
-        this.projectDescription = projectDescription;
-    }
-
-    public void setClient_name(int client_id) {
-        this.client_id = client_id;
-    }
 
     public void setType(String Type) {
         this.Type = Type;
     }
 
-    public void setManager(int Manager) {
-        this.Manager = Manager;
-    }
 
     public int getProjectId() {
         return projectId;
@@ -105,11 +83,7 @@ public class Projects {
         return cost;
     }
 
-    public String getPaymentMethod() {
-        return PaymentMethod;
-    }
-
-    private static ObservableList<String> projectTypes = FXCollections.observableArrayList("Game", "Mobile App", "Desktop App", "Web App", "Embedded Sys. App", "Data analysis");
+    private static final ObservableList<String> projectTypes = FXCollections.observableArrayList("Game", "Mobile App", "Desktop App", "Web App", "Embedded Sys. App", "Data analysis");
 
     public static ObservableList<String> getProjectTypes() {
         return projectTypes;
@@ -119,7 +93,7 @@ public class Projects {
         Connection con = MySQL_Connector.ConnectDB();
         ObservableList<Projects> list = FXCollections.observableArrayList();
         try{
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM sql4409579.Projects");
+            PreparedStatement ps = Objects.requireNonNull(con).prepareStatement("SELECT * FROM sql4409579.Projects");
             ResultSet rs = ps.executeQuery();
             System.out.println("getDataProjects success");
 
@@ -134,7 +108,6 @@ public class Projects {
                                 ,rs.getInt("client_name")
                                 ,rs.getInt("Manager_name")
                                 ,rs.getFloat("cost")
-                                ,rs.getString("Payment_method")
                         )
 
                 );
@@ -156,7 +129,7 @@ public class Projects {
         String sql = "INSERT INTO sql4409579.Projects (title,projectDescription,date,type,client_name,Manager_name,cost)values(?,?,?,?,?,?,?)";
         if (client != null && manager_name != null) {
             try {
-                PreparedStatement pst = con.prepareStatement(sql);
+                PreparedStatement pst = Objects.requireNonNull(con).prepareStatement(sql);
                 pst.setString(1, title);
                 pst.setString(2, projectDescription);
                 pst.setString(3, date);
@@ -176,7 +149,7 @@ public class Projects {
 
         } else if (manager_name == null && client != null) {
             Popup_Window.error("Manager doesn't exist");
-        } else if (client == null && manager_name != null) {
+        } else if (manager_name != null) {
             Popup_Window.error("Client doesn't exist");
         } else {
             Popup_Window.error("Both Manager and Client don't exist");
@@ -190,7 +163,7 @@ public class Projects {
         String sql = "DELETE FROM sql4409579.Projects WHERE id=" + this.getProjectId() + ";";
 
         try {
-            PreparedStatement pst = con.prepareStatement(sql);
+            PreparedStatement pst = Objects.requireNonNull(con).prepareStatement(sql);
             pst.execute();
 
         } catch (Exception e) {
@@ -214,7 +187,7 @@ public class Projects {
         if (client != null && manager_name != null) {
             try {
                 PreparedStatement pst;
-                pst = con.prepareStatement(sql);
+                pst = Objects.requireNonNull(con).prepareStatement(sql);
                 pst.setString(1, title);
                 pst.setString(2, projectDescription);
                 pst.setString(3, date);
@@ -233,7 +206,7 @@ public class Projects {
 
         } else if (client == null && manager_name != null) {
             Popup_Window.error("Manager doesn't exist");
-        } else if (client != null && manager_name == null) {
+        } else if (client != null) {
             Popup_Window.error("Client doesn't exist");
         } else {
             Popup_Window.error("Both Manager and Client don't exist");

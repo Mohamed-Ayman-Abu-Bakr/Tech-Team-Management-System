@@ -53,14 +53,13 @@ public class Controller_add_Employee implements Initializable {
         alert.setTitle("Delete Employee warning");
         Optional<ButtonType> result = alert.showAndWait();
 
-        if (result.get() == ButtonType.YES){
+
+        if (result.isPresent() && result.get() == ButtonType.YES){
             try {
                 Employees.addEmployee(name.getText(),email.getText(),phone.getText(),birthdate.getValue().toString(),dropdown_position.getValue());
                 closeStage();
-            } catch (InvalidNameException e) {
-            } catch (InvalidEmailException e) {
-            } catch (InvalidNumberException e) {
-            } catch (InvalidDateException e) {
+            } catch (InvalidNameException | InvalidEmailException | InvalidNumberException | InvalidDateException e) {
+                System.out.println(e);
             }
         }
     }

@@ -19,6 +19,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 import static Main_Panel.Login.LoginPageController.employee_login;
@@ -68,13 +69,13 @@ public class EditInfoController implements Initializable {
     }    
 
     @FXML
-    private void handleUpdate(ActionEvent event) {
+    private void handleUpdate() {
         String Name= editName.getText();
         String uName= editUname.getText();
         String Pass= editPass.getText();
         String email= editEmail.getText();
         String number= editNum.getText();
-        if (uName.isEmpty() || Pass.isEmpty()|| email.isEmpty() || number.isEmpty() || uName.isEmpty()){
+        if (uName.isEmpty() || Pass.isEmpty()|| email.isEmpty() || number.isEmpty()){
             Alert empty=new Alert(Alert.AlertType.ERROR);
             empty.setContentText("Please fill all the required fields");
             empty.setHeaderText("Error");
@@ -82,7 +83,6 @@ public class EditInfoController implements Initializable {
         }
         else{
             try {
-                double d = Double.parseDouble(editNum.getText());
                 employee_login.editEmployee_employee(Name,uName,Pass,email,number);
                 System.out.println("updated");
                 Alert empty=new Alert(Alert.AlertType.INFORMATION);
@@ -90,20 +90,15 @@ public class EditInfoController implements Initializable {
                 empty.setHeaderText("Update");
                 empty.showAndWait(); 
 
-            } catch (InvalidNameException e) {
-            } catch (InvalidNumberException e) {
-            } catch (InvalidDateException e) {
-            } catch (InvalidEmailException e) {
-            } catch (EmptyInputException e) {
-            } catch (InvalidPasswordException e) {
-            } catch (InvalidUsernameException e) {
+            } catch (InvalidNameException | InvalidNumberException | InvalidDateException | InvalidEmailException | EmptyInputException | InvalidPasswordException | InvalidUsernameException e) {
+                System.out.println(e);
             }
         }
     }
 
     @FXML
     private void backToFront(ActionEvent event) throws IOException {
-        Parent page=FXMLLoader.load(getClass().getResource("FrontPage.fxml"));
+        Parent page=FXMLLoader.load(Objects.requireNonNull(getClass().getResource("FrontPage.fxml")));
         Scene edit= new Scene(page);
         Stage window= (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(edit);

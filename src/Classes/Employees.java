@@ -9,12 +9,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Employees {
-    private int id;
-    private String name , username , password , position , email , birthdate, phone;
+    private final int id;
+    private final String name , username , password , position , email , birthdate, phone;
 
     public Employees(int id, String name, String username, String password, String position, String email, String birthdate, String phone) {
         this.id = id;
@@ -27,10 +28,7 @@ public class Employees {
         this.phone = phone;
     }
 
-
-
-    //private static ObservableList<String> positions = FXCollections.observableArrayList("Manager","Developer","Tester");
-    private static ObservableList<String> positions = Departments.getDepartments();
+    private static final ObservableList<String> positions = Departments.getDepartments();
 
 
     public static ObservableList<String> getPositions() {
@@ -81,7 +79,7 @@ public class Employees {
         ResultSet rs= null;
         try {
             Connection con = MySQL_Connector.ConnectDB();
-            PreparedStatement ps = con.prepareStatement("select * from employees");
+            PreparedStatement ps = Objects.requireNonNull(con).prepareStatement("select * from employees");
             rs=ps.executeQuery();
 
         } catch (SQLException ex) {
@@ -112,7 +110,7 @@ public class Employees {
         con = MySQL_Connector.ConnectDB();
         String sql = "UPDATE employees SET password = ? WHERE (id = ?)";
         try {
-            pst = con.prepareStatement(sql);
+            pst = Objects.requireNonNull(con).prepareStatement(sql);
             pst.setString(1, password);
             pst.setString(2, String.valueOf(this.id));
             pst.execute();
@@ -131,7 +129,7 @@ public class Employees {
         con = MySQL_Connector.ConnectDB();
         String sql = "UPDATE employees SET name = ?, email = ?, phone = ?, birthdate = ?, position = ? WHERE (id = ?)";
         try {
-            pst = con.prepareStatement(sql);
+            pst = Objects.requireNonNull(con).prepareStatement(sql);
             pst.setString(1, name);
             pst.setString(2, email);
             pst.setString(3, phone);
@@ -155,7 +153,7 @@ public class Employees {
         con = MySQL_Connector.ConnectDB();
         String sql = "UPDATE employees SET name = ?, username = ?, password = ?, email = ?, phone = ? WHERE (id = ?)";
         try {
-            pst = con.prepareStatement(sql);
+            pst = Objects.requireNonNull(con).prepareStatement(sql);
             pst.setString(1, name);
             pst.setString(2, username);
             pst.setString(3, password);
@@ -180,7 +178,7 @@ public class Employees {
         con = MySQL_Connector.ConnectDB();
         String sql = "insert into employees (name,username,password,email,phone,birthdate,position)Values(?,?,?,?,?,?,?)";
         try {
-            pst = con.prepareStatement(sql);
+            pst = Objects.requireNonNull(con).prepareStatement(sql);
             pst.setString(1,name);
             pst.setString(2,username);
             pst.setString(3,password);
@@ -200,7 +198,7 @@ public class Employees {
         ObservableList<Employees> list = FXCollections.observableArrayList();
 
         try{
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM employees");
+            PreparedStatement ps = Objects.requireNonNull(con).prepareStatement("SELECT * FROM employees");
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()){

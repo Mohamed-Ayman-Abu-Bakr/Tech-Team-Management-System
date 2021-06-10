@@ -8,7 +8,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import static Projects_Panel.Controller_Projects.client;
@@ -41,17 +40,17 @@ public class Client_Pick_Controller implements Initializable {
     int index = -1;
 
     @FXML
-    void select_Employee() throws IOException {
+    void select_Employee() {
         index = table_clients.getSelectionModel().getSelectedIndex();
         if(index <= -1) {
             Popup_Window.error("Please Select a Client");
             return;
         }
-        int id = Integer.valueOf(table_id.getCellData(index).toString()) ;
-        String name = table_name.getCellData(index).toString();
-        String number = table_num.getCellData(index).toString();
-        String email = table_email.getCellData(index).toString();
-        String address = table_add.getCellData(index).toString();
+        int id = Integer.parseInt(table_id.getCellData(index).toString()) ;
+        String name = table_name.getCellData(index);
+        String number = table_num.getCellData(index);
+        String email = table_email.getCellData(index);
+        String address = table_add.getCellData(index);
         client = new Clients(id,name,number,email,address);
         closeStage();
     }
@@ -64,11 +63,11 @@ public class Client_Pick_Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        table_id.setCellValueFactory(new PropertyValueFactory<Clients, Integer>("id"));
-        table_name.setCellValueFactory(new PropertyValueFactory<Clients, String>("Name"));
-        table_email.setCellValueFactory(new PropertyValueFactory<Clients, String>("Email"));
-        table_num.setCellValueFactory(new PropertyValueFactory<Clients, String>("Num"));
-        table_add.setCellValueFactory(new PropertyValueFactory<Clients, String>("Address"));
+        table_id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        table_name.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        table_email.setCellValueFactory(new PropertyValueFactory<>("Email"));
+        table_num.setCellValueFactory(new PropertyValueFactory<>("Num"));
+        table_add.setCellValueFactory(new PropertyValueFactory<>("Address"));
         listP = Clients.getClients();
         table_clients.setItems(listP);
     }

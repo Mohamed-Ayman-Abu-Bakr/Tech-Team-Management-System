@@ -93,7 +93,7 @@ public class Controller_Employees implements Initializable {
         alert.setTitle("Delete Employee warning");
         Optional<ButtonType> result = alert.showAndWait();
 
-        if(result.get()==ButtonType.YES){
+        if(result.isPresent() && result.get()==ButtonType.YES){
                 Employees employee = table_employees.getSelectionModel().getSelectedItem();
                 employee.deleteEmployee();
                 updateTable();
@@ -109,7 +109,7 @@ public class Controller_Employees implements Initializable {
         alert.setTitle("Reset Password warning");
         Optional<ButtonType> result = alert.showAndWait();
 
-        if(result.get()==ButtonType.YES) {
+        if(result.isPresent() && result.get()==ButtonType.YES) {
             Employees employee = table_employees.getSelectionModel().getSelectedItem();
             employee.resetPassword();
         }

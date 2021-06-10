@@ -4,6 +4,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import Classes.Clients;
 import Classes.Popup_Window;
@@ -45,7 +46,7 @@ public class Controller_Projects implements Initializable {
 
     @FXML
     private TableColumn<Projects, Integer> id_column0;
-    //textfields
+    //textFields
     @FXML
     private TextArea description_input;
 
@@ -89,9 +90,8 @@ public class Controller_Projects implements Initializable {
                         ,Cost_input.getText());
                 UpdateTable();
                 resetData();
-            } catch (EmptyInputException e) {
-            } catch (InvalidDateException e) {
-            } catch (InvalidCostException e) {
+            } catch (EmptyInputException | InvalidDateException | InvalidCostException e) {
+                System.out.println(e);
             }
 
         }
@@ -101,8 +101,8 @@ public class Controller_Projects implements Initializable {
     }
 
     public void UpdateTable() {
-        projects_column.setCellValueFactory(new PropertyValueFactory<Projects, String>("projectTitle"));
-        id_column0.setCellValueFactory(new PropertyValueFactory<Projects, Integer>("projectId"));
+        projects_column.setCellValueFactory(new PropertyValueFactory<>("projectTitle"));
+        id_column0.setCellValueFactory(new PropertyValueFactory<>("projectId"));
         listP = Projects.getDataProjects();
         projects_table.setItems(listP);
     }
@@ -169,7 +169,7 @@ public class Controller_Projects implements Initializable {
     }
 
     public void ShowStats(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("ProjectStats.fxml"));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("ProjectStats.fxml")));
 
         Scene scene = new Scene(root);
 
@@ -178,7 +178,7 @@ public class Controller_Projects implements Initializable {
         stage.show();
     }
 
-    public void DownloadProjects(ActionEvent actionEvent) throws IOException {
+    public void DownloadProjects(ActionEvent actionEvent){
         listP=Projects.getDataProjects();
         XSSFWorkbook wb = new XSSFWorkbook();
         XSSFSheet sheet = wb.createSheet("Projects Sheet");

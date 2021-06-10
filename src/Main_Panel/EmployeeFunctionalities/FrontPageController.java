@@ -3,6 +3,7 @@ package Main_Panel.EmployeeFunctionalities;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,7 +30,7 @@ public class FrontPageController implements Initializable {
 
     @FXML
     private void showMeetings(ActionEvent event) throws IOException {
-                Parent ReaderLogin=FXMLLoader.load(getClass().getResource("Meetings.fxml"));
+                Parent ReaderLogin=FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Meetings.fxml")));
                 Scene ReaderFunc= new Scene(ReaderLogin);
                 Stage window= (Stage)((Node)event.getSource()).getScene().getWindow();
                 window.setScene(ReaderFunc);
@@ -38,7 +39,7 @@ public class FrontPageController implements Initializable {
 
     @FXML
     private void showTasks(ActionEvent event) throws IOException {
-        Parent ReaderLogin=FXMLLoader.load(getClass().getResource("Tasks.fxml"));
+        Parent ReaderLogin=FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Tasks.fxml")));
         Scene ReaderFunc= new Scene(ReaderLogin);
         Stage window= (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(ReaderFunc);
@@ -47,7 +48,7 @@ public class FrontPageController implements Initializable {
 
     @FXML
     private void HandleEditInfo(ActionEvent event) throws IOException {
-        Parent page=FXMLLoader.load(getClass().getResource("EditInfo.fxml"));
+        Parent page=FXMLLoader.load(Objects.requireNonNull(getClass().getResource("EditInfo.fxml")));
         Scene edit= new Scene(page);
         Stage window= (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(edit);
@@ -56,7 +57,7 @@ public class FrontPageController implements Initializable {
 
     @FXML
     private void signOut(ActionEvent event) throws IOException {
-        Parent page=FXMLLoader.load(getClass().getResource("../Login/LoginPage.fxml"));
+        Parent page=FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../Login/LoginPage.fxml")));
         Scene edit= new Scene(page);
         Stage window= (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(edit);

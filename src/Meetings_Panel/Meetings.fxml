@@ -12,38 +12,32 @@
 <?import javafx.scene.layout.RowConstraints?>
 
 <GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Meetings_Panel.Controller_Meetings">
-   <columnConstraints>
-      <ColumnConstraints />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints />
-      <RowConstraints />
-   </rowConstraints>
-   <children>
-      <AnchorPane prefHeight="550.0" prefWidth="700.0" GridPane.rowIndex="1">
-         <children>
-            <AnchorPane layoutX="-6.0" layoutY="-23.0" prefHeight="568.0" prefWidth="174.0" style="-fx-background-color: #000000;" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="-6.0" AnchorPane.topAnchor="-23.0">
-               <children>
-                  <Button layoutX="23.0" layoutY="302.0" mnemonicParsing="false" onAction="#addMeeting" prefHeight="38.0" prefWidth="127.0" text="Add" />
-                  <Button layoutX="23.0" layoutY="363.0" mnemonicParsing="false" onAction="#edit" prefHeight="38.0" prefWidth="127.0" text="Update" />
-                  <Button layoutX="23.0" layoutY="424.0" mnemonicParsing="false" onAction="#delete" prefHeight="38.0" prefWidth="127.0" text="Delete" />
-                  <TextField fx:id="txt_title" layoutX="13.0" layoutY="87.0" promptText="Title" />
-                  <TextField fx:id="txt_time" layoutX="14.0" layoutY="190.0" promptText="Time" />
-                  <TextField fx:id="txt_no" disable="true" layoutX="12.0" layoutY="44.0" promptText="Meeting Number" />
-                  <DatePicker fx:id="txt_day" layoutX="14.0" layoutY="135.0" prefHeight="26.0" prefWidth="150.0" promptText="Date" />
-                  <ComboBox fx:id="comb" layoutX="14.0" layoutY="237.0" prefWidth="150.0" promptText="Department" />
-               </children>
-            </AnchorPane>
-            <TableView fx:id="table" layoutX="198.0" layoutY="18.0" onMouseClicked="#getSelected" prefHeight="486.0" prefWidth="479.0">
-              <columns>
-                  <TableColumn fx:id="col_title" prefWidth="79.20001220703125" text="Title" />
-                  <TableColumn fx:id="col_day" prefWidth="96.800048828125" text="Day" />
-                  <TableColumn fx:id="col_time" prefWidth="75.99993896484375" text="Time" />
-                  <TableColumn fx:id="col_type" prefWidth="99.19998168945312" text="Type" />
-                  <TableColumn fx:id="col_id" prefWidth="110.4000244140625" text="Meeting Number" />
-              </columns>
-            </TableView>
-         </children>
-      </AnchorPane>
-   </children>
+    <columnConstraints>
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+        <RowConstraints />
+    </rowConstraints>
+    <AnchorPane prefHeight="550.0" prefWidth="700.0" GridPane.rowIndex="1">
+        <AnchorPane layoutX="-6.0" layoutY="-23.0" prefHeight="568.0" prefWidth="174.0" style="-fx-background-color: #000000;" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="-6.0" AnchorPane.topAnchor="-23.0">
+            <Button layoutX="23.0" layoutY="302.0" mnemonicParsing="false" onAction="#addMeeting" prefHeight="38.0" prefWidth="127.0" text="Add" />
+            <Button fx:id="btn_Update" layoutX="23.0" layoutY="363.0" mnemonicParsing="false" onAction="#edit" prefHeight="38.0" prefWidth="127.0" text="Update" />
+            <Button fx:id="btn_delete" layoutX="23.0" layoutY="424.0" mnemonicParsing="false" onAction="#delete" prefHeight="38.0" prefWidth="127.0" text="Delete" />
+            <TextField fx:id="txt_title" layoutX="13.0" layoutY="87.0" promptText="Title" />
+            <TextField fx:id="txt_time" layoutX="14.0" layoutY="190.0" promptText="Time" />
+            <TextField fx:id="txt_no" disable="true" layoutX="12.0" layoutY="44.0" promptText="Meeting Number" />
+            <DatePicker fx:id="txt_day" layoutX="14.0" layoutY="135.0" prefHeight="26.0" prefWidth="150.0" promptText="Date" />
+            <ComboBox fx:id="comb" layoutX="14.0" layoutY="237.0" prefWidth="150.0" promptText="Department" />
+        </AnchorPane>
+        <TableView fx:id="table" layoutX="198.0" layoutY="18.0" onMouseClicked="#getSelected" prefHeight="486.0" prefWidth="479.0">
+            <columns>
+                <TableColumn fx:id="col_title" prefWidth="79.20001220703125" text="Title" />
+                <TableColumn fx:id="col_day" prefWidth="96.800048828125" text="Day" />
+                <TableColumn fx:id="col_time" prefWidth="75.99993896484375" text="Time" />
+                <TableColumn fx:id="col_type" prefWidth="99.19998168945312" text="Type" />
+                <TableColumn fx:id="col_id" prefWidth="110.4000244140625" text="Meeting Number" />
+            </columns>
+        </TableView>
+    </AnchorPane>
 </GridPane>
