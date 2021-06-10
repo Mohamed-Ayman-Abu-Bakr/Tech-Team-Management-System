@@ -17,10 +17,10 @@
       <RowConstraints />
    </rowConstraints>
    <children>
-      <AnchorPane prefHeight="550.0" prefWidth="700.0" GridPane.rowIndex="1">
+      <AnchorPane prefHeight="532.0" prefWidth="700.0" GridPane.rowIndex="1">
          <children>
             <AnchorPane layoutX="-6.0" layoutY="-23.0" prefHeight="568.0" prefWidth="7.0" style="-fx-background-color: #000000;" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="-6.0" AnchorPane.topAnchor="-23.0" />
-            <TableView fx:id="table" layoutX="3.0" layoutY="18.0" onMouseClicked="#getSelected" prefHeight="486.0" prefWidth="674.0">
+            <TableView fx:id="table" layoutX="13.0" layoutY="32.0" onMouseClicked="#getSelected" prefHeight="486.0" prefWidth="674.0">
               <columns>
                   <TableColumn fx:id="col_title" prefWidth="119.33334589004517" text="Title" />
                   <TableColumn fx:id="col_day" prefWidth="141.3333511352539" text="Day" />

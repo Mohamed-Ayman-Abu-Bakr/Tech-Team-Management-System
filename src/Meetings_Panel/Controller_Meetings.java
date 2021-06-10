@@ -132,7 +132,8 @@ public class Controller_Meetings implements Initializable {
 
     public void resetData(){
         txt_title.setText("");
-        txt_day.setValue(LocalDate.of(2000,1,1));
+        LocalDate.now();
+        txt_day.setValue(LocalDate.now());
         txt_time.setText("");
         comb.setValue("Development");
         txt_no.setText("");

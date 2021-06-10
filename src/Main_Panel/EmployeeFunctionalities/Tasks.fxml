@@ -21,7 +21,7 @@
       <AnchorPane prefHeight="550.0" prefWidth="700.0" GridPane.rowIndex="1">
          <children>
             <AnchorPane layoutX="-6.0" layoutY="-23.0" prefHeight="568.0" prefWidth="7.0" style="-fx-background-color: #000000;" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="-6.0" AnchorPane.topAnchor="-23.0" />
-            <TableView fx:id="table" layoutX="3.0" layoutY="18.0" onMouseClicked="#getSelected" prefHeight="486.0" prefWidth="674.0">
+            <TableView fx:id="table" layoutX="11.0" layoutY="31.0" onMouseClicked="#getSelected" prefHeight="472.0" prefWidth="678.0">
               <columns>
                   <TableColumn fx:id="col_name" prefWidth="128.0" text="Task Name" />
                   <TableColumn fx:id="col_description" prefWidth="286.0" text="Task Description" />

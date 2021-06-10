@@ -203,7 +203,7 @@ public class Controller_Add_Tasks implements Initializable {
         txt_task_name.setText("");
         txt_employee_id.setText(String.valueOf(employee.getId()));
         txt_task_description.setText("");
-        txt_deadline_date.setValue(LocalDate.of(2000,1,1));
+        txt_deadline_date.setValue(LocalDate.now());
         enableButtons();
     }
 

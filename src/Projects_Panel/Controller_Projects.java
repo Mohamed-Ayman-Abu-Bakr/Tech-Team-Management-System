@@ -155,7 +155,7 @@ public class Controller_Projects implements Initializable {
         type_input.setValue("Game");
         description_input.setText("");
         Cost_input.setText("");
-        date_input.setValue(LocalDate.of(2000,1,1));
+        date_input.setValue(LocalDate.now());
     }
 
 
