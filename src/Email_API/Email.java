@@ -55,7 +55,7 @@ public class Email {
         message.setSubject(subject);
         message.setContent(text, "text/plain");
         Transport.send(message);
-        Popup_Window.confirmation(type + "Email Sent Successfully","Send Email");
+        Popup_Window.confirmation(type + " Email Sent Successfully","Send Email");
         //System.out.println("Message sent successfully");
     }
 

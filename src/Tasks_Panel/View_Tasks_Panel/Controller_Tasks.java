@@ -145,6 +145,7 @@ public class Controller_Tasks implements Initializable {
         
         listM = Tasks.getDataTasks();
         table_tasks.setItems(listM);
+        Search_Task();
      }
      
      void Search_Task() {

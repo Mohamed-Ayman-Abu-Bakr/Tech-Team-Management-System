@@ -66,7 +66,6 @@ public class Controller_Employees implements Initializable {
 
     public void refresh(){
         updateTable();
-        search_Name();
     }
 
 
@@ -83,6 +82,7 @@ public class Controller_Employees implements Initializable {
         ///System.out.println("Updated");
 
         table_employees.setItems(listM);
+        search_Name();
     }
     public void delete(){
         Alert alert =
@@ -115,7 +115,6 @@ public class Controller_Employees implements Initializable {
         }
     }
 
-    @FXML
     public void search_Name(){
 
         col_name.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -216,11 +215,6 @@ public class Controller_Employees implements Initializable {
         delete.disableProperty().bind(Bindings.isEmpty(table_employees.getSelectionModel().getSelectedItems()));
         reset_password.disableProperty().bind(Bindings.isEmpty(table_employees.getSelectionModel().getSelectedItems()));
         tasks.disableProperty().bind(Bindings.isEmpty(table_employees.getSelectionModel().getSelectedItems()));
-    }
-
-    @FXML
-    void getSelected () {
-        employee_selected = table_employees.getSelectionModel().getSelectedItem();
     }
 
 

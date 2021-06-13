@@ -31,8 +31,6 @@ public class Projects {
                     String Type,
                     int client_id,
                     int Manager,
-
-
                     float cost) {
         this.projectId = projectId;
         this.client_id = client_id;
