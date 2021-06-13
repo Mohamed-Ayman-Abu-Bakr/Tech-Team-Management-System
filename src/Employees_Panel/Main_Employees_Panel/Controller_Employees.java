@@ -217,6 +217,11 @@ public class Controller_Employees implements Initializable {
         tasks.disableProperty().bind(Bindings.isEmpty(table_employees.getSelectionModel().getSelectedItems()));
     }
 
+    @FXML
+    void getSelected () {
+        employee_selected = table_employees.getSelectionModel().getSelectedItem();
+    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
