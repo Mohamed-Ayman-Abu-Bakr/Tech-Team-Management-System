@@ -7,9 +7,9 @@ import java.sql.*;
 
 public class MySQL_Connector {
 
-    private static final String db_url = "jdbc:mysql://sql4.freesqldatabase.com:3306/sql4409579";
-    private static final String db_username = "sql4409579";
-    private static final String db_password = "zhc6fDgqd6";
+    private static final String db_url = "jdbc:mysql://sql11.freesqldatabase.com:3306/sql11446943";
+    private static final String db_username = "sql11446943";
+    private static final String db_password = "LMQlp9BulM";
 
     public static Connection ConnectDB(){
 

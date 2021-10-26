@@ -64,7 +64,7 @@ public class Clients {
     public static void getClient_from_id(int id, Clients client){
         Connection con = MySQL_Connector.ConnectDB();
         try{
-            PreparedStatement ps = Objects.requireNonNull(con).prepareStatement("SELECT * FROM sql4409579.Clients where id = " + id);
+            PreparedStatement ps = Objects.requireNonNull(con).prepareStatement("SELECT * FROM Clients where id = " + id);
             ResultSet rs = ps.executeQuery();
             System.out.println("getDataClients success");
             while(rs.next()){
@@ -81,14 +81,14 @@ public class Clients {
         Connection con = MySQL_Connector.ConnectDB();
         ObservableList<Clients> list = FXCollections.observableArrayList();
         try{
-            PreparedStatement ps = Objects.requireNonNull(con).prepareStatement("SELECT * FROM sql4409579.Clients");
+            PreparedStatement ps = Objects.requireNonNull(con).prepareStatement("SELECT * FROM Clients");
             ResultSet rs = ps.executeQuery();
             System.out.println("getDataClients success");
 
             while(rs.next()){
                 list.add(new Clients(Integer.parseInt(
 
-                        rs.getString("id"))
+                                rs.getString("id"))
                                 ,rs.getString("Name")
                                 ,rs.getString("Number")
                                 ,rs.getString("Email")
@@ -108,7 +108,7 @@ public class Clients {
         Data_Validation.checkNum(number);
         Data_Validation.checkEmail(email);
         Connection con = MySQL_Connector.ConnectDB();
-        String sql = "INSERT INTO sql4409579.Clients VALUES (default, ?,?,?,?)";
+        String sql = "INSERT INTO Clients VALUES (default, ?,?,?,?)";
         PreparedStatement pstmt;
         try {
             pstmt = Objects.requireNonNull(con).prepareStatement(sql);
@@ -129,7 +129,7 @@ public class Clients {
         Data_Validation.checkEmail(newEmail);
         try {
             Connection con = MySQL_Connector.ConnectDB();
-            String sql = "Update sql4409579.Clients set Name= '" + newName + "' ,Email= '" + newEmail
+            String sql = "Update Clients set Name= '" + newName + "' ,Email= '" + newEmail
                     + "' ,Number= '" + newNumber + "' , Address= '" + newAddress + "' where id= '" + id + "' ";
             PreparedStatement pstmt = Objects.requireNonNull(con).prepareStatement(sql);
             pstmt.execute();
@@ -140,7 +140,7 @@ public class Clients {
     }
     public static void delete_Client(String id){
         Connection con =  MySQL_Connector.ConnectDB();
-        String sql = "delete from sql4409579.Clients where id = ?";
+        String sql = "delete from where id = ?";
         try {
             PreparedStatement pstmt = Objects.requireNonNull(con).prepareStatement(sql);
             pstmt.setString(1, id);

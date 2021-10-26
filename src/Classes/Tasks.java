@@ -13,11 +13,11 @@ import java.util.Date;
 import java.util.Objects;
 
 
-public class Tasks {
-private final int task_id,employee_id;
-private final String task_name,task_description;
-private final Date deadline_date;
-private final String task_status;
+public class    Tasks {
+    private final int task_id,employee_id;
+    private final String task_name,task_description;
+    private final Date deadline_date;
+    private final String task_status;
 
     public Tasks(int task_id, int employee_id, String task_name, String task_description, Date deadline_date, String task_status) {
         this.task_id = task_id;

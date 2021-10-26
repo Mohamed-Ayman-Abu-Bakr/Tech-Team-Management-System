@@ -91,14 +91,14 @@ public class Projects {
         Connection con = MySQL_Connector.ConnectDB();
         ObservableList<Projects> list = FXCollections.observableArrayList();
         try{
-            PreparedStatement ps = Objects.requireNonNull(con).prepareStatement("SELECT * FROM sql4409579.Projects");
+            PreparedStatement ps = Objects.requireNonNull(con).prepareStatement("SELECT * FROM Projects");
             ResultSet rs = ps.executeQuery();
             System.out.println("getDataProjects success");
 
             while(rs.next()){
                 list.add(new Projects(Integer.parseInt(
 
-                        rs.getString("id"))
+                                rs.getString("id"))
                                 ,rs.getString("title")
                                 ,rs.getString("projectDescription")
                                 ,rs.getString("date")
@@ -124,7 +124,7 @@ public class Projects {
         Data_Validation.checkCost(cost);
         Connection con = MySQL_Connector.ConnectDB();
 
-        String sql = "INSERT INTO sql4409579.Projects (title,projectDescription,date,type,client_name,Manager_name,cost)values(?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO Projects (title,projectDescription,date,type,client_name,Manager_name,cost)values(?,?,?,?,?,?,?)";
         if (client != null && manager_name != null) {
             try {
                 PreparedStatement pst = Objects.requireNonNull(con).prepareStatement(sql);
@@ -158,7 +158,7 @@ public class Projects {
 
     public void deleteProject() {
         Connection con = MySQL_Connector.ConnectDB();
-        String sql = "DELETE FROM sql4409579.Projects WHERE id=" + this.getProjectId() + ";";
+        String sql = "DELETE FROM Projects WHERE id=" + this.getProjectId() + ";";
 
         try {
             PreparedStatement pst = Objects.requireNonNull(con).prepareStatement(sql);
@@ -180,7 +180,7 @@ public class Projects {
         Connection con = MySQL_Connector.ConnectDB();
 
         String sql =
-                "UPDATE sql4409579.Projects set title=?,projectDescription=?,date =?,type=?,client_name=?,Manager_name=?,cost=?  WHERE id = ?; ";
+                "UPDATE Projects set title=?,projectDescription=?,date =?,type=?,client_name=?,Manager_name=?,cost=?  WHERE id = ?; ";
 
         if (client != null && manager_name != null) {
             try {
