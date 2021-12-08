@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<AnchorPane prefHeight="400.0" prefWidth="482.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Manager_Functionalities.Employees_Page.Performance_Stats.PerformanceStatsController">
+   <children>
+      <TableView fx:id="PerformanceTable" layoutX="14.0" layoutY="27.0" prefHeight="334.0" prefWidth="385.0">
+        <columns>
+          <TableColumn fx:id="Employee_col" prefWidth="160.66668224334717" text="Employee" />
+          <TableColumn fx:id="Pos_col" prefWidth="112.66670227050781" text="Position" />
+            <TableColumn fx:id="Tasks_col" prefWidth="112.0" text="Completed Tasks" />
+        </columns>
+      </TableView>
+      <JFXButton fx:id="DownloadBtn" layoutX="408.0" layoutY="187.0" onAction="#Download_table" text="Download">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>

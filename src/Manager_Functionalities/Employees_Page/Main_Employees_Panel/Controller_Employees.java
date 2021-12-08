@@ -1,6 +1,7 @@
 package Manager_Functionalities.Employees_Page.Main_Employees_Panel;
 
 
+import Manager_Functionalities.Employees_Page.Edit_Employees_Panel.Controller_edit_Employee;
 import Classes.Employee;
 import Manager_Functionalities.Employees_Page.Edit_Employees_Panel.Controller_edit_Employee;
 import javafx.beans.binding.Bindings;
@@ -16,7 +17,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -56,7 +56,7 @@ public class Controller_Employees implements Initializable {
     private Button reset_password;
 
     @FXML
-    private Button tasks;
+    private Button performance;
 
 
 
@@ -80,8 +80,6 @@ public class Controller_Employees implements Initializable {
 
         listM = Employee.getDataEmployees();
 
-        ///System.out.println("Updated");
-
         table_employees.setItems(listM);
         search_Name();
     }
@@ -95,9 +93,9 @@ public class Controller_Employees implements Initializable {
         Optional<ButtonType> result = alert.showAndWait();
 
         if(result.isPresent() && result.get()==ButtonType.YES){
-                Employee employee = table_employees.getSelectionModel().getSelectedItem();
-                employee.deleteEmployee();
-                updateTable();
+            Employee employee = table_employees.getSelectionModel().getSelectedItem();
+            employee.deleteEmployee();
+            updateTable();
         }
     }
 
@@ -198,13 +196,13 @@ public class Controller_Employees implements Initializable {
     }
 
     @FXML
-    public void open_tasks_window() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Manager_Functionalities/Tasks_Page/Main_Tasks_Page/Main_Tasks_Page.fxml"));
+    public void showPerformanceStats() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Employees_Panel/Main_Employees_Panel/PerformanceStats.fxml"));
         Parent root = loader.load();
 
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
-        stage.setTitle("Tasks");
+        stage.setTitle("Task");
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setResizable(false);
         stage.show();
@@ -215,7 +213,6 @@ public class Controller_Employees implements Initializable {
         edit.disableProperty().bind(Bindings.isEmpty(table_employees.getSelectionModel().getSelectedItems()));
         delete.disableProperty().bind(Bindings.isEmpty(table_employees.getSelectionModel().getSelectedItems()));
         reset_password.disableProperty().bind(Bindings.isEmpty(table_employees.getSelectionModel().getSelectedItems()));
-        tasks.disableProperty().bind(Bindings.isEmpty(table_employees.getSelectionModel().getSelectedItems()));
     }
 
     @FXML
