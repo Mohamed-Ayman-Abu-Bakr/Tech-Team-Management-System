@@ -68,7 +68,7 @@ public class MeetingsController implements Initializable {
 
     @FXML
     private void BackToFront(ActionEvent event) throws IOException {
-        Parent page=FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Front_Page/FrontPage.fxml")));
+        Parent page=FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Employee_Functionalities/Front_Page/FrontPage.fxml")));
         Scene edit= new Scene(page);
         Stage window= (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(edit);
