@@ -58,7 +58,7 @@ public class FrontPageController implements Initializable {
 
     @FXML
     private void signOut(ActionEvent event) throws IOException {
-        Parent page=FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../Login_Page/LoginPage.fxml")));
+        Parent page=FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Login_Page/LoginPage.fxml")));
         Scene edit= new Scene(page);
         Stage window= (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(edit);
