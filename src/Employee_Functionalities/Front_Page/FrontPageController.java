@@ -31,7 +31,7 @@ public class FrontPageController implements Initializable {
 
     @FXML
     private void showMeetings(ActionEvent event) throws IOException {
-                Parent ReaderLogin=FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Meetings.fxml")));
+                Parent ReaderLogin=FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Employee_Functionalities/Meetings_Page/Meetings.fxml")));
                 Scene ReaderFunc= new Scene(ReaderLogin);
                 Stage window= (Stage)((Node)event.getSource()).getScene().getWindow();
                 window.setScene(ReaderFunc);
@@ -40,7 +40,7 @@ public class FrontPageController implements Initializable {
 
     @FXML
     private void showTasks(ActionEvent event) throws IOException {
-        Parent ReaderLogin=FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Tasks.fxml")));
+        Parent ReaderLogin=FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Employee_Functionalities/Tasks_Page/Tasks.fxml")));
         Scene ReaderFunc= new Scene(ReaderLogin);
         Stage window= (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(ReaderFunc);
