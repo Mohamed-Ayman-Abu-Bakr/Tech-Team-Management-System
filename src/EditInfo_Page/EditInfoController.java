@@ -100,9 +100,9 @@ public class EditInfoController implements Initializable {
     private void backToFront(ActionEvent event) throws IOException {
         Parent page;
         if ((employee_login.getPosition()).equals("Management"))
-            page=FXMLLoader.load(Objects.requireNonNull(getClass().getResource("FrontPage.fxml")));
+            page=FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Manager_Functionalities/Front_Page/FrontPage.fxml")));
         else
-            page=FXMLLoader.load(Objects.requireNonNull(getClass().getResource("FrontPage.fxml")));
+            page=FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Employee_Functionalities/Front_Page/FrontPage.fxml")));
         Scene edit= new Scene(page);
         Stage window= (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(edit);

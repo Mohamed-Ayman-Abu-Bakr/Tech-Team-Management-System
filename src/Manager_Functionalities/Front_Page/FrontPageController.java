@@ -59,7 +59,7 @@ public class FrontPageController implements Initializable {
 
     @FXML
     public void open_employees_panel() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Employees_Page/Main_Employees_Panel/Employees.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Manager_Functionalities/Employees_Page/Main_Employees_Panel/Employees.fxml"));
         Parent root = loader.load();
 
         Stage stage = new Stage();
@@ -106,7 +106,7 @@ public class FrontPageController implements Initializable {
 
     @FXML
     private void handleEmails(ActionEvent event) throws Exception {
-        Parent FrontPage=FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Emails_Page/Emails.fxml")));
+        Parent FrontPage=FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Manager_Functionalities/Emails_Page/Emails.fxml")));
         Scene EmailPage= new Scene(FrontPage);
         Stage window= (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(EmailPage);
@@ -115,7 +115,7 @@ public class FrontPageController implements Initializable {
 
     @FXML
     private void signOut(ActionEvent event) throws Exception {
-        Parent FrontPage=FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../Login_Page/LoginPage.fxml")));
+        Parent FrontPage=FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Login_Page/LoginPage.fxml")));
         Scene LoginPage= new Scene(FrontPage);
         Stage window= (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(LoginPage);
