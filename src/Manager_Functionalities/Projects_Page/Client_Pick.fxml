@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane alignment="center" hgap="10" prefHeight="537.0" prefWidth="684.0" vgap="10"
+          xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="Manager_Functionalities.Projects_Page.Client_Pick_Controller">
+    <columnConstraints>
+        <ColumnConstraints/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints/>
+    </rowConstraints>
+    <BorderPane prefHeight="550.0" prefWidth="700.0">
+        <left>
+            <AnchorPane prefHeight="537.0" prefWidth="240.0" style="-fx-background-color: black;"
+                        BorderPane.alignment="CENTER">
+                <Button fx:id="btn_select" layoutX="79.0" layoutY="256.0" mnemonicParsing="false"
+                        onAction="#select_Employee" text="Select Client"/>
+            </AnchorPane>
+        </left>
+        <center>
+          <TableView fx:id="table_clients" prefHeight="342.0" prefWidth="444.0" BorderPane.alignment="CENTER">
+              <columns>
+                  <TableColumn fx:id="table_id" prefWidth="70.0" text="ID"/>
+                  <TableColumn fx:id="table_name" prefWidth="88.0" text="Name"/>
+                  <TableColumn fx:id="table_email" prefWidth="89.0" text="Email"/>
+                  <TableColumn fx:id="table_num" prefWidth="96.0" text="Phone Number"/>
+                  <TableColumn fx:id="table_add" prefWidth="100.0" text="Address"/>
+              </columns>
+          </TableView>
+        </center>
+    </BorderPane>
+</GridPane>

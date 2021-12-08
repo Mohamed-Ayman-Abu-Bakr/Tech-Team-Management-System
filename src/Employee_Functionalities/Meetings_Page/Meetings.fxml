@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="Employee_Functionalities.Meetings_Page.MeetingsController">
+    <columnConstraints>
+        <ColumnConstraints/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints/>
+        <RowConstraints/>
+    </rowConstraints>
+    <AnchorPane prefHeight="532.0" prefWidth="700.0" GridPane.rowIndex="1">
+        <AnchorPane layoutX="-6.0" layoutY="-23.0" prefHeight="568.0" prefWidth="7.0"
+                    style="-fx-background-color: #000000;" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="-6.0"
+                    AnchorPane.topAnchor="-23.0"/>
+        <TableView fx:id="table" layoutX="13.0" layoutY="32.0" prefHeight="486.0" prefWidth="674.0">
+            <columns>
+                <TableColumn fx:id="col_title" prefWidth="119.33334589004517" text="Title"/>
+                <TableColumn fx:id="col_day" prefWidth="141.3333511352539" text="Day"/>
+                <TableColumn fx:id="col_time" prefWidth="111.3333740234375" text="Time"/>
+                <TableColumn fx:id="col_type" prefWidth="135.3332977294922" text="Department"/>
+                <TableColumn fx:id="col_id" prefWidth="164.66665649414062" text="Meeting Number"/>
+            </columns>
+        </TableView>
+        <Button layoutX="14.0" mnemonicParsing="false" onAction="#BackToFront" text="Back"/>
+    </AnchorPane>
+</GridPane>

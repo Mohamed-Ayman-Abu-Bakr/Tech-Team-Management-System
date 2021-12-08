@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Manager_Functionalities.Tasks_Page.Add_Task_Page.AddTaskController">
+   <children>
+      <TextField fx:id="txt_task_name" layoutX="22.0" layoutY="41.0" prefHeight="25.0" prefWidth="167.0" promptText="Task Name" />
+      <DatePicker fx:id="txt_deadline_date" layoutX="22.0" layoutY="334.0" prefHeight="25.0" prefWidth="149.0" promptText="Deadline Date" />
+      <Text fill="WHITE" layoutX="64.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Text>
+      <Button fx:id="btn_add" layoutX="268.0" layoutY="360.0" mnemonicParsing="false" onAction="#add_task" text="Add Task" />
+      <JFXTextArea fx:id="txt_task_description" focusColor="#6b5555" layoutX="22.0" layoutY="112.0" prefHeight="176.0" prefWidth="167.0" style="-fx-background-color: #ffff;" unFocusColor="#00000070" />
+      <Text layoutX="28.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Task Name">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Text>
+      <Text layoutX="22.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Task Description">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Text>
+      <Text layoutX="22.0" layoutY="324.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Deadline">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Text>
+      <Text layoutX="214.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Employee">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Text>
+      <TableView fx:id="employees_table" layoutX="215.0" layoutY="41.0" prefHeight="176.0" prefWidth="236.0">
+        <columns>
+          <TableColumn fx:id="col_employee_ID" prefWidth="75.0" text="Employee ID" />
+          <TableColumn fx:id="col_employee_name" prefWidth="159.33331298828125" text="Employee Name" />
+        </columns>
+      </TableView>
+      <Text layoutX="215.0" layoutY="249.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Project">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Text>
+      <ComboBox fx:id="dropdown_project" layoutX="215.0" layoutY="263.0" prefWidth="150.0" promptText="Select Project" />
+   </children>
+</AnchorPane>
