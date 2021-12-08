@@ -20,7 +20,7 @@ public class Meeting {
     private final String Department;
     private final int id;
 
-    private static final ObservableList<String> departments = Departments.getDepartments();
+    private static final ObservableList<String> departments = Employee.getPositions();
 
     public int getId() {
         return id;
