@@ -98,7 +98,7 @@ public class Main_Tasks_Page_Controller implements Initializable {
 
     public void Add_Tasks() throws IOException {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("AddTask.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Manager_Functionalities/Tasks_Page/Add_Task_Page/AddTask.fxml"));
         Parent root = loader.load();
 
         Stage stage = new Stage();
