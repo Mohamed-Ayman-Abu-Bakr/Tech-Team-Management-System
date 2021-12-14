@@ -52,7 +52,7 @@ public class Main_Tasks_Page_Controller implements Initializable {
     private Button btn_delete;
 
     @FXML
-    private ComboBox<String> dropdown_employee;
+    private ComboBox<Employee> dropdown_employee;
 
     @FXML
     private TextField txt_task_name;
@@ -120,33 +120,32 @@ public class Main_Tasks_Page_Controller implements Initializable {
         int taskId=col_task_id.getCellData(index);
         ObservableList<Task> list=Task.getDataTasks();
         ObservableList<Employee> employees= Employee.getDataEmployees();
-        ObservableList<String> employeeNames= FXCollections.observableArrayList();
 
-        for (Task t:list){
-            if (t.getTask_id()==taskId) {
-                chosenTask=t;
+
+        for (Task t:list) {
+            if (t.getTask_id() == taskId) {
+                chosenTask = t;
 
                 break;
             }
         }
         for (Employee e: employees){
-            if (e.getId()==chosenTask.getEmployee_id()){
-                assignedEmployee=e;
+            if (e.getId()==chosenTask.getEmployee_id()) {
+                assignedEmployee = e;
             }
-            employeeNames.add(e.getName());
         }
-
-        dropdown_employee.setValue(assignedEmployee.getName());
+        dropdown_employee.setItems(employees);
+        dropdown_employee.setValue(assignedEmployee);
         txt_task_name.setText(chosenTask.getTask_name());
         txt_task_description.setText(chosenTask.getTask_description());
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         txt_deadline_date.setValue(LocalDate.from(fmt.parse(col_deadline_date.getCellData(index).toString())));
-        dropdown_employee.setItems(employeeNames);
+
         enableButtons();
     }
     public void Update_Tasks(){
         try {
-            Task.update_Task_Manager(txt_task_name.getText(),txt_task_description.getText(),txt_deadline_date.getValue().toString(), dropdown_employee.getSelectionModel().getSelectedItem(), chosenTask.getTask_id());
+            Task.update_Task_Manager(txt_task_name.getText(),txt_task_description.getText(),txt_deadline_date.getValue().toString(), dropdown_employee.getSelectionModel().getSelectedItem().getId(), chosenTask.getTask_id());
             Refresh_Tasks();
             Search_Task();
             resetValues();
@@ -215,6 +214,8 @@ public class Main_Tasks_Page_Controller implements Initializable {
 
     public void resetValues(){
         txt_task_name.setText("");
+        dropdown_employee.setItems(null);
+
         txt_task_description.setText("");
         txt_deadline_date.setValue(LocalDate.now());
         enableButtons();

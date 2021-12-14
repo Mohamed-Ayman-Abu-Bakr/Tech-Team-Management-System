@@ -118,21 +118,14 @@ public class Task {
         }
     }
 
-    public static void update_Task_Manager(String new_name, String new_description, String new_deadline, String new_employee, int id) throws EmptyInputException, InvalidDateException {
+    public static void update_Task_Manager(String new_name, String new_description, String new_deadline, int employeeID, int id) throws EmptyInputException, InvalidDateException {
         Data_Validation.checkTitle(new_name);
         Data_Validation.checkDescription(new_description);
         Data_Validation.checkDate(new_deadline);
-        int newEmployeeId=0;
-        ObservableList<Employee> employees= Employee.getDataEmployees();
-        for (Employee e: employees){
-            if (e.getName().equals(new_employee)){
-                newEmployeeId=e.getId();
-                break;
-            }
-        }
+
         try {
             Connection conn = MySQL_Connector.ConnectDB();
-            String sql = "UPDATE Tasks SET employee_id = ' "+newEmployeeId+"', task_name = '"+new_name+"', " +
+            String sql = "UPDATE Tasks SET employee_id = ' "+employeeID+"', task_name = '"+new_name+"', " +
                     "task_description = '"+new_description+"', deadline_date = '"+new_deadline+"' WHERE task_id = '"+id+"' ";
 
             PreparedStatement pst = Objects.requireNonNull(conn).prepareCall(sql);

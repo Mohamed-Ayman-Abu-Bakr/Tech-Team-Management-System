@@ -26,6 +26,8 @@ public class Employee {
         this.position = position;
     }
 
+    @Override
+    public String toString(){return name;}
     enum Positions{
         Testing("Testing"),
         Frontend_Web_Development("Frontend web development"),
