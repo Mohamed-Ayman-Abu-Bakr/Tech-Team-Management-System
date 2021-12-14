@@ -125,7 +125,7 @@ public class Task {
         int newEmployeeId=0;
         ObservableList<Employee> employees= Employee.getDataEmployees();
         for (Employee e: employees){
-            if (e.getName()==new_employee){
+            if (e.getName().equals(new_employee)){
                 newEmployeeId=e.getId();
                 break;
             }
