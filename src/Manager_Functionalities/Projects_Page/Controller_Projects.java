@@ -13,6 +13,7 @@ import Exceptions.EmptyInputException;
 import Exceptions.InvalidCostException;
 import Exceptions.InvalidDateException;
 import Manager_Functionalities.Projects_Page.singleProjectDetails.Details_Controller;
+import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -52,6 +53,9 @@ public class Controller_Projects implements Initializable {
 
     @FXML
     private TextField projectName_input;
+
+    @FXML
+    private Button btn_viewTasks;
 
 
     //DatePicker
@@ -118,6 +122,28 @@ public class Controller_Projects implements Initializable {
 
     }
 
+    public void open_view_tasks() throws IOException {
+        Project selected = getSelected();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Manager_Functionalities/Projects_Page/View_Tasks.fxml"));
+        /*Parent root = loader.load();
+
+        ViewTasksController controller = loader.getController();
+        controller.initData(selected);*/
+
+        ViewTasksController controller = new ViewTasksController();
+        controller.initData(selected);
+        loader.setController(controller);
+        Parent root = loader.load();
+
+
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Tasks");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.show();
+    }
+
     public void SeeInfoProject() {
         TableView<Project> table = projects_table;
         table.setRowFactory(tv -> {
@@ -166,6 +192,11 @@ public class Controller_Projects implements Initializable {
         resetData();
         UpdateTable();
         SeeInfoProject();
+        enableButtons();
+    }
+
+    public void enableButtons(){
+        btn_viewTasks.disableProperty().bind(Bindings.isEmpty(projects_table.getSelectionModel().getSelectedItems()));
     }
 
     public void ShowStats(ActionEvent actionEvent) throws IOException {

@@ -29,7 +29,7 @@
          <Font size="16.0" />
       </font>
    </Label>
-   <TableView fx:id="projects_table" layoutX="9.0" layoutY="357.0" prefHeight="202.0" prefWidth="400.0">
+   <TableView fx:id="projects_table" layoutX="9.0" layoutY="357.0" onMouseClicked="#getSelected" prefHeight="202.0" prefWidth="400.0">
       <columns>
          <TableColumn fx:id="id_column0" prefWidth="90.33333206176758" text="id" />
          <TableColumn fx:id="projects_column" prefWidth="205.9999542236328" text="Projects" />
@@ -63,14 +63,15 @@
       </font>
    </Button>
    <ComboBox fx:id="type_input" layoutX="561.0" layoutY="131.0" prefWidth="150.0" />
-   <Button layoutX="147.0" layoutY="582.0" mnemonicParsing="false" onAction="#ShowStats" prefHeight="37.0" prefWidth="166.0" text="View Project Statistics">
+   <Button layoutX="43.0" layoutY="576.0" mnemonicParsing="false" onAction="#ShowStats" prefHeight="37.0" prefWidth="166.0" text="View Project Statistics">
       <font>
          <Font size="14.0" />
       </font>
    </Button>
-   <Button layoutX="469.0" layoutY="586.0" mnemonicParsing="false" onAction="#DownloadProjects" text="Download Projects">
+   <Button layoutX="542.0" layoutY="576.0" mnemonicParsing="false" onAction="#DownloadProjects" prefHeight="37.0" prefWidth="166.0" text="Download Projects">
       <font>
          <Font size="14.0" />
       </font>
    </Button>
+   <Button fx:id="btn_viewTasks" disable="true" layoutX="313.0" layoutY="576.0" mnemonicParsing="false" onAction="#open_view_tasks" prefHeight="37.0" prefWidth="166.0" text="View Tasks" />
 </AnchorPane>
