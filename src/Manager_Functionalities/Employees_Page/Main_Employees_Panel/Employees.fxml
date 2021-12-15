@@ -25,5 +25,5 @@
     <Button fx:id="edit" disable="true" layoutX="156.0" layoutY="433.0" mnemonicParsing="false" onAction="#open_edit_employee_window" prefHeight="25.0" prefWidth="103.0" text="Edit Selected" />
     <Button fx:id="delete" disable="true" layoutX="282.0" layoutY="433.0" mnemonicParsing="false" onAction="#delete" prefHeight="25.0" prefWidth="103.0" text="Delete Selected" />
     <Button fx:id="reset_password" disable="true" layoutX="404.0" layoutY="433.0" mnemonicParsing="false" onAction="#reset_Password" prefHeight="25.0" prefWidth="130.0" text="Reset Password" />
-    <Button fx:id="performance" disable="true" layoutX="557.0" layoutY="433.0" mnemonicParsing="false" onAction="#showPerformanceStats" prefHeight="25.0" prefWidth="180.0" text="View Employees Performance" />
+    <Button fx:id="performance" layoutX="557.0" layoutY="433.0" mnemonicParsing="false" onAction="#showPerformanceStats" prefHeight="25.0" prefWidth="180.0" text="View Employees Performance" />
 </AnchorPane>

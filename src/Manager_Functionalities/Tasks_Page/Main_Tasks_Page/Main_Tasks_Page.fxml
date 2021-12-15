@@ -11,11 +11,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="522.0" prefWidth="620.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Manager_Functionalities.Tasks_Page.Main_Tasks_Page.Main_Tasks_Page_Controller">
-    <AnchorPane prefHeight="522.0" prefWidth="303.0" style="-fx-background-color: #28252e;">
-        <Button fx:id="btn_add" layoutX="187.0" layoutY="409.0" mnemonicParsing="false" onAction="#Add_Tasks" prefHeight="25.0" prefWidth="97.0" style="-fx-background-color: cyan;" text="Add new task" />
-        <Button fx:id="btn_Update" layoutX="184.0" layoutY="444.0" mnemonicParsing="false" onAction="#Update_Tasks" style="-fx-background-color: Orange;" text="Update Selected" />
-        <Button fx:id="btn_delete" layoutX="184.0" layoutY="482.0" mnemonicParsing="false" onAction="#Delete_Tasks" prefHeight="25.0" prefWidth="103.0" style="-fx-background-color: violet;" text="Delete Selected" />
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="620.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Manager_Functionalities.Tasks_Page.Main_Tasks_Page.Main_Tasks_Page_Controller">
+    <AnchorPane prefHeight="550.0" prefWidth="304.0" style="-fx-background-color: #28252e;">
+        <Button fx:id="btn_add" layoutX="184.0" layoutY="409.0" mnemonicParsing="false" onAction="#Add_Tasks" prefHeight="25.0" prefWidth="103.0" style="-fx-background-color: cyan;" text="Add new task" />
+        <Button fx:id="btn_Update" layoutX="184.0" layoutY="443.0" mnemonicParsing="false" onAction="#Update_Tasks" style="-fx-background-color: Orange;" text="Update Selected" />
+        <Button fx:id="btn_delete" layoutX="184.0" layoutY="475.0" mnemonicParsing="false" onAction="#Delete_Tasks" prefHeight="25.0" prefWidth="103.0" style="-fx-background-color: violet;" text="Delete Selected" />
         <TextField fx:id="txt_task_name" layoutX="15.0" layoutY="114.0" prefHeight="25.0" prefWidth="269.0" promptText="Task Name" />
         <DatePicker fx:id="txt_deadline_date" layoutX="16.0" layoutY="409.0" prefHeight="25.0" prefWidth="149.0" promptText="Deadline Date" />
         <Text fill="WHITE" layoutX="54.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0">
@@ -46,8 +46,9 @@
         <TextArea fx:id="txt_task_description" layoutX="12.0" layoutY="189.0" prefHeight="200.0" prefWidth="269.0" />
         <JFXComboBox fx:id="dropdown_employee" focusColor="WHITE" layoutX="11.0" layoutY="54.0" prefHeight="25.0" prefWidth="269.0" style="-fx-background-color: #ffff;" unFocusColor="WHITE" />
         <Button layoutX="39.0" layoutY="474.0" mnemonicParsing="false" onAction="#DownloadTasks" text="Download Tasks" />
+      <Button fx:id="btn_verify" layoutX="184.0" layoutY="508.0" mnemonicParsing="false" onAction="#Verify_Task" prefHeight="25.0" prefWidth="103.0" style="-fx-background-color: violet;" text="Verify Selected" />
     </AnchorPane>
-    <TableView fx:id="table_tasks" layoutX="303.0" layoutY="62.0" onMouseClicked="#getSelected" onSort="#Delete_Tasks" prefHeight="459.0" prefWidth="317.0">
+    <TableView fx:id="table_tasks" layoutX="303.0" layoutY="62.0" onMouseClicked="#getSelected" onSort="#Delete_Tasks" prefHeight="489.0" prefWidth="317.0">
         <columns>
             <TableColumn fx:id="col_task_id" prefWidth="50.0" text="Task ID" />
             <TableColumn fx:id="col_task_name" prefWidth="96.00003051757812" text="Task name " />

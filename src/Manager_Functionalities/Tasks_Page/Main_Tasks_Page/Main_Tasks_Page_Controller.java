@@ -4,6 +4,7 @@ import Classes.Employee;
 import Classes.Task;
 import Exceptions.EmptyInputException;
 import Exceptions.InvalidDateException;
+import Exceptions.TaskAlreadyVerifiedException;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -50,6 +51,9 @@ public class Main_Tasks_Page_Controller implements Initializable {
 
     @FXML
     private Button btn_delete;
+
+    @FXML
+    private Button btn_verify;
 
     @FXML
     private ComboBox<Employee> dropdown_employee;
@@ -224,6 +228,7 @@ public class Main_Tasks_Page_Controller implements Initializable {
     public void enableButtons(){
         btn_Update.disableProperty().bind(Bindings.isEmpty(table_tasks.getSelectionModel().getSelectedItems()));
         btn_delete.disableProperty().bind(Bindings.isEmpty(table_tasks.getSelectionModel().getSelectedItems()));
+        btn_verify.disableProperty().bind(Bindings.isEmpty(table_tasks.getSelectionModel().getSelectedItems()));
     }
 
     @Override
@@ -278,4 +283,19 @@ public class Main_Tasks_Page_Controller implements Initializable {
             notFound.showAndWait();
         }
     }
+
+    @FXML
+    void Verify_Task() {
+
+        try {
+            chosenTask.verify(assignedEmployee);
+            Refresh_Tasks();
+            Search_Task();
+            resetValues();
+        } catch (TaskAlreadyVerifiedException e) {
+            System.out.println(e);
+        }
+
+    }
+
 }

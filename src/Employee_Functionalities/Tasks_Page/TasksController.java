@@ -3,6 +3,7 @@ package Employee_Functionalities.Tasks_Page;
 
 
 import Classes.Task;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -65,7 +66,9 @@ public class TasksController implements Initializable {
         btn_update.setDisable(true);
         if (this.index > -1) {
             this.status.setValue(task.getTask_status());
-            btn_update.setDisable(false);
+            if(!task.getTask_status().equals("Verified")) {
+                btn_update.setDisable(false);
+            }
         }
     }
  

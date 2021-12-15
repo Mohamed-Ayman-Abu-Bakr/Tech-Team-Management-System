@@ -197,7 +197,7 @@ public class Controller_Employees implements Initializable {
 
     @FXML
     public void showPerformanceStats() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Employees_Panel/Main_Employees_Panel/PerformanceStats.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Manager_Functionalities/Employees_Page/Performance_Stats/PerformanceStats.fxml"));
         Parent root = loader.load();
 
         Stage stage = new Stage();

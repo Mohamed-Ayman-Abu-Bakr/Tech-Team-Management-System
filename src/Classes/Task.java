@@ -3,6 +3,7 @@ package Classes;
 
 import Exceptions.EmptyInputException;
 import Exceptions.InvalidDateException;
+import Exceptions.TaskAlreadyVerifiedException;
 import MySQL.MySQL_Connector;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -38,6 +39,10 @@ public class Task {
 
     public int getEmployee_id() {
         return employee_id;
+    }
+
+    public int getProject_id() {
+        return project_id;
     }
 
     public String getTask_name() {
@@ -149,6 +154,13 @@ public class Task {
         catch( Exception e){
             Popup_Window.error("Cannot Update Task Status");
         }
+    }
+    public void verify(Employee e) throws TaskAlreadyVerifiedException {
+        if(this.task_status.equals("Verified")){
+            throw new TaskAlreadyVerifiedException("Task Already Verified");
+        }
+        this.update_Task_status("Verified");
+        e.task_verified();
     }
 
 }

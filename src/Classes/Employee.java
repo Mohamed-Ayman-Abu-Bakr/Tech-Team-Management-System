@@ -14,7 +14,7 @@ import java.sql.SQLException;
 import java.util.Objects;
 
 public class Employee {
-    private int id;
+    private int id,completed_tasks;
     private String name , username , password, email , birthdate, phone;
     private String  position;
 
@@ -51,7 +51,7 @@ public class Employee {
     }
 
     public Employee(int id, String name, String username, String password,
-                    String position, String email, String birthdate, String phone) {
+                    String position, String email, String birthdate, String phone,int completed_tasks) {
         this.id = id;
         this.name = name;
         this.username = username;
@@ -60,6 +60,7 @@ public class Employee {
         this.email = email;
         this.birthdate = birthdate;
         this.phone = phone;
+        this.completed_tasks = completed_tasks;
     }
 
     public static ObservableList<String> getPositions(){
@@ -96,6 +97,8 @@ public class Employee {
     public String getPhone() {
         return phone;
     }
+
+    public int getCompleted_tasks() {return completed_tasks;}
 
     public static String generate_username(int n){
         return RandomString.getAlphaNumericString(n);
@@ -248,11 +251,32 @@ public class Employee {
                         ,rs.getString("position")
                         ,rs.getString("email")
                         ,rs.getString("birthdate")
-                        ,rs.getString("phone")));
+                        ,rs.getString("phone")
+                        ,Integer.parseInt(rs.getString("completed_tasks"))));
             }
         } catch (SQLException throwable) {
             throwable.printStackTrace();
         }
         return list;
+    }
+    public void task_verified(){
+        this.completed_tasks++;
+        Connection con;
+        PreparedStatement pst;
+        con = MySQL_Connector.ConnectDB();
+        String sql = "UPDATE employees SET name = ?, username = ?, password = ?, email = ?, phone = ?, completed_tasks = ? WHERE (id = ?)";
+        try {
+            pst = Objects.requireNonNull(con).prepareStatement(sql);
+            pst.setString(1, name);
+            pst.setString(2, username);
+            pst.setString(3, password);
+            pst.setString(4, email);
+            pst.setString(5, phone);
+            pst.setString(6, String.valueOf(completed_tasks));
+            pst.setString(7, String.valueOf(this.getId()));
+            pst.execute();
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
+        }
     }
 }
