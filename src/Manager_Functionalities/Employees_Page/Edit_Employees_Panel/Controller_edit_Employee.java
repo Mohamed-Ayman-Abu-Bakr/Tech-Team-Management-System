@@ -86,11 +86,10 @@ public class Controller_edit_Employee implements Initializable {
         stage.close();
 
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Employees_Page/Main_Employees_Panel/Employees.fxml"));
+        /*FXMLLoader loader = new FXMLLoader(getClass().getResource("/Employees_Page/Main_Employees_Panel/Employees.fxml"));
         loader.load();
         Controller_Employees controller = loader.getController();
-        controller.updateTable();
-
+        controller.updateTable();*/
 
     }
     public void enableButton(){

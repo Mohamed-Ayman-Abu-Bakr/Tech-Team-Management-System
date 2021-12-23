@@ -78,10 +78,10 @@ public class Controller_add_Employee implements Initializable {
         stage = (Stage) btn_addEmployee.getScene().getWindow();
         stage.close();
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Employees_Page/Main_Employees_Panel/Employees.fxml"));
+        /*FXMLLoader loader = new FXMLLoader(getClass().getResource("/Employees_Page/Main_Employees_Panel/Employees.fxml"));
         loader.load();
         Controller_Employees controller = loader.getController();
-        controller.updateTable();
+        controller.updateTable();*/
     }
 
     public void enableButton(){
