@@ -1,10 +1,12 @@
 package Manager_Functionalities.Projects_Page.singleProjectDetails;
 
 import Classes.Client;
+import Classes.Data_Validation;
 import Classes.Project;
 import Exceptions.EmptyInputException;
 import Exceptions.InvalidCostException;
 import Exceptions.InvalidDateException;
+import Exceptions.InvalidNumberException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -20,7 +22,7 @@ import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.ResourceBundle;
-import static Login_Page.LoginPageController.employee_login;
+import static Login_Page.LoginPageController.manager;
 
 public class Details_Controller implements Initializable {
 
@@ -78,14 +80,28 @@ public class Details_Controller implements Initializable {
     int ProjectId ;
 
     public void UpdateProject() {
+        String title=project_title_details.getText();
+        String description=Project_description_details.getText();
+        String Date=String.valueOf(DatePicker_Details.getValue());
+        String type=type_input.getValue();
+        String cost=cost_details.getText();
+        String managerId=String.valueOf(manager.getId());
+
         try {
-            project.UpdateProject(project_title_details.getText()
-                            , Project_description_details.getText()
-                            ,String.valueOf(DatePicker_Details.getValue())
-                            ,type_input.getValue()
+            Data_Validation.checkIfNotEmpty(title);
+            Data_Validation.checkIfNotEmpty(description);
+            Data_Validation.checkDate(Date);
+            Data_Validation.checkCost(cost);
+            Data_Validation.checkIfNotEmpty(type);
+            Data_Validation.checkIfNotEmpty(managerId);
+
+            manager.invokeUpdateProject(project, title
+                            , description
+                            ,Date
+                            ,type
                             ,client
-                            ,String.valueOf(employee_login.getId())
-                            ,cost_details.getText());
+                            ,managerId
+                            ,cost);
         } catch (EmptyInputException | InvalidDateException | InvalidCostException e) {
             System.out.println(e);
         }

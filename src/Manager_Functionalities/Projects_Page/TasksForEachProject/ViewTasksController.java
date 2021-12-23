@@ -1,4 +1,4 @@
-package Manager_Functionalities.Projects_Page;
+package Manager_Functionalities.Projects_Page.TasksForEachProject;
 
 import Classes.Project;
 import Classes.Task;

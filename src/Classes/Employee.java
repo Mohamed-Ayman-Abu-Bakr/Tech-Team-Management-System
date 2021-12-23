@@ -28,27 +28,13 @@ public class Employee {
 
     @Override
     public String toString(){return name;}
-    enum Positions{
-        Testing("Testing"),
-        Frontend_Web_Development("Frontend web development"),
-        Backend_Web_development ("Backend web development"),
-        Frontend_Mobile_Development ("Frontend mobile development"),
-        Backend_Mobile_development ("Backend mobile development"),
-        Data_Analysis ("Data Analysis"),
-        Management ("Management"),
-        Machine_Learning ("Machine Learning"),
-        Database_Administration ("Database Administration"),
-        UX_design ("UX design");
+    static ObservableList<String> departments = FXCollections.observableArrayList("Testing",
+            "Frontend web development", "Backend web development", "Backend mobile development",
+            "Frontend mobile development", "Data Analysis", "Machine Learning",
+            "Database Administration","UX design"
+    );
 
-        private String pos;
-        Positions(String pos){
-            this.pos=pos;
-        }
 
-        public static String toString(Positions position) {
-            return position.pos;
-        }
-    }
 
     public Employee(int id, String name, String username, String password,
                     String position, String email, String birthdate, String phone,int completed_tasks) {
@@ -64,10 +50,7 @@ public class Employee {
     }
 
     public static ObservableList<String> getPositions(){
-        Positions[] poss= Positions.values();
-        ObservableList<String> list = FXCollections.observableArrayList();
-        list.addAll(String.valueOf(poss));
-        return list;
+        return departments;
 
     }
     public int getId() {

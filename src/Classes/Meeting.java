@@ -14,13 +14,20 @@ import java.util.Objects;
 
 
 public class Meeting {
-    private final String Title;
-    private final String Day;
-    private final String Time;
-    private final String Department;
-    private final int id;
+    private  String Title;
+    private  String Day;
+    private  String Time;
+    private  String Department;
+    private  int id;
 
-    private static final ObservableList<String> departments = Employee.getPositions();
+
+
+    public Meeting(String title, String day, String time, String dep) {
+        this.Title=title;
+        this.Day=day;
+        this.Time=time;
+        this.Department=dep;
+    }
 
     public int getId() {
         return id;
@@ -42,7 +49,7 @@ public class Meeting {
         return Department;
     }
 
-    public static ObservableList<String> getDepartments() { return departments; }
+
 
     public Meeting(String title, String day, String time, String type, int i) {
         Title = title;
@@ -51,6 +58,7 @@ public class Meeting {
         Department = type;
         id = i;
     }
+
 
     public static ObservableList <Meeting> getDataMeetings(){
         Connection con = MySQL_Connector.ConnectDB();
@@ -75,16 +83,16 @@ public class Meeting {
         return list;
     }
 
-    public static void add_Meeting(String Title, String Day,String Time,String Department) {
+    public void add_Meeting() {
         Connection con = MySQL_Connector.ConnectDB();
         String sql = "insert into meetings (Title, Day, Time, Department) values (?, ?, ? , ?)";
 
         try {
             PreparedStatement pst = Objects.requireNonNull(con).prepareStatement(sql);
-            pst.setString(1, Title);
-            pst.setString(2, Day);
-            pst.setString(3, Time);
-            pst.setString(4, Department);
+            pst.setString(1, this.Title);
+            pst.setString(2, this.Day);
+            pst.setString(3, this.Time);
+            pst.setString(4, this.Department);
             pst.execute();
             JOptionPane.showMessageDialog(null, "Adding Meeting Success");
 
@@ -94,19 +102,18 @@ public class Meeting {
 
     }
 
-    public static void edit_Meeting(String Title, String Day,String Time,String Department, String id){
+    public void editMeeting(){
 
         Connection con = MySQL_Connector.ConnectDB();
-        String sql = "update meetings set Title = ?, Day = ?, Time = ?, Department = ?, id = ? WHERE id = ? ";
+        String sql = "update meetings set Title = ?, Day = ?, Time = ?, Department = ? WHERE id = ? ";
 
         try{
             PreparedStatement pst = Objects.requireNonNull(con).prepareStatement(sql);
-            pst.setString(1, Title);
-            pst.setString(2, Day);
-            pst.setString(3, Time);
-            pst.setString(4, Department);
-            pst.setString(5, id);
-            pst.setString(6, id);
+            pst.setString(1, this.Title);
+            pst.setString(2, this.Day);
+            pst.setString(3, this.Time);
+            pst.setString(4, this.Department);
+            pst.setString(5, String.valueOf(this.id));
             pst.execute();
             Popup_Window.confirmation("Meeting Update Successfully", "Meeting Update");
         }catch (Exception e){
@@ -130,4 +137,23 @@ public class Meeting {
     }
 
 
+    public void setTitle(String title) {
+        Title = title;
+    }
+
+    public void setDay(String day) {
+        Day = day;
+    }
+
+    public void setTime(String time) {
+        Time = time;
+    }
+
+    public void setDepartment(String department) {
+        Department = department;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

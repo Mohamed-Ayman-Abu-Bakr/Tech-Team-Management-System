@@ -1,6 +1,4 @@
 package Manager_Functionalities.Projects_Page;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -13,6 +11,7 @@ import Classes.Project;
 import Exceptions.EmptyInputException;
 import Exceptions.InvalidCostException;
 import Exceptions.InvalidDateException;
+import Manager_Functionalities.Projects_Page.TasksForEachProject.ViewTasksController;
 import Manager_Functionalities.Projects_Page.singleProjectDetails.Details_Controller;
 import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
@@ -28,9 +27,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import static Login_Page.LoginPageController.manager;
 
@@ -68,10 +64,10 @@ public class Controller_Projects implements Initializable {
     private ComboBox<String> type_input;
 
     ObservableList<Project> listP;
-    static Client client;
+    public static Client client;
 
     public void open_client_picker() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Client_Pick.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("PickClientsTable/Client_Pick.fxml"));
         Parent root = loader.load();
 
         Stage stage = new Stage();
@@ -131,9 +127,7 @@ public class Controller_Projects implements Initializable {
 
     public void open_view_tasks() throws IOException {
         Project selected = getSelected();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Manager_Functionalities/Projects_Page/View_Tasks.fxml"));
-
-
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Manager_Functionalities/Projects_Page/TasksForEachProject/View_Tasks.fxml"));
         ViewTasksController controller = new ViewTasksController();
         controller.initData(selected);
         loader.setController(controller);
@@ -214,50 +208,6 @@ public class Controller_Projects implements Initializable {
     }
 
     public void DownloadProjects(ActionEvent actionEvent){
-        listP= Project.getDataProjects();
-        XSSFWorkbook wb = new XSSFWorkbook();
-        XSSFSheet sheet = wb.createSheet("Projects Sheet");
-        XSSFRow header = sheet.createRow(0);
-        header.createCell(0).setCellValue("ID");
-
-        header.createCell(1).setCellValue("Name");
-        header.createCell(2).setCellValue("Type");
-        header.createCell(3).setCellValue("Description");
-        header.createCell(4).setCellValue("Cost");
-        header.createCell(5).setCellValue("Client ID");
-        header.createCell(6).setCellValue("Delivery Date");
-
-        int idx=1;
-        for (Project p: listP){
-            XSSFRow row= sheet.createRow(idx);
-            row.createCell(0).setCellValue(p.getProjectId());
-            row.createCell(1).setCellValue(p.getProjectTitle());
-            row.createCell(2).setCellValue(p.getType());
-            row.createCell(3).setCellValue(p.getProjectDescription());
-            row.createCell(4).setCellValue(p.getCost());
-            row.createCell(5).setCellValue(p.getClient_name());
-            row.createCell(6).setCellValue(p.getDateOfDelivery());
-            idx++;
-
-        }
-        String desktopPath = System.getProperty("user.home") + File.separator + "Desktop/Projects Sheet.xlsx";
-        try {
-            FileOutputStream file = new FileOutputStream(desktopPath);
-            wb.write(file);
-            file.close();
-            System.out.println("done");
-            Alert notFound = new Alert(Alert.AlertType.INFORMATION);
-            notFound.setContentText("The file is Successfully saved in your Desktop");
-            notFound.setHeaderText("Success");
-            notFound.showAndWait();
-        } catch (Exception e){
-            Alert notFound = new Alert(Alert.AlertType.ERROR);
-            notFound.setContentText("The file is open by another program. Please try again");
-            notFound.setHeaderText("Error");
-            notFound.showAndWait();
-        }
-
-
-
+        manager.downloadProjects();
     }
 }

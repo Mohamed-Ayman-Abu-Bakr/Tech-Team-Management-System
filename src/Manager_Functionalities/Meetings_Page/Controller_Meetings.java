@@ -1,6 +1,7 @@
 package Manager_Functionalities.Meetings_Page;
 
 import Classes.Data_Validation;
+import Classes.Employee;
 import Classes.Meeting;
 import Exceptions.EmptyInputException;
 import Exceptions.InvalidDateException;
@@ -17,6 +18,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import static java.lang.String.valueOf;
+import static Login_Page.LoginPageController.manager;
 
 public class Controller_Meetings implements Initializable {
     @FXML
@@ -83,7 +85,7 @@ public class Controller_Meetings implements Initializable {
             Data_Validation.checkDate(day);
             Data_Validation.checkTime(time);
 
-            Meeting.add_Meeting(title,day,time,department);
+            manager.invokeAddMeeting(new Meeting(title,day, time, department));
             resetData();
             update();
         } catch (EmptyInputException | InvalidDateException | InvalidTimeException e) {
@@ -92,10 +94,10 @@ public class Controller_Meetings implements Initializable {
         resetData();
     }
 
-    public void getSelected (){
+    public Meeting getSelected (){
         index = table.getSelectionModel().getSelectedIndex();
 
-        if (index <= -1) return;
+        if (index <= -1) return null;
 
         txt_title.setText(col_title.getCellData(index));
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -103,6 +105,7 @@ public class Controller_Meetings implements Initializable {
         txt_time.setText(col_time.getCellData(index));
         comb.setPromptText(col_type.getCellData(index));
         txt_no.setText(String.valueOf(col_id.getCellData(index)));
+        return table.getSelectionModel().getSelectedItem();
     }
 
     public void edit (){
@@ -116,7 +119,8 @@ public class Controller_Meetings implements Initializable {
             Data_Validation.checkDate(day);
             Data_Validation.checkTime(time);
 
-            Meeting.edit_Meeting(title,day,time,department,id);
+            Meeting m= getSelected();
+            manager.invokeEditMeeting(m, title,day,time,department);
             update();
             resetData();
         } catch (EmptyInputException | InvalidDateException | InvalidTimeException e) {
@@ -152,7 +156,7 @@ public class Controller_Meetings implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        comb.setItems(Meeting.getDepartments());
+        comb.setItems(Employee.getPositions());
         resetData();
         update();
         enableButtons();

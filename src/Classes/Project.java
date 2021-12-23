@@ -15,15 +15,52 @@ import java.util.Objects;
 public class Project {
 
     private int projectId=0;
-    private final String projectTitle;
-    private final String dateOfDelivery;
-    private final String projectDescription;
+    private String projectTitle;
+    private String dateOfDelivery;
+    private String projectDescription;
     private Client client;
-    private final int client_id;
+    private int client_id;
     private String Type;
     private Manager manager;
     private int managerID;
-    private final float cost;
+
+    public void setProjectId(int projectId) {
+        this.projectId = projectId;
+    }
+
+    public void setProjectTitle(String projectTitle) {
+        this.projectTitle = projectTitle;
+    }
+
+    public void setDateOfDelivery(String dateOfDelivery) {
+        this.dateOfDelivery = dateOfDelivery;
+    }
+
+    public void setProjectDescription(String projectDescription) {
+        this.projectDescription = projectDescription;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public void setClient_id(int client_id) {
+        this.client_id = client_id;
+    }
+
+    public void setManager(Manager manager) {
+        this.manager = manager;
+    }
+
+    public void setManagerID(int managerID) {
+        this.managerID = managerID;
+    }
+
+    public void setCost(float cost) {
+        this.cost = cost;
+    }
+
+    private float cost;
 
 
     public Project(int projectId,
@@ -91,7 +128,7 @@ public class Project {
     }
 
     public int getManager() {
-        return manager.getId();
+        return managerID;
     }
 
     public float getCost() {
@@ -175,40 +212,31 @@ public class Project {
 
     }
 
-    public void UpdateProject(String title, String projectDescription, String date, String type, Client client, String manager_name, String cost) throws EmptyInputException, InvalidDateException, InvalidCostException {
+    public void UpdateProject() {
 
 
         Connection con = MySQL_Connector.ConnectDB();
 
         String sql =
                 "UPDATE Projects set title=?,projectDescription=?,date =?,type=?,client_name=?,Manager_name=?,cost=?  WHERE id = ?; ";
-
-        if (client != null && manager_name != null) {
-            try {
-                PreparedStatement pst;
-                pst = Objects.requireNonNull(con).prepareStatement(sql);
-                pst.setString(1, title);
-                pst.setString(2, projectDescription);
-                pst.setString(3, date);
-                pst.setString(4, type);
-                pst.setString(5, String.valueOf(client.getId()));
-                pst.setString(6, manager_name);
-                pst.setString(7, cost);
-                pst.setString(8, String.valueOf(this.getProjectId()));
-                pst.execute();
-                Email.send_project_modification_invoice(client.getEmail(),title,projectDescription,type,date,cost);
-                Popup_Window.confirmation("Project Updated Successfully","Update Project");
-
-            } catch (Exception e) {
-                Popup_Window.error("Please fill all fields with appropriate data");
-            }
-
-        } else if (client == null && manager_name != null) {
-            Popup_Window.error("Manager doesn't exist");
-        } else if (client != null) {
-            Popup_Window.error("Client doesn't exist");
-        } else {
-            Popup_Window.error("Both Manager and Client don't exist");
+        try {
+            PreparedStatement pst;
+            pst = Objects.requireNonNull(con).prepareStatement(sql);
+            pst.setString(1, this.projectTitle);
+            pst.setString(2, this.projectDescription);
+            pst.setString(3, this.dateOfDelivery);
+            pst.setString(4, this.Type);
+            pst.setString(5, String.valueOf(this.client_id));
+            pst.setString(6, String.valueOf(this.managerID));
+            pst.setString(7, String.valueOf(this.cost));
+            pst.setString(8, String.valueOf(this.getProjectId()));
+            pst.execute();
+            Email.send_project_modification_invoice(client.getEmail(), this.projectTitle, this.projectDescription,
+                    this.Type, this.dateOfDelivery, String.valueOf(this.cost));
+            Popup_Window.confirmation("Project Updated Successfully", "Update Project");
+        } catch (Exception e) {
+            Popup_Window.error("Please fill all fields with appropriate data");
         }
     }
+
 }

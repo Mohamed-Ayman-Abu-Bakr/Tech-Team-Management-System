@@ -1,4 +1,4 @@
-package Manager_Functionalities.Projects_Page;
+package Manager_Functionalities.Projects_Page.PickClientsTable;
 
 import Classes.Client;
 import Classes.Popup_Window;
