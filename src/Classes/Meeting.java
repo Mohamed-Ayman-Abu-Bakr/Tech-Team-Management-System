@@ -75,10 +75,7 @@ public class Meeting {
         return list;
     }
 
-    public static void add_Meeting(String Title, String Day,String Time,String Department) throws EmptyInputException, InvalidDateException, InvalidTimeException {
-        Data_Validation.checkTitle(Title);
-        Data_Validation.checkDate(Day);
-        Data_Validation.checkTime(Time);
+    public static void add_Meeting(String Title, String Day,String Time,String Department) {
         Connection con = MySQL_Connector.ConnectDB();
         String sql = "insert into meetings (Title, Day, Time, Department) values (?, ?, ? , ?)";
 
@@ -88,7 +85,6 @@ public class Meeting {
             pst.setString(2, Day);
             pst.setString(3, Time);
             pst.setString(4, Department);
-            //pst.setString(5, id);
             pst.execute();
             JOptionPane.showMessageDialog(null, "Adding Meeting Success");
 
@@ -98,10 +94,8 @@ public class Meeting {
 
     }
 
-    public static void edit_Meeting(String Title, String Day,String Time,String Department, String id) throws EmptyInputException, InvalidDateException, InvalidTimeException {
-        Data_Validation.checkTitle(Title);
-        Data_Validation.checkDate(Day);
-        Data_Validation.checkTime(Time);
+    public static void edit_Meeting(String Title, String Day,String Time,String Department, String id){
+
         Connection con = MySQL_Connector.ConnectDB();
         String sql = "update meetings set Title = ?, Day = ?, Time = ?, Department = ?, id = ? WHERE id = ? ";
 

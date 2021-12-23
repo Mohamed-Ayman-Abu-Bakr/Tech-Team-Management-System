@@ -82,11 +82,11 @@ public class AddTaskController implements Initializable {
         list= Project.getDataProjects();
         for (Project p:list){
             if ((p.getProjectTitle()).equals(projectName)){
-
                 projectID=p.getProjectId();
                 break;
             }
         }
+
         Task.Add_Task(employeeID,projectID,task_name,task_description,deadline);
         closeStage();
     }

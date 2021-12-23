@@ -1,16 +1,18 @@
 
 package Login_Page;
 
+import Classes.Data_Validation;
 import Classes.Employee;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+import Classes.Manager;
 import Exceptions.EmptyInputException;
+import Exceptions.InvalidEmailException;
+import Exceptions.InvalidPasswordException;
 import Exceptions.UserNotFoundException;
-import javafx.beans.Observable;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,6 +35,7 @@ public class LoginPageController implements Initializable {
 
 
     public static Employee employee_login;
+    public static Manager manager;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -40,24 +43,30 @@ public class LoginPageController implements Initializable {
 
     @FXML
     private void signIn(ActionEvent event) {
-        try {
             String email= emailTxtbox.getText();
             String password= passTxtbox.getText();
-            if (email.isEmpty() || password.isEmpty()) {
-                EmptyInputException E = new EmptyInputException("Please fill all the required fields");
-                return;
-            }
-            if (Employee.login(email, password)!=null) employee_login=Employee.login(email, password);
 
-            else {
-                UserNotFoundException e= new UserNotFoundException("User not found \nInvalid email or password");
-                return;
+            try{
+                Data_Validation.checkIfNotEmpty(email);
+                Data_Validation.checkPassword(password);
+
+                employee_login=Employee.login(email, password);
+                if (employee_login==null) {
+                    UserNotFoundException e = new UserNotFoundException();
+                    return;
+                }
+                if ((employee_login.getPosition()).equals("Management")){
+                    manager= new Manager(employee_login.getId(), employee_login.getName(),employee_login.getUsername(),
+                            employee_login.getPassword(), employee_login.getPosition(), employee_login.getEmail(),
+                            employee_login.getBirthdate(),employee_login.getPhone(), employee_login.getCompleted_tasks());
+                    showManagerScreen(event);
+                }
+
+                else showEmployeeScreen(event);
+            }catch (Exception ex){
+
             }
-            if ((employee_login.getPosition()).equals("Management"))  showManagerScreen(event);
-            else showEmployeeScreen(event);
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
+
 
     }
 

@@ -1,9 +1,7 @@
 package Manager_Functionalities.Clients_Page;
 import Classes.Client;
-import Exceptions.InvalidAddressException;
-import Exceptions.InvalidEmailException;
-import Exceptions.InvalidNameException;
-import Exceptions.InvalidNumberException;
+import Classes.Data_Validation;
+import Exceptions.*;
 import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -81,8 +79,13 @@ public class Clients_Controller implements Initializable {
         String Cadd = address.getText();
 
         try {
+            Data_Validation.checkIfNotEmpty(Cname);
+            Data_Validation.checkIfNotEmpty(Cadd);
+            Data_Validation.checkNum(Cnum);
+            Data_Validation.checkEmail(Cemail);
+
             Client.add_Client(Cname,Cadd,Cnum,Cemail);
-        } catch (InvalidNameException | InvalidAddressException | InvalidNumberException | InvalidEmailException e) {
+        } catch (InvalidNumberException | InvalidEmailException | EmptyInputException e) {
             System.out.println(e);
         }
         UpdateTable();
@@ -102,14 +105,19 @@ public class Clients_Controller implements Initializable {
     }
 
     public void edit(){
-        String v1 = id.getText();
-        String v2 = name.getText();
-        String v3 = email.getText();
-        String v4 = number.getText();
-        String v5 = address.getText();
+        String newId = id.getText();
+        String newName = name.getText();
+        String newEmail = email.getText();
+        String newNumber = number.getText();
+        String newAddress = address.getText();
         try {
-            Client.edit_Client(v1,v2,v3,v4,v5);
-        } catch (InvalidNameException | InvalidAddressException | InvalidNumberException | InvalidEmailException e) {
+            Data_Validation.checkIfNotEmpty(newName);
+            Data_Validation.checkIfNotEmpty(newAddress);
+            Data_Validation.checkNum(newNumber);
+            Data_Validation.checkEmail(newEmail);
+
+            Client.edit_Client(newId,newName,newEmail,newNumber,newAddress);
+        } catch (InvalidNumberException | InvalidEmailException | EmptyInputException e) {
             System.out.println(e);
         }
         UpdateTable();

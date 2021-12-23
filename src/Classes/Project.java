@@ -14,13 +14,15 @@ import java.util.Objects;
 
 public class Project {
 
-    private final int projectId;
+    private int projectId=0;
     private final String projectTitle;
     private final String dateOfDelivery;
     private final String projectDescription;
+    private Client client;
     private final int client_id;
     private String Type;
-    private final int Manager;
+    private Manager manager;
+    private int managerID;
     private final float cost;
 
 
@@ -30,7 +32,7 @@ public class Project {
                    String dateOfDelivery,
                    String Type,
                    int client_id,
-                   int Manager,
+                   int managerId,
                    float cost) {
         this.projectId = projectId;
         this.client_id = client_id;
@@ -38,10 +40,25 @@ public class Project {
         this.dateOfDelivery = dateOfDelivery;
         this.projectDescription = projectDescription;
         this.Type = Type;
-        this.Manager = Manager;
+        this.managerID = managerId;
         this.cost = cost;
     }
-
+    public Project(String projectTitle,
+                   String projectDescription,
+                   String dateOfDelivery,
+                   String Type,
+                   Client client,
+                   Manager manager,
+                   float cost) {
+        this.client=client;
+        this.client_id = client.getId();
+        this.projectTitle = projectTitle;
+        this.dateOfDelivery = dateOfDelivery;
+        this.projectDescription = projectDescription;
+        this.Type = Type;
+        this.manager = manager;
+        this.cost = cost;
+    }
 
 
     public void setType(String Type) {
@@ -74,7 +91,7 @@ public class Project {
     }
 
     public int getManager() {
-        return Manager;
+        return manager.getId();
     }
 
     public float getCost() {
@@ -116,41 +133,29 @@ public class Project {
         return list;
     }
 
-    public static void AddProject(String title, String projectDescription, String date, String type, Client client, String manager_name, String cost) throws EmptyInputException, InvalidDateException, InvalidCostException {
-        //CheckData();
-        Data_Validation.checkTitle(title);
-        Data_Validation.checkDescription(projectDescription);
-        Data_Validation.checkDate(date);
-        Data_Validation.checkCost(cost);
+    public void AddProject()  {
         Connection con = MySQL_Connector.ConnectDB();
 
-        String sql = "INSERT INTO Projects (title,projectDescription,date,type,client_name,Manager_name,cost)values(?,?,?,?,?,?,?)";
-        if (client != null && manager_name != null) {
-            try {
-                PreparedStatement pst = Objects.requireNonNull(con).prepareStatement(sql);
-                pst.setString(1, title);
-                pst.setString(2, projectDescription);
-                pst.setString(3, date);
-                pst.setString(4, type);
-                pst.setString(5, String.valueOf(client.getId()));
-                pst.setString(6, manager_name);
-                pst.setString(7, cost);
-                pst.execute();
+        String sql = "INSERT INTO Projects (title,projectDescription,date,type,client_name,Manager_name,cost)" +
+                "values(?,?,?,?,?,?,?)";
+        try {
+            PreparedStatement pst = Objects.requireNonNull(con).prepareStatement(sql);
+            pst.setString(1, this.getProjectTitle());
+            pst.setString(2, this.getProjectDescription());
+            pst.setString(3, this.getDateOfDelivery());
+            pst.setString(4, this.getType());
+            pst.setString(5, String.valueOf(this.client_id));
+            pst.setString(6, String.valueOf(this.getManager()));
+            pst.setString(7, String.valueOf(this.cost));
+            pst.execute();
 
-                Email.send_project_creation_invoice(client.getEmail(),title,projectDescription,type,date,cost);
+            Email.send_project_creation_invoice(this.client.getEmail(),this.projectTitle,
+                    this.projectDescription,this.getType(),this.dateOfDelivery,String.valueOf(this.cost));
 
-                Popup_Window.confirmation("Project Added Successfully","Add Project");
+            Popup_Window.confirmation("Project Added Successfully","Add Project");
 
-            } catch (Exception e) {
-                Popup_Window.error("Please fill all fields with appropriate data");
-            }
-
-        } else if (manager_name == null && client != null) {
-            Popup_Window.error("Manager doesn't exist");
-        } else if (manager_name != null) {
-            Popup_Window.error("Client doesn't exist");
-        } else {
-            Popup_Window.error("Both Manager and Client don't exist");
+        } catch (Exception e) {
+            Popup_Window.error("Couldn't add project to database");
         }
 
 
@@ -172,10 +177,6 @@ public class Project {
 
     public void UpdateProject(String title, String projectDescription, String date, String type, Client client, String manager_name, String cost) throws EmptyInputException, InvalidDateException, InvalidCostException {
 
-        Data_Validation.checkTitle(title);
-        Data_Validation.checkDescription(projectDescription);
-        Data_Validation.checkDate(date);
-        Data_Validation.checkCost(cost);
 
         Connection con = MySQL_Connector.ConnectDB();
 

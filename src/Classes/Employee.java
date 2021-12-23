@@ -157,8 +157,8 @@ public class Employee {
             throwable.printStackTrace();
         }
     }
-    public void editEmployee_manager(String name, String email, String phone, String birthdate, String position) throws InvalidNameException, InvalidEmailException, InvalidNumberException, InvalidDateException {
-        Data_Validation.checkName(name);
+    public void editEmployee_manager(String name, String email, String phone, String birthdate, String position) throws InvalidEmailException, InvalidNumberException, InvalidDateException, EmptyInputException {
+        Data_Validation.checkIfNotEmpty(name);
         Data_Validation.checkEmail(email);
         Data_Validation.checkNum(phone);
         Data_Validation.checkDate(birthdate);
@@ -181,9 +181,9 @@ public class Employee {
     }
 
     public void editEmployee_employee(String name, String username, String password,String email, String phone)
-            throws InvalidNameException, InvalidEmailException, InvalidNumberException, InvalidDateException,
+            throws InvalidEmailException, InvalidNumberException, InvalidDateException,
             EmptyInputException, InvalidUsernameException, InvalidPasswordException {
-        Data_Validation.checkName(name);
+        Data_Validation.checkIfNotEmpty(name);
         Data_Validation.checkEmail(email);
         Data_Validation.checkNum(phone);
         Data_Validation.checkUsername(username);
@@ -206,11 +206,7 @@ public class Employee {
         }
     }
 
-    public static void addEmployee(String name, String email, String phone, String birthdate, String position) throws InvalidNameException, InvalidEmailException, InvalidNumberException, InvalidDateException {
-        Data_Validation.checkName(name);
-        Data_Validation.checkEmail(email);
-        Data_Validation.checkNum(phone);
-        Data_Validation.checkDate(birthdate);
+    public static void addEmployee(String name, String email, String phone, String birthdate, String position){
         String username = generate_username(10);
         String password = generate_password(10);
         Connection con;

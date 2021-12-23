@@ -1,9 +1,6 @@
 package Classes;
 
-import Exceptions.InvalidAddressException;
-import Exceptions.InvalidEmailException;
-import Exceptions.InvalidNameException;
-import Exceptions.InvalidNumberException;
+import Exceptions.*;
 import MySQL.MySQL_Connector;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -102,11 +99,8 @@ public class Client {
         return list;
     }
 
-    public static void add_Client(String name, String address, String number, String email) throws InvalidNameException, InvalidAddressException, InvalidNumberException, InvalidEmailException {
-        Data_Validation.checkName(name);
-        Data_Validation.checkAddress(address);
-        Data_Validation.checkNum(number);
-        Data_Validation.checkEmail(email);
+    public static void add_Client(String name, String address, String number, String email) {
+
         Connection con = MySQL_Connector.ConnectDB();
         String sql = "INSERT INTO Clients VALUES (default, ?,?,?,?)";
         PreparedStatement pstmt;
@@ -122,11 +116,8 @@ public class Client {
             //System.out.println("CLIENT UNSUCCESSFULLY ADDED");
         }
     }
-    public static void edit_Client(String id,String newName,String newEmail,String newNumber, String newAddress) throws InvalidNameException, InvalidAddressException, InvalidNumberException, InvalidEmailException {
-        Data_Validation.checkName(newName);
-        Data_Validation.checkAddress(newAddress);
-        Data_Validation.checkNum(newNumber);
-        Data_Validation.checkEmail(newEmail);
+    public static void edit_Client(String id,String newName,String newEmail,String newNumber, String newAddress) {
+
         try {
             Connection con = MySQL_Connector.ConnectDB();
             String sql = "Update Clients set Name= '" + newName + "' ,Email= '" + newEmail

@@ -5,11 +5,13 @@ import Exceptions.*;
 
 
 public class Data_Validation {
-    public static void checkName(String name) throws InvalidNameException {
-        if(name.isEmpty()){
-            throw new InvalidNameException("Name can't be empty");
+    public static void checkIfNotEmpty(String s) throws EmptyInputException{
+        if(s.isEmpty()){
+            throw new EmptyInputException("Please fill all empty Fields");
         }
+
     }
+
     public static void checkEmail(String email) throws InvalidEmailException {
         String regex = "^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
         if(email.isEmpty()){
@@ -39,16 +41,7 @@ public class Data_Validation {
             throw new InvalidNumberException("Invalid Number");
         }
     }
-    public static void checkAddress(String address) throws InvalidAddressException {
-        if(address.isEmpty()){
-            throw new InvalidAddressException("Address Field Cannot be Empty");
-        }
-    }
-    public static void checkTitle(String title) throws EmptyInputException {
-        if(title.isEmpty()){
-            throw new EmptyInputException("Title field cannot be empty");
-        }
-    }
+
     public static void checkCost(String cost) throws EmptyInputException, InvalidCostException {
         if(cost.isEmpty()){
             throw new EmptyInputException("Cost field cannot be empty");
@@ -59,11 +52,6 @@ public class Data_Validation {
             }
         }catch (NumberFormatException e){
             throw new InvalidCostException("Please enter a valid number");
-        }
-    }
-    public static void checkDescription(String description) throws EmptyInputException{
-        if(description.isEmpty()){
-            throw new EmptyInputException("Description field cannot be empty");
         }
     }
     public static void checkUsername(String username) throws EmptyInputException, InvalidUsernameException {

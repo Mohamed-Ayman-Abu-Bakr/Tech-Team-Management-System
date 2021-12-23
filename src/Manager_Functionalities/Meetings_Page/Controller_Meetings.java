@@ -1,5 +1,6 @@
 package Manager_Functionalities.Meetings_Page;
 
+import Classes.Data_Validation;
 import Classes.Meeting;
 import Exceptions.EmptyInputException;
 import Exceptions.InvalidDateException;
@@ -78,6 +79,10 @@ public class Controller_Meetings implements Initializable {
         String department = comb.getSelectionModel().getSelectedItem();
 
         try {
+            Data_Validation.checkIfNotEmpty(title);
+            Data_Validation.checkDate(day);
+            Data_Validation.checkTime(time);
+
             Meeting.add_Meeting(title,day,time,department);
             resetData();
             update();
@@ -107,6 +112,10 @@ public class Controller_Meetings implements Initializable {
         String department = comb.getSelectionModel().getSelectedItem();
         String id = txt_no.getText();
         try {
+            Data_Validation.checkIfNotEmpty(title);
+            Data_Validation.checkDate(day);
+            Data_Validation.checkTime(time);
+
             Meeting.edit_Meeting(title,day,time,department,id);
             update();
             resetData();

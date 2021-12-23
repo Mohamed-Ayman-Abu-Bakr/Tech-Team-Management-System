@@ -1,9 +1,9 @@
 package Manager_Functionalities.Employees_Page.Edit_Employees_Panel;
 
 import Classes.Employee;
+import Exceptions.EmptyInputException;
 import Exceptions.InvalidDateException;
 import Exceptions.InvalidEmailException;
-import Exceptions.InvalidNameException;
 import Exceptions.InvalidNumberException;
 import Manager_Functionalities.Employees_Page.Main_Employees_Panel.Controller_Employees;
 import javafx.fxml.FXML;
@@ -73,7 +73,7 @@ public class Controller_edit_Employee implements Initializable {
             try {
                 employee.editEmployee_manager(name.getText(), email.getText(), phone.getText(), birthdate.getValue().toString(), dropdown_position.getValue());
                 closeStage();
-            } catch (InvalidNameException | InvalidEmailException | InvalidNumberException | InvalidDateException e) {
+            } catch (InvalidEmailException | InvalidNumberException | InvalidDateException | EmptyInputException e) {
                 System.out.println(e);
             }
 

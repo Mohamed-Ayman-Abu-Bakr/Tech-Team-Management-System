@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import Classes.Client;
+import Classes.Data_Validation;
 import Classes.Popup_Window;
 import Classes.Project;
 import Exceptions.EmptyInputException;
@@ -31,7 +32,7 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import static Login_Page.LoginPageController.employee_login;
+import static Login_Page.LoginPageController.manager;
 
 
 public class Controller_Projects implements Initializable {
@@ -83,24 +84,30 @@ public class Controller_Projects implements Initializable {
 
 
     public void AddProject() {
-        if(client != null){
-            try {
-                Project.AddProject(projectName_input.getText()
-                        ,description_input.getText()
-                        ,String.valueOf(date_input.getValue())
-                        ,type_input.getValue()
-                        ,client
-                        ,String.valueOf(employee_login.getId())
-                        ,Cost_input.getText());
-                UpdateTable();
-                resetData();
-            } catch (EmptyInputException | InvalidDateException | InvalidCostException e) {
-                System.out.println(e);
-            }
-
-        }
-        else{
+        if(client == null) {
             Popup_Window.error("Please Select a Client");
+            return;
+        }
+        String title=projectName_input.getText();
+        String projectDescription=description_input.getText();
+        String date= String.valueOf(date_input.getValue());
+        String cost=Cost_input.getText();
+        try {
+            Data_Validation.checkIfNotEmpty(title);
+            Data_Validation.checkIfNotEmpty(projectDescription);
+            Data_Validation.checkDate(date);
+            Data_Validation.checkCost(cost);
+            manager.invokeAddProject(new Project(title
+                    , projectDescription
+                    ,date
+                    ,type_input.getValue()
+                    ,client
+                    ,manager
+                    ,Float.parseFloat(cost)));
+            UpdateTable();
+            resetData();
+        } catch (EmptyInputException | InvalidDateException | InvalidCostException e) {
+            System.out.println(e);
         }
     }
 
@@ -125,10 +132,7 @@ public class Controller_Projects implements Initializable {
     public void open_view_tasks() throws IOException {
         Project selected = getSelected();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Manager_Functionalities/Projects_Page/View_Tasks.fxml"));
-        /*Parent root = loader.load();
 
-        ViewTasksController controller = loader.getController();
-        controller.initData(selected);*/
 
         ViewTasksController controller = new ViewTasksController();
         controller.initData(selected);

@@ -89,8 +89,8 @@ public class Task {
 
 
     public static void Add_Task(int employee_id, int project_id, String task_name, String task_description, String deadline_date) throws EmptyInputException, InvalidDateException {
-        Data_Validation.checkTitle(task_name);
-        Data_Validation.checkDescription(task_description);
+        Data_Validation.checkIfNotEmpty(task_name);
+        Data_Validation.checkIfNotEmpty(task_description);
         Data_Validation.checkDate(deadline_date);
         Connection conn = MySQL_Connector.ConnectDB();
         PreparedStatement pst;
@@ -124,8 +124,8 @@ public class Task {
     }
 
     public static void update_Task_Manager(String new_name, String new_description, String new_deadline, int employeeID, int id) throws EmptyInputException, InvalidDateException {
-        Data_Validation.checkTitle(new_name);
-        Data_Validation.checkDescription(new_description);
+        Data_Validation.checkIfNotEmpty(new_name);
+        Data_Validation.checkIfNotEmpty(new_description);
         Data_Validation.checkDate(new_deadline);
 
         try {

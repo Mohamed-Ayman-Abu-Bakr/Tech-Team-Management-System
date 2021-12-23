@@ -70,7 +70,8 @@ public class Email {
         }
     }
 
-    public static void send_project_creation_invoice(String recipient, String project_name, String description, String type, String delivery_date, String cost){
+    public static void send_project_creation_invoice(String recipient, String project_name, String description,
+                                                     String type, String delivery_date, String cost){
         String subject = "Project Invoice";
         String text = "Thank you for choosing Software Company"+"\n\n"+
                 "Here are the Project details" + "\n\n" +

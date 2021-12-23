@@ -90,7 +90,7 @@ public class EditInfoController implements Initializable {
                 empty.setHeaderText("Update");
                 empty.showAndWait(); 
 
-            } catch (InvalidNameException | InvalidNumberException | InvalidDateException | InvalidEmailException | EmptyInputException | InvalidPasswordException | InvalidUsernameException e) {
+            } catch (InvalidNumberException | InvalidDateException | InvalidEmailException | EmptyInputException | InvalidPasswordException | InvalidUsernameException e) {
                 System.out.println(e);
             }
         }
