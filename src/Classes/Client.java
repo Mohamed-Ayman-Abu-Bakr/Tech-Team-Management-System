@@ -107,9 +107,9 @@ public class Client {
         try {
             pstmt = Objects.requireNonNull(con).prepareStatement(sql);
             pstmt.setString(1, name);
-            pstmt.setString(2, address);
-            pstmt.setString(3, number);
-            pstmt.setString(4, email);
+            pstmt.setString(2, number);
+            pstmt.setString(3, email);
+            pstmt.setString(4, address);
             pstmt.executeUpdate();
         } catch (SQLException throwable) {
             throwable.printStackTrace();
@@ -131,7 +131,7 @@ public class Client {
     }
     public static void delete_Client(String id){
         Connection con =  MySQL_Connector.ConnectDB();
-        String sql = "delete from where id = ?";
+        String sql = "delete from Clients where id = ?";
         try {
             PreparedStatement pstmt = Objects.requireNonNull(con).prepareStatement(sql);
             pstmt.setString(1, id);
