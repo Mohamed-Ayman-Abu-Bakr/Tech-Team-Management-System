@@ -94,7 +94,7 @@ public class Controller_edit_Employee implements Initializable {
 
     }
     public void enableButton(){
-        boolean isDisabled = (name.getText().trim().isEmpty() || email.getText().trim().isEmpty() || phone.getText().trim().isEmpty() || birthdate.getValue().toString().isEmpty() || dropdown_position.getValue().equals(employee.getPosition())  || birthdate.getValue().toString().equals(employee.getBirthdate()));
+        boolean isDisabled = (name.getText().trim().isEmpty() || email.getText().trim().isEmpty() || phone.getText().trim().isEmpty() || birthdate.getValue().toString().isEmpty());
         btn_editEmployee.setDisable(isDisabled);
     }
 
