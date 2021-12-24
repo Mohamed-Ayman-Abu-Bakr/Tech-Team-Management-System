@@ -66,11 +66,10 @@ public class Controller_Meetings implements Initializable {
     int index = -1;
 
 
-    public void delete(){
-        String id = txt_no.getText();
-        Meeting.delete_Meeting(id);
+    public void deleteMeeting(){
+        manager.invokeDeleteMeeting(getSelected());
         resetData();
-        update();
+        updateTable();
     }
 
 
@@ -87,7 +86,7 @@ public class Controller_Meetings implements Initializable {
 
             manager.invokeAddMeeting(new Meeting(title,day, time, department));
             resetData();
-            update();
+            updateTable();
         } catch (EmptyInputException | InvalidDateException | InvalidTimeException e) {
             System.out.println(e);
         }
@@ -103,12 +102,12 @@ public class Controller_Meetings implements Initializable {
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         txt_day.setValue(LocalDate.from(fmt.parse(col_day.getCellData(index))));
         txt_time.setText(col_time.getCellData(index));
-        comb.setPromptText(col_type.getCellData(index));
+        comb.setValue(col_type.getCellData(index));
         txt_no.setText(String.valueOf(col_id.getCellData(index)));
         return table.getSelectionModel().getSelectedItem();
     }
 
-    public void edit (){
+    public void editMeeting(){
         String title = txt_title.getText();
         String day = valueOf(txt_day.getValue());
         String time = txt_time.getText();
@@ -121,7 +120,7 @@ public class Controller_Meetings implements Initializable {
 
             Meeting m= getSelected();
             manager.invokeEditMeeting(m, title,day,time,department);
-            update();
+            updateTable();
             resetData();
         } catch (EmptyInputException | InvalidDateException | InvalidTimeException e) {
             System.out.println(e);
@@ -129,7 +128,7 @@ public class Controller_Meetings implements Initializable {
 
     }
 
-    public void update() {
+    public void updateTable() {
         col_title.setCellValueFactory(new PropertyValueFactory<>("Title"));
         col_day.setCellValueFactory(new PropertyValueFactory<>("Day"));
         col_time.setCellValueFactory(new PropertyValueFactory<>("Time"));
@@ -150,7 +149,7 @@ public class Controller_Meetings implements Initializable {
         LocalDate.now();
         txt_day.setValue(LocalDate.now());
         txt_time.setText("");
-        comb.setValue("Development");
+        comb.setValue("");
         txt_no.setText("");
     }
 
@@ -158,7 +157,7 @@ public class Controller_Meetings implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         comb.setItems(Employee.getPositions());
         resetData();
-        update();
+        updateTable();
         enableButtons();
     }
 

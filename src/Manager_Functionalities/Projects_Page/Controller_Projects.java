@@ -120,12 +120,12 @@ public class Controller_Projects implements Initializable {
 
     public void DeleteProject() {
         Project project = projects_table.getSelectionModel().getSelectedItem();
-        project.deleteProject();
+        manager.invokeDeleteProject(project);
         UpdateTable();
 
     }
 
-    public void open_view_tasks() throws IOException {
+    public void showTasksOfSelectedProject() throws IOException {
         Project selected = getSelected();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Manager_Functionalities/Projects_Page/TasksForEachProject/View_Tasks.fxml"));
         ViewTasksController controller = new ViewTasksController();
@@ -142,7 +142,7 @@ public class Controller_Projects implements Initializable {
         stage.show();
     }
 
-    public void SeeInfoProject() {
+    public void showDetailsOfSelectedProject() {
         TableView<Project> table = projects_table;
         table.setRowFactory(tv -> {
             TableRow<Project> row = new TableRow<>();
@@ -189,7 +189,7 @@ public class Controller_Projects implements Initializable {
         type_input.setItems(Project.getProjectTypes());
         resetData();
         UpdateTable();
-        SeeInfoProject();
+        showDetailsOfSelectedProject();
         enableButtons();
     }
 

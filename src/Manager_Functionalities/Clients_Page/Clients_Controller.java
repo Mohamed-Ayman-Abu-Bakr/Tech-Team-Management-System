@@ -14,6 +14,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static Login_Page.LoginPageController.manager;
+
 public class Clients_Controller implements Initializable {
 
     @FXML
@@ -83,8 +85,8 @@ public class Clients_Controller implements Initializable {
             Data_Validation.checkIfNotEmpty(Cadd);
             Data_Validation.checkNum(Cnum);
             Data_Validation.checkEmail(Cemail);
+            manager.invokesAddClient(new Client(Cname, Cnum, Cemail, Cadd));
 
-            Client.add_Client(Cname,Cadd,Cnum,Cemail);
         } catch (InvalidNumberException | InvalidEmailException | EmptyInputException e) {
             System.out.println(e);
         }
@@ -92,20 +94,20 @@ public class Clients_Controller implements Initializable {
         resetValues();
     }
 
-    public void getSelected() {
+    public Client getSelected() {
         index = table_clients.getSelectionModel().getSelectedIndex();
         if(index <= -1) {
-            return;
+            return null;
         }
         id.setText(table_id.getCellData(index).toString());
         name.setText(table_name.getCellData(index));
         email.setText(table_email.getCellData(index));
         number.setText(table_num.getCellData(index));
         address.setText(table_add.getCellData(index));
+        return table_clients.getSelectionModel().getSelectedItem();
     }
 
     public void edit(){
-        String newId = id.getText();
         String newName = name.getText();
         String newEmail = email.getText();
         String newNumber = number.getText();
@@ -116,7 +118,8 @@ public class Clients_Controller implements Initializable {
             Data_Validation.checkNum(newNumber);
             Data_Validation.checkEmail(newEmail);
 
-            Client.edit_Client(newId,newName,newEmail,newNumber,newAddress);
+            manager.invokeEditClient(getSelected(),newName,newEmail,newNumber,newAddress);
+
         } catch (InvalidNumberException | InvalidEmailException | EmptyInputException e) {
             System.out.println(e);
         }
@@ -147,7 +150,7 @@ public class Clients_Controller implements Initializable {
 
 
     public void delete(){
-        Client.delete_Client(id.getText());
+        manager.invokeDeleteClient(getSelected());
         UpdateTable();
         resetValues();
     }

@@ -1,11 +1,13 @@
 package Manager_Functionalities.Tasks_Page.Add_Task_Page;
 
+import Classes.Data_Validation;
 import Classes.Employee;
 import Classes.Project;
 import Classes.Task;
 import Exceptions.EmptyInputException;
 import Exceptions.InvalidDateException;
 import Manager_Functionalities.Tasks_Page.Main_Tasks_Page.Main_Tasks_Page_Controller;
+import MySQL.MySQL_Connector;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,9 +17,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-
+import static Login_Page.LoginPageController.manager;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
 import java.util.ResourceBundle;
 
 public class AddTaskController implements Initializable {
@@ -78,8 +81,11 @@ public class AddTaskController implements Initializable {
         String projectName= dropdown_project.getSelectionModel().getSelectedItem();
         int projectID=0;
 
-        ObservableList<Project> list= FXCollections.observableArrayList();
-        list= Project.getDataProjects();
+        Data_Validation.checkIfNotEmpty(task_name);
+        Data_Validation.checkIfNotEmpty(task_description);
+        Data_Validation.checkDate(deadline);
+
+        ObservableList<Project> list= Project.getDataProjects();
         for (Project p:list){
             if ((p.getProjectTitle()).equals(projectName)){
                 projectID=p.getProjectId();
@@ -87,7 +93,7 @@ public class AddTaskController implements Initializable {
             }
         }
 
-        Task.Add_Task(employeeID,projectID,task_name,task_description,deadline);
+        manager.invokeAddTask(new Task(employeeID,projectID, task_name,task_description,deadline,"not complete"));
         closeStage();
     }
 

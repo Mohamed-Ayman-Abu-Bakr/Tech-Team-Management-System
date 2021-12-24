@@ -6,7 +6,6 @@ import Classes.Project;
 import Exceptions.EmptyInputException;
 import Exceptions.InvalidCostException;
 import Exceptions.InvalidDateException;
-import Exceptions.InvalidNumberException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -79,7 +78,7 @@ public class Details_Controller implements Initializable {
     String CheckedManager = null;
     int ProjectId ;
 
-    public void UpdateProject() {
+    public void editProject() {
         String title=project_title_details.getText();
         String description=Project_description_details.getText();
         String Date=String.valueOf(DatePicker_Details.getValue());
@@ -95,7 +94,7 @@ public class Details_Controller implements Initializable {
             Data_Validation.checkIfNotEmpty(type);
             Data_Validation.checkIfNotEmpty(managerId);
 
-            manager.invokeUpdateProject(project, title
+            manager.invokeEditProject(project, title
                             , description
                             ,Date
                             ,type

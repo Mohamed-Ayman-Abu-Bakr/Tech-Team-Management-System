@@ -21,6 +21,12 @@ public class Client {
         this.address = address;
         num = phoneNumber;
     }
+    public Client(String clientName, String phoneNumber, String email, String address) {
+        name = clientName;
+        this.email = email;
+        this.address = address;
+        num = phoneNumber;
+    }
 
     public int getId() {
         return id;
@@ -99,29 +105,29 @@ public class Client {
         return list;
     }
 
-    public static void add_Client(String name, String address, String number, String email) {
+    public  void add_Client() {
 
         Connection con = MySQL_Connector.ConnectDB();
         String sql = "INSERT INTO Clients VALUES (default, ?,?,?,?)";
         PreparedStatement pstmt;
         try {
             pstmt = Objects.requireNonNull(con).prepareStatement(sql);
-            pstmt.setString(1, name);
-            pstmt.setString(2, number);
-            pstmt.setString(3, email);
-            pstmt.setString(4, address);
+            pstmt.setString(1, this.name);
+            pstmt.setString(2, this.num);
+            pstmt.setString(3, this.email);
+            pstmt.setString(4, this.address);
             pstmt.executeUpdate();
         } catch (SQLException throwable) {
             throwable.printStackTrace();
             //System.out.println("CLIENT UNSUCCESSFULLY ADDED");
         }
     }
-    public static void edit_Client(String id,String newName,String newEmail,String newNumber, String newAddress) {
+    public  void edit_Client() {
 
         try {
             Connection con = MySQL_Connector.ConnectDB();
-            String sql = "Update Clients set Name= '" + newName + "' ,Email= '" + newEmail
-                    + "' ,Number= '" + newNumber + "' , Address= '" + newAddress + "' where id= '" + id + "' ";
+            String sql = "Update Clients set Name= '" + this.name + "' ,Email= '" + this.email
+                    + "' ,Number= '" + this.num + "' , Address= '" + this.address + "' where id= '" + id + "' ";
             PreparedStatement pstmt = Objects.requireNonNull(con).prepareStatement(sql);
             pstmt.execute();
             Popup_Window.confirmation("Client Updated Successfully","Client Update");
@@ -129,12 +135,12 @@ public class Client {
             Popup_Window.error("Cannot Update Client");
         }
     }
-    public static void delete_Client(String id){
+    public  void delete_Client(){
         Connection con =  MySQL_Connector.ConnectDB();
         String sql = "delete from Clients where id = ?";
         try {
             PreparedStatement pstmt = Objects.requireNonNull(con).prepareStatement(sql);
-            pstmt.setString(1, id);
+            pstmt.setString(1, String.valueOf(this.id));
             pstmt.execute();
             Popup_Window.confirmation("Client Deleted Successfully","Client Delete");
         } catch (Exception e) {

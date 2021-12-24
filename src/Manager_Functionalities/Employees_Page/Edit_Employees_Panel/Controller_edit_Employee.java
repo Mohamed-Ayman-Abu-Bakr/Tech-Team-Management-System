@@ -1,13 +1,12 @@
 package Manager_Functionalities.Employees_Page.Edit_Employees_Panel;
 
+import Classes.Data_Validation;
 import Classes.Employee;
 import Exceptions.EmptyInputException;
 import Exceptions.InvalidDateException;
 import Exceptions.InvalidEmailException;
 import Exceptions.InvalidNumberException;
-import Manager_Functionalities.Employees_Page.Main_Employees_Panel.Controller_Employees;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
@@ -18,7 +17,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
+import static Login_Page.LoginPageController.manager;
 public class Controller_edit_Employee implements Initializable {
 
     @FXML
@@ -55,6 +54,11 @@ public class Controller_edit_Employee implements Initializable {
 
     @SuppressWarnings("OptionalGetWithoutIsPresent")
     public void editEmployee() throws IOException {
+        String newName=name.getText();
+        String newEmail=email.getText();
+        String newPhone=phone.getText();
+        String newBirth=birthdate.getValue().toString();
+        String newPos= dropdown_position.getValue();
         Alert alert =
                 new Alert(Alert.AlertType.CONFIRMATION,
                         "The new Details for the Employee are:" + "\n\n" +
@@ -66,12 +70,16 @@ public class Controller_edit_Employee implements Initializable {
                                 "Do you want to continue?",
                         ButtonType.YES,
                         ButtonType.NO);
-        alert.setTitle("Delete Employee warning");
+        alert.setTitle("Edit Employee confirmation");
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.get() == ButtonType.YES) {
             try {
-                employee.editEmployee_manager(name.getText(), email.getText(), phone.getText(), birthdate.getValue().toString(), dropdown_position.getValue());
+                Data_Validation.checkIfNotEmpty(newName);
+                Data_Validation.checkEmail(newEmail);
+                Data_Validation.checkNum(newPhone);
+                Data_Validation.checkDate(newBirth);
+                manager.invokeEditEmployee(employee,name.getText(), email.getText(), phone.getText(), birthdate.getValue().toString(), dropdown_position.getValue());
                 closeStage();
             } catch (InvalidEmailException | InvalidNumberException | InvalidDateException | EmptyInputException e) {
                 System.out.println(e);
@@ -85,11 +93,6 @@ public class Controller_edit_Employee implements Initializable {
         stage = (Stage) btn_editEmployee.getScene().getWindow();
         stage.close();
 
-
-        /*FXMLLoader loader = new FXMLLoader(getClass().getResource("/Employees_Page/Main_Employees_Panel/Employees.fxml"));
-        loader.load();
-        Controller_Employees controller = loader.getController();
-        controller.updateTable();*/
 
     }
     public void enableButton(){

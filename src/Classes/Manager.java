@@ -17,15 +17,65 @@ public class Manager extends Employee{
     }
 
 
-    public void invokeAddTask(){
+    public void invokeAddTask(Task t){
+        t.Add_Task();
+    }
+    public void invokeEditTask(Task t, String new_name, String new_description, String new_deadline, int employeeID){
+        t.setTask_name(new_name);
+        t.setTask_description(new_description);
+        t.setDeadline_date(new_deadline);
+        t.setEmployee_id(employeeID);
+        t.editTask();
+    }
+    public void invokeDeleteTask(Task t){
+        t.delete_Task();
+    }
+    public void downloadTasks(){
+        ObservableList<Task> list=Task.getDataTasks();
+        XSSFWorkbook wb = new XSSFWorkbook();
+        XSSFSheet sheet = wb.createSheet("Tasks Sheet");
+        XSSFRow header = sheet.createRow(0);
+        header.createCell(0).setCellValue("ID");
+        header.createCell(1).setCellValue("Name");
+        header.createCell(2).setCellValue("Description");
+        header.createCell(3).setCellValue("Employee ID");
+        header.createCell(4).setCellValue("Delivery Date");
+        header.createCell(5).setCellValue("Status");
+
+
+        int idx=1;
+        for (Task p: list){
+            XSSFRow row= sheet.createRow(idx);
+            row.createCell(0).setCellValue(p.getTask_id());
+            row.createCell(1).setCellValue(p.getTask_name());
+            row.createCell(2).setCellValue(p.getTask_description());
+            row.createCell(3).setCellValue(p.getEmployee_id());
+            row.createCell(4).setCellValue(p.getDeadline_date());
+            row.createCell(5).setCellValue(p.getTask_status());
+            idx++;
+
+        }
+        String desktopPath = System.getProperty("user.home") + File.separator + "Desktop/Tasks Sheet.xlsx";
+
+        try {
+            FileOutputStream file = new FileOutputStream(desktopPath);
+            wb.write(file);
+            file.close();
+            System.out.println("done");
+            Popup_Window.confirmation("The file is Successfully saved in your Desktop","Success");
+        } catch (Exception e){
+            Popup_Window.error("The file is open by another program. \n Close the file and try again");
+        }
 
     }
+
+
     public void invokeAddProject(Project p){
         p.AddProject();
 
     }
-    public void invokeUpdateProject(Project p, String title, String description, String date,
-                                    String type, Client client, String managerID, String cost) {
+    public void invokeEditProject(Project p, String title, String description, String date,
+                                  String type, Client client, String managerID, String cost) {
         p.setProjectTitle(title);
         p.setProjectDescription(description);
         p.setDateOfDelivery(date);
@@ -33,7 +83,10 @@ public class Manager extends Employee{
         p.setCost(Float.parseFloat(cost));
         p.setClient(client);
         p.setManagerID(Integer.parseInt(managerID));
-        p.UpdateProject();
+        p.editProject();
+    }
+    public void invokeDeleteProject(Project p){
+        p.deleteProject();
     }
     public void downloadProjects(){
         ObservableList<Project> listP= Project.getDataProjects();
@@ -80,6 +133,8 @@ public class Manager extends Employee{
         }
 
     }
+
+
     public void invokeAddMeeting(Meeting m){
         m.add_Meeting();
     }
@@ -92,5 +147,35 @@ public class Manager extends Employee{
         m.setTitle(title);
         m.editMeeting();
     }
+    public void invokeDeleteMeeting(Meeting m){
+        m.delete_Meeting();
+    }
 
+
+    public void invokeDeleteEmployee(Employee e){
+        e.deleteEmployee();
+    }
+    public void resetEmployeePassword(Employee e){
+        e.resetPassword();
+    }
+    public void invokeEditEmployee(Employee e,String name, String email, String phone, String birthdate, String position){
+        e.editEmployee(name, email, phone, birthdate,position);
+    }
+    public void invokeAddEmployee(Employee e){
+        e.addEmployee();
+    }
+
+
+    public void invokeDeleteClient(Client c){
+        c.delete_Client();
+    }
+    public void invokeEditClient(Client c, String name, String email, String address,String num){
+        c.setName(name);
+        c.setEmail(email);
+        c.setAddress(address);
+        c.setNum(num);
+    }
+    public void invokesAddClient(Client c){
+        c.add_Client();
+    }
 }

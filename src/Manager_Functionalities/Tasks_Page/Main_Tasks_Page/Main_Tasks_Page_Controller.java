@@ -1,5 +1,6 @@
 package Manager_Functionalities.Tasks_Page.Main_Tasks_Page;
 
+import Classes.Data_Validation;
 import Classes.Employee;
 import Classes.Task;
 import Exceptions.EmptyInputException;
@@ -21,12 +22,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -37,7 +33,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
-
+import static Login_Page.LoginPageController.manager;
 import static Manager_Functionalities.Employees_Page.Main_Employees_Panel.Controller_Employees.employee_selected;
 
 
@@ -77,7 +73,7 @@ public class Main_Tasks_Page_Controller implements Initializable {
     private TableColumn<Task, String> col_task_name;
 
     @FXML
-    private TableColumn<Task, Date> col_deadline_date;
+    private TableColumn<Task, String> col_deadline_date;
 
     @FXML
     private TableColumn<Task, String> col_task_status;
@@ -100,18 +96,17 @@ public class Main_Tasks_Page_Controller implements Initializable {
     PreparedStatement pst = null;
 
 
-    public void Add_Tasks() throws IOException {
+    public void Add_Task() throws IOException {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Manager_Functionalities/Tasks_Page/Add_Task_Page/AddTask.fxml"));
         Parent root = loader.load();
-
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
-        stage.setTitle("Select Client");
+        stage.setTitle("Add Task");
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.show();
 
-        Refresh_Tasks();
+        updateTable();
 
     }
     @FXML
@@ -143,14 +138,23 @@ public class Main_Tasks_Page_Controller implements Initializable {
         txt_task_name.setText(chosenTask.getTask_name());
         txt_task_description.setText(chosenTask.getTask_description());
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        txt_deadline_date.setValue(LocalDate.from(fmt.parse(col_deadline_date.getCellData(index).toString())));
+        txt_deadline_date.setValue(LocalDate.from(fmt.parse(col_deadline_date.getCellData(index))));
 
         enableButtons();
     }
-    public void Update_Tasks(){
+
+    public void editTask(){
+        String new_name=txt_task_name.getText();
+        String new_description=txt_task_description.getText();
+        String new_deadline=txt_deadline_date.getValue().toString();
+        int newEmployeeID=dropdown_employee.getSelectionModel().getSelectedItem().getId();
+
         try {
-            Task.update_Task_Manager(txt_task_name.getText(),txt_task_description.getText(),txt_deadline_date.getValue().toString(), dropdown_employee.getSelectionModel().getSelectedItem().getId(), chosenTask.getTask_id());
-            Refresh_Tasks();
+            Data_Validation.checkIfNotEmpty(new_name);
+            Data_Validation.checkIfNotEmpty(new_description);
+            Data_Validation.checkDate(new_deadline);
+            manager.invokeEditTask(chosenTask,new_name,new_description,new_deadline,newEmployeeID);
+            updateTable();
             Search_Task();
             resetValues();
         } catch (EmptyInputException | InvalidDateException e) {
@@ -158,13 +162,13 @@ public class Main_Tasks_Page_Controller implements Initializable {
         }
 
     }
-    public void Delete_Tasks() {
-        Task.delete_Task(String.valueOf(table_tasks.getSelectionModel().getSelectedItem().getTask_id()));
+    public void Delete_Task() {
+        manager.invokeDeleteTask(table_tasks.getSelectionModel().getSelectedItem());
         resetValues();
-        Refresh_Tasks();
+        updateTable();
     }
 
-    public void Refresh_Tasks() {
+    public void updateTable() {
         col_task_id.setCellValueFactory(new PropertyValueFactory<>("task_id"));
         col_task_name.setCellValueFactory(new PropertyValueFactory<>("task_name"));
         col_deadline_date.setCellValueFactory(new PropertyValueFactory<>("deadline_date"));
@@ -235,53 +239,13 @@ public class Main_Tasks_Page_Controller implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         employee = employee_selected;
         resetValues();
-        Refresh_Tasks();
+        updateTable();
         Search_Task();
         enableButtons();
     }
 
     public void DownloadTasks(ActionEvent actionEvent) {
-        listM= Task.getDataTasks();
-        XSSFWorkbook wb = new XSSFWorkbook();
-        XSSFSheet sheet = wb.createSheet("Tasks Sheet");
-        XSSFRow header = sheet.createRow(0);
-        header.createCell(0).setCellValue("ID");
-        header.createCell(1).setCellValue("Name");
-        header.createCell(2).setCellValue("Description");
-        header.createCell(3).setCellValue("Employee ID");
-        header.createCell(4).setCellValue("Delivery Date");
-        header.createCell(5).setCellValue("Status");
-
-
-        int idx=1;
-        for (Task p: listM){
-            XSSFRow row= sheet.createRow(idx);
-            row.createCell(0).setCellValue(p.getTask_id());
-            row.createCell(1).setCellValue(p.getTask_name());
-            row.createCell(2).setCellValue(p.getTask_description());
-            row.createCell(3).setCellValue(p.getEmployee_id());
-            row.createCell(4).setCellValue(p.getDeadline_date());
-            row.createCell(5).setCellValue(p.getTask_status());
-            idx++;
-
-        }
-        String desktopPath = System.getProperty("user.home") + File.separator + "Desktop/Tasks Sheet.xlsx";
-
-        try {
-            FileOutputStream file = new FileOutputStream(desktopPath);
-            wb.write(file);
-            file.close();
-            System.out.println("done");
-            Alert notFound = new Alert(Alert.AlertType.INFORMATION);
-            notFound.setContentText("The file is Successfully saved in your Desktop");
-            notFound.setHeaderText("Success");
-            notFound.showAndWait();
-        } catch (Exception e){
-            Alert notFound = new Alert(Alert.AlertType.ERROR);
-            notFound.setContentText("The file is open by another program. Please try again");
-            notFound.setHeaderText("Error");
-            notFound.showAndWait();
-        }
+        manager.downloadTasks();
     }
 
     @FXML
@@ -289,7 +253,7 @@ public class Main_Tasks_Page_Controller implements Initializable {
 
         try {
             chosenTask.verify(assignedEmployee);
-            Refresh_Tasks();
+            updateTable();
             Search_Task();
             resetValues();
         } catch (TaskAlreadyVerifiedException e) {

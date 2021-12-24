@@ -73,5 +73,5 @@
          <Font size="14.0" />
       </font>
    </Button>
-   <Button fx:id="btn_viewTasks" disable="true" layoutX="313.0" layoutY="576.0" mnemonicParsing="false" onAction="#open_view_tasks" prefHeight="37.0" prefWidth="166.0" text="View Tasks" />
+   <Button fx:id="btn_viewTasks" disable="true" layoutX="313.0" layoutY="576.0" mnemonicParsing="false" onAction="#showTasksOfSelectedProject" prefHeight="37.0" prefWidth="166.0" text="View Tasks" />
 </AnchorPane>

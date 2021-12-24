@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
+import static Login_Page.LoginPageController.manager;
 public class Controller_Employees implements Initializable {
 
     @FXML
@@ -93,8 +93,7 @@ public class Controller_Employees implements Initializable {
         Optional<ButtonType> result = alert.showAndWait();
 
         if(result.isPresent() && result.get()==ButtonType.YES){
-            Employee employee = table_employees.getSelectionModel().getSelectedItem();
-            employee.deleteEmployee();
+            manager.invokeDeleteEmployee(table_employees.getSelectionModel().getSelectedItem());
             updateTable();
         }
     }
@@ -109,8 +108,9 @@ public class Controller_Employees implements Initializable {
         Optional<ButtonType> result = alert.showAndWait();
 
         if(result.isPresent() && result.get()==ButtonType.YES) {
-            Employee employee = table_employees.getSelectionModel().getSelectedItem();
-            employee.resetPassword();
+
+            manager.resetEmployeePassword(table_employees.getSelectionModel().getSelectedItem());
+
         }
     }
 
@@ -202,7 +202,7 @@ public class Controller_Employees implements Initializable {
 
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
-        stage.setTitle("Task");
+        stage.setTitle("Employee Performance");
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setResizable(false);
         stage.show();

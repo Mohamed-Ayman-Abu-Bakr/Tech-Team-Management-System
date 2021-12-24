@@ -15,6 +15,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import static Login_Page.LoginPageController.manager;
 
 public class Controller_add_Employee implements Initializable {
 
@@ -65,7 +66,7 @@ public class Controller_add_Employee implements Initializable {
                 Data_Validation.checkNum(Ephone);
                 Data_Validation.checkDate(Ebirth);
 
-                Employee.addEmployee(Ename,Eemail,Ephone,Ebirth,position);
+                manager.invokeAddEmployee(new Employee (Ename,Eemail,Ephone,Ebirth,position));
                 closeStage();
             } catch (InvalidEmailException | InvalidNumberException | InvalidDateException | EmptyInputException e) {
                 System.out.println(e);
@@ -77,11 +78,6 @@ public class Controller_add_Employee implements Initializable {
         Stage stage;
         stage = (Stage) btn_addEmployee.getScene().getWindow();
         stage.close();
-
-        /*FXMLLoader loader = new FXMLLoader(getClass().getResource("/Employees_Page/Main_Employees_Panel/Employees.fxml"));
-        loader.load();
-        Controller_Employees controller = loader.getController();
-        controller.updateTable();*/
     }
 
     public void enableButton(){

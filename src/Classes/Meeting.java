@@ -121,8 +121,10 @@ public class Meeting {
 
         }
     }
-    public static void delete_Meeting(String id){
+
+    public void delete_Meeting(){
         Connection con = MySQL_Connector.ConnectDB();
+        String id= String.valueOf(this.id);
         String sql = "delete from meetings where id = ?";
 
         try {

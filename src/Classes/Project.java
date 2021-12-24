@@ -212,7 +212,7 @@ public class Project {
 
     }
 
-    public void UpdateProject() {
+    public void editProject() {
 
 
         Connection con = MySQL_Connector.ConnectDB();

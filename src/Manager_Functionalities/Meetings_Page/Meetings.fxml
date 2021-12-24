@@ -22,8 +22,8 @@
     <AnchorPane prefHeight="550.0" prefWidth="700.0" GridPane.rowIndex="1">
         <AnchorPane layoutX="-6.0" layoutY="-23.0" prefHeight="568.0" prefWidth="174.0" style="-fx-background-color: #000000;" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="-6.0" AnchorPane.topAnchor="-23.0">
             <Button layoutX="23.0" layoutY="302.0" mnemonicParsing="false" onAction="#addMeeting" prefHeight="38.0" prefWidth="127.0" text="Add" />
-            <Button fx:id="btn_Update" layoutX="23.0" layoutY="363.0" mnemonicParsing="false" onAction="#edit" prefHeight="38.0" prefWidth="127.0" text="Update" />
-            <Button fx:id="btn_delete" layoutX="23.0" layoutY="424.0" mnemonicParsing="false" onAction="#delete" prefHeight="38.0" prefWidth="127.0" text="Delete" />
+            <Button fx:id="btn_Update" layoutX="23.0" layoutY="363.0" mnemonicParsing="false" onAction="#editMeeting" prefHeight="38.0" prefWidth="127.0" text="Update" />
+            <Button fx:id="btn_delete" layoutX="23.0" layoutY="424.0" mnemonicParsing="false" onAction="#deleteMeeting" prefHeight="38.0" prefWidth="127.0" text="Delete" />
             <TextField fx:id="txt_title" layoutX="13.0" layoutY="87.0" promptText="Title" />
             <TextField fx:id="txt_time" layoutX="14.0" layoutY="190.0" promptText="Time" />
             <TextField fx:id="txt_no" disable="true" layoutX="12.0" layoutY="44.0" promptText="Meeting Number" />

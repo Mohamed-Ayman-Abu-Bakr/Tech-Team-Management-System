@@ -16,14 +16,44 @@ import java.util.Objects;
 
 
 public class Task {
-    private final int task_id,employee_id;
-    private final String task_name,task_description;
-    private final Date deadline_date;
-    private final String task_status;
+    private  int task_id,employee_id;
+    private  String task_name,task_description;
+    private  String deadline_date;
+
+    public void setTask_id(int task_id) {
+        this.task_id = task_id;
+    }
+
+    public void setEmployee_id(int employee_id) {
+        this.employee_id = employee_id;
+    }
+
+    public void setTask_name(String task_name) {
+        this.task_name = task_name;
+    }
+
+    public void setTask_description(String task_description) {
+        this.task_description = task_description;
+    }
+
+    public void setDeadline_date(String deadline_date) {
+        this.deadline_date = deadline_date;
+    }
+
+    public void setTask_status(String task_status) {
+        this.task_status = task_status;
+    }
+
+    public void setProject_id(int project_id) {
+        this.project_id = project_id;
+    }
+
+    private String task_status;
     private int project_id;
 
+
     public Task(int task_id, int employee_id, int project_id,String task_name, String task_description,
-                Date deadline_date, String task_status) {
+                String deadline_date, String task_status) {
         this.project_id=project_id;
         this.task_id = task_id;
         this.employee_id = employee_id;
@@ -32,7 +62,15 @@ public class Task {
         this.deadline_date = deadline_date;
         this.task_status = task_status;
     }
-
+    public Task(int employee_id, int project_id,String task_name, String task_description,
+                String deadline_date, String task_status) {
+        this.project_id=project_id;
+        this.employee_id = employee_id;
+        this.task_name = task_name;
+        this.task_description = task_description;
+        this.deadline_date = deadline_date;
+        this.task_status = task_status;
+    }
     public int getTask_id() {
         return task_id;
     }
@@ -53,7 +91,7 @@ public class Task {
         return task_description;
     }
 
-    public Date getDeadline_date() {
+    public String getDeadline_date() {
         return deadline_date;
     }
 
@@ -77,7 +115,7 @@ public class Task {
             ResultSet rs = ps.executeQuery();
 
             while(rs.next()) {
-                list.add(new Task(Integer.parseInt(rs.getString("task_id")),Integer.parseInt(rs.getString("employee_id")), Integer.parseInt(rs.getString("project_id")),rs.getString("task_name"),rs.getString("task_description"),rs.getDate("deadline_date"),rs.getString("task_status")));
+                list.add(new Task(Integer.parseInt(rs.getString("task_id")),Integer.parseInt(rs.getString("employee_id")), Integer.parseInt(rs.getString("project_id")),rs.getString("task_name"),rs.getString("task_description"),rs.getString("deadline_date"),rs.getString("task_status")));
 
             }
         } catch (Exception e) {
@@ -88,20 +126,18 @@ public class Task {
 
 
 
-    public static void Add_Task(int employee_id, int project_id, String task_name, String task_description, String deadline_date) throws EmptyInputException, InvalidDateException {
-        Data_Validation.checkIfNotEmpty(task_name);
-        Data_Validation.checkIfNotEmpty(task_description);
-        Data_Validation.checkDate(deadline_date);
+    public  void Add_Task()  {
+
         Connection conn = MySQL_Connector.ConnectDB();
         PreparedStatement pst;
         String sql = "INSERT INTO Tasks (employee_id,project_id,task_name,task_description,deadline_date,task_status) VALUES (?,?,?,?,?,?)";
         try {
             pst = Objects.requireNonNull(conn).prepareStatement(sql);
-            pst.setString(1, String.valueOf(employee_id));
-            pst.setString(2,String.valueOf(project_id));
-            pst.setString(3,task_name);
-            pst.setString(4,task_description);
-            pst.setString(5, deadline_date);
+            pst.setString(1, String.valueOf(this.employee_id));
+            pst.setString(2,String.valueOf(this.project_id));
+            pst.setString(3,this.task_name);
+            pst.setString(4,this.task_description);
+            pst.setString(5, this.deadline_date);
             pst.setString(6, "not complete");
             pst.execute();
             Popup_Window.confirmation("Task Added Successfully","Add Task");
@@ -110,9 +146,9 @@ public class Task {
         }
     }
 
-    public static void delete_Task(String id) {
+    public void delete_Task() {
         Connection conn = MySQL_Connector.ConnectDB();
-        String sql = "DELETE FROM Tasks WHERE task_id = '"+id+"'";
+        String sql = "DELETE FROM Tasks WHERE task_id = '"+this.getTask_id()+"'";
         try {
             PreparedStatement pst = Objects.requireNonNull(conn).prepareStatement(sql);
 
@@ -123,15 +159,11 @@ public class Task {
         }
     }
 
-    public static void update_Task_Manager(String new_name, String new_description, String new_deadline, int employeeID, int id) throws EmptyInputException, InvalidDateException {
-        Data_Validation.checkIfNotEmpty(new_name);
-        Data_Validation.checkIfNotEmpty(new_description);
-        Data_Validation.checkDate(new_deadline);
-
+    public void editTask()  {
         try {
             Connection conn = MySQL_Connector.ConnectDB();
-            String sql = "UPDATE Tasks SET employee_id = ' "+employeeID+"', task_name = '"+new_name+"', " +
-                    "task_description = '"+new_description+"', deadline_date = '"+new_deadline+"' WHERE task_id = '"+id+"' ";
+            String sql = "UPDATE Tasks SET employee_id = ' "+this.getEmployee_id()+"', task_name = '"+this.task_name+"', " +
+                    "task_description = '"+this.task_description+"', deadline_date = '"+this.deadline_date+"' WHERE task_id = '"+this.getTask_id()+"' ";
 
             PreparedStatement pst = Objects.requireNonNull(conn).prepareCall(sql);
             pst.execute();
